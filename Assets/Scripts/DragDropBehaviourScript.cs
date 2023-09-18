@@ -26,13 +26,13 @@ public class DragDropBehaviourScript : MonoBehaviour
             // Change the position of the selected object based on the position of the mouse (accounting for offset)
             selectedObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane + 10.0f));
         }
-        
+
         // Letting go of mouse button releases selected object
         if (Input.GetMouseButtonUp(0) && selectedObject != null)
         {
             DropObject();
         }
-        
+
     }
 
     void CheckHitObject()
@@ -71,10 +71,14 @@ public class DragDropBehaviourScript : MonoBehaviour
 
             // Adds selected object to list
             combining.Add(selectedObject);
-        } else
+
+            // Combines two objects
+            CombineObjects();
+        }
+        else
         {
             // Destroy the object selected if there are already 2 items in combination area or if not placed close enough
-            
+
             /* Should be updated by combination logic so that both items
              * will be destroyed either way once there are two items here
              * regardless of if they are allowed to combine or not.
@@ -85,5 +89,24 @@ public class DragDropBehaviourScript : MonoBehaviour
         }
 
         selectedObject = null;
+    }
+    void CombineObjects()
+    {
+        if (combining.Count == 2)
+        {
+            // You can implement your combination logic here
+            // For example, check if the two objects in combining can be combined, and if so, instantiate the combined object.
+
+            string object1_name = combining[0].name.Substring(0, combining[0].name.IndexOf("_"));
+            string object2_name = combining[1].name.Substring(0, combining[1].name.IndexOf("_"));
+
+            if (object1_name == "butter" && object2_name == "eggs")
+            {
+                Instantiate(Resources.Load("cheese_object"), combinationZone.transform.position, Quaternion.identity); // Create the combination of the two objects
+                Destroy(combining[0]);
+                Destroy(combining[1]);
+                combining.Clear(); // Clear the list after combining
+            }
+        }
     }
 }
