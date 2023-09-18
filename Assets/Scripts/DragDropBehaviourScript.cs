@@ -6,12 +6,17 @@ public class DragDropBehaviourScript : MonoBehaviour
 {
     private GameObject selectedObject;
     private Vector3 startingPosition;
-    public List<GameObject> combining = new List<GameObject>();
+    private List<GameObject> combining = new List<GameObject>();
     public GameObject combinationZone;
     private float sensitivity = 1.0f;
+    private GameObject grid;
 
-    // Update is called once per frame
-    void Update()
+    void Start()
+    {
+        grid = GameObject.Find("PlaceholderGrid");
+    }
+        // Update is called once per frame
+        void Update()
     {
 
         // If left mouse button is clicked
@@ -60,7 +65,28 @@ public class DragDropBehaviourScript : MonoBehaviour
          * Will need to be fixed later on but should still work for the prototype logic.
          */
         GameObject clone = Instantiate(selectedObject);
+        GridCreate gridScript = grid.GetComponent<GridCreate>();
+        Vector3 nearestPos = selectedObject.transform.position;
+        float nearestDistance = Vector3.Distance(grid.transform.position, selectedObject.transform.position);
+        List<Vector3> gridPositions;
+        gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
         clone.transform.position = startingPosition;
+
+        Debug.Log(nearestDistance);
+
+        foreach (Vector3 p in gridPositions)
+        {
+            float newDistance = Vector3.Distance(p, selectedObject.transform.position);
+            if (newDistance < nearestDistance)
+            {
+                nearestDistance = newDistance;
+                nearestPos = p;
+            }
+        }
+
+
+        Debug.Log(nearestDistance);
+        Debug.Log(nearestPos);
 
         // Checks if the selected object is close enough or on the object that's been designated as the combination area
         // Will only accept new object placements if the list of things to be combined is not yet at 2 (assuming 2 objects will be the limit, subject to chenge)
@@ -71,10 +97,14 @@ public class DragDropBehaviourScript : MonoBehaviour
 
             // Adds selected object to list
             combining.Add(selectedObject);
-        } else
+        } else if (nearestDistance < sensitivity) {
+            // Snaps object into the same position
+            selectedObject.transform.position = nearestPos;
+        }
+        else
         {
             // Destroy the object selected if there are already 2 items in combination area or if not placed close enough
-            
+
             /* Should be updated by combination logic so that both items
              * will be destroyed either way once there are two items here
              * regardless of if they are allowed to combine or not.
