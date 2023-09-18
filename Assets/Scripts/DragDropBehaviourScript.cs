@@ -10,8 +10,9 @@ public class DragDropBehaviourScript : MonoBehaviour
     private List<GameObject> dragged = new List<GameObject>();
     public GameObject combinationZone;
     private readonly float sensitivity = 2.0f;
-    private bool isIngredient = false;
+    private bool isIngredient;
     private GameObject grid;
+    private GameObject tower;
 
     void Start()
     {
@@ -53,12 +54,13 @@ public class DragDropBehaviourScript : MonoBehaviour
         {
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
-
+            Debug.Log(selectedObject.tag);
             if (selectedObject.tag == "Ingredient")
             {
                 isIngredient = true;
                 GameObject clone = Instantiate(selectedObject);
-            } else
+            }
+            else
             {
                 isIngredient = false;
             }
@@ -115,17 +117,17 @@ public class DragDropBehaviourScript : MonoBehaviour
 
                 // Adds selected object to list
                 combining.Add(selectedObject);
+
+                if (combining.Count == 2)
+                {
+                    // Combines two objects
+                    CombineObjects();
+                }
             }
             else
             {
-                // Destroy the object selected if there are already 2 items in combination area or if not placed close enough
-
-                /* Should be updated by combination logic so that both items
-                 * will be destroyed either way once there are two items here
-                 * regardless of if they are allowed to combine or not.
-                 * Might need a new function, probably also an elif for when
-                 * combining.Count == 2.
-                 */
+                // Destroy the object selected if not placed close enough
+                Debug.Log("DESTROY");
                 Destroy(selectedObject);
             }
         }
@@ -150,5 +152,32 @@ public class DragDropBehaviourScript : MonoBehaviour
         */
 
         selectedObject = null;
+    }
+
+    void CombineObjects()
+    {
+        // You can implement your combination logic here
+        // For example, check if the two objects in combining can be combined, and if so, instantiate the combined object.
+
+        //string object1_name = combining[0].name.Substring(0, combining[0].name.IndexOf("_"));
+        //string object2_name = combining[1].name.Substring(0, combining[1].name.IndexOf("_"));
+
+        Debug.Log(combining[0] + ", " + combining[1]);
+
+        // Should be something that would store all combinations later on rather than if statements
+        if ((combining[0].name.Contains("butter") && combining[1].name.Contains("eggs")) || (combining[0].name.Contains("eggs") && combining[1].name.Contains("butter")))
+        {
+            tower = Instantiate(Resources.Load("bagel_object"), combinationZone.transform.position, Quaternion.identity) as GameObject; // Create the combination of the two objects
+            // This sets the new combined tower to be the same size as the last selected object because right now it's too small
+            // Will likely not be as necessary once we get real assets
+            tower.transform.localScale = new Vector3(selectedObject.transform.localScale.x, selectedObject.transform.localScale.y, selectedObject.transform.localScale.z);
+            tower.gameObject.AddComponent<BoxCollider2D>();
+            Debug.Log("COMBINED");
+        }
+
+        // Clear the list after combining or after figuring out there is no combination
+        Destroy(combining[0]);
+        Destroy(combining[1]);
+        combining.Clear();
     }
 }
