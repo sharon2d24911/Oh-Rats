@@ -145,25 +145,13 @@ public class DragDropBehaviourScript : MonoBehaviour
             dragged.Add(selectedObject);
         }
 
-        /* else
-        {
-            throw new MissingComponentException("No grid detected.");
-        }
-        */
-
         selectedObject = null;
     }
 
     void CombineObjects()
     {
-        // You can implement your combination logic here
-        // For example, check if the two objects in combining can be combined, and if so, instantiate the combined object.
-
-        //string object1_name = combining[0].name.Substring(0, combining[0].name.IndexOf("_"));
-        //string object2_name = combining[1].name.Substring(0, combining[1].name.IndexOf("_"));
-
+        // Checks if the two objects in combining can be combined, and if so, instantiates the combined object.
         Debug.Log(combining[0] + ", " + combining[1]);
-
         // Should be something that would store all combinations later on rather than if statements
         if ((combining[0].name.Contains("butter") && combining[1].name.Contains("eggs")) || (combining[0].name.Contains("eggs") && combining[1].name.Contains("butter")))
         {

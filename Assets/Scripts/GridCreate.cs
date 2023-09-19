@@ -13,7 +13,8 @@ public class GridCreate : MonoBehaviour
 
     public int rows = 6, columns = 5; //can be changed according to design of grid sprite
     private float width, height;
-    private GameObject grid, testCircle;
+    private GameObject grid;
+    private GameObject testCircle;
     private Vector3 position;
     private Bounds size;
     private List<Vector3> positions = new List<Vector3>(); //creates a list of positions
@@ -22,7 +23,7 @@ public class GridCreate : MonoBehaviour
     void Start()
     {
         grid = gameObject;
-        testCircle = GameObject.Find("RedCircle");
+        // testCircle = GameObject.Find("RedCircle");
         position = grid.transform.position;
         size = grid.GetComponent<Renderer>().bounds;
 
@@ -60,17 +61,17 @@ public class GridCreate : MonoBehaviour
             int j;
             for(j = 0; j < columns; j++)
             {
-                GameObject newCircle;
+                // GameObject newCircle;
                 Vector3 gridPos;
                 gridPos = adjustedPos + new Vector3(j * boxWidth, -i * boxHeight, 0); //determines the actual position  where the unit would be placed
                                                                                       
-
+                /*
                 //more stuff just for the red circles visuals
                 newCircle = Instantiate(testCircle);
                 newCircle.transform.position = gridPos;
                 Debug.Log(newCircle.transform.position);
                 Debug.Log("col" + j);
-
+                */
 
                 //adds the center position (gridPos) into a list. Top Left is first, bottom right is last
                 positions.Add(gridPos);
