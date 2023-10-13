@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3315082115871708691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.12, y: 0.16, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: -0.9}
   m_Children:
   - {fileID: 3315082114636632065}
@@ -104,12 +104,13 @@ SpriteRenderer:
   m_SortingLayerID: 558721739
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4e363b93aafdb614fa2802936a3d30cc, type: 3}
+  m_Sprite: {fileID: -3862428025798899099, guid: d3741692d54201c41aaef6d1d4ea519e,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 11.16, y: 6.28}
+  m_Size: {x: 2.060503, y: 4.6099997}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -133,6 +134,26 @@ MonoBehaviour:
   cooldown: 2
   range: 6
   health: 75
+  damageTime: 0
+  frameRate: 16
+  IdleAnimation:
+  - {fileID: -3862428025798899099, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -7964620265046509877, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: 8384417662516016476, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: 4708604792743146237, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -2109455371500923007, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -8247484536160416524, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: 2310751802792784767, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -8275271331950631016, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: 4157747420609083364, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -534465898039033871, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -6146656496744482957, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: 5016996076684497219, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -8380958898011037361, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -3014813430427769397, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: -7719845962038156794, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  - {fileID: 4376948223558474575, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
+  animTimeMax: 1.5
   projAddAttack: 0
   projAddSpeed: 0
   projectileMask:
@@ -151,18 +172,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.2}
-    oldSize: {x: 4.8, y: 6.4}
-    newSize: {x: 11.16, y: 6.28}
+    pivot: {x: 0.5, y: 0.1}
+    oldSize: {x: 2.060503, y: 4.6099997}
+    newSize: {x: 2.060503, y: 4.6099997}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6, y: 6.28}
+  m_Size: {x: 2, y: 5}
   m_EdgeRadius: 0
 --- !u!50 &5231916269362903707
 Rigidbody2D:

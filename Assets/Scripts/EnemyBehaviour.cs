@@ -7,8 +7,9 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject enemy;
     private float currentTime;
     private float step = 4.0f;
-    private GameObject GH; //can be put somewhere else if Enemy becomes a subclass of something else????
+    private GameObject GH;
     private GameHandler GameHandler;
+    private GameObject Damage1;
     public float stunTime = 0.5f;
     public float attackTime = 1.5f;
     public float deathTime = 2.0f;
@@ -17,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float damage;
     public float speed;
     public float difficultyIndex;
+    public bool isBoss; //only should be set true for enemies that are bosses, duh
 
     void Move()
     {
@@ -33,11 +35,16 @@ public class EnemyBehaviour : MonoBehaviour
         
     }
 
-    void TakeDamage(float dmgAmount)
+    IEnumerator takeDamage(float dmgAmount)
     {
         health -= dmgAmount;
+        SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(stunTime / 5);
+        sprite.color = Color.white;
         StopMovement(stunTime);
         Debug.Log("DAMAGE");
+        Debug.Log("health:" + health);
 
     }
 
@@ -45,7 +52,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         ProjectileScript projectileScript = projectile.GetComponent<ProjectileScript>();
         float dmgAmount = projectileScript.attack;
-        TakeDamage(dmgAmount);
+        StartCoroutine(takeDamage(dmgAmount));
         Destroy(projectile, projectileScript.collideTime);
     }
 
@@ -55,7 +62,7 @@ public class EnemyBehaviour : MonoBehaviour
         while (unitScript.health > 0 && health > 0)
         {
             speed = 0f;
-            unitScript.TakeDamage(damage);
+            StartCoroutine(unitScript.takeDamage(damage));
 
             yield return new WaitForSeconds(attackTime);
         }
@@ -93,6 +100,7 @@ public class EnemyBehaviour : MonoBehaviour
         enemy = gameObject;
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
+        Damage1 = enemy.transform.GetChild(0).gameObject;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -116,7 +124,17 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(health <= 0)
         {
+            if (isBoss)
+            {
+                GameHandler.PlayerWin();
+            }
+
+            StopMovement(deathTime + 1.0f);
             Destroy(enemy, deathTime); //kills the enemy
+        }
+        else if (health <= 50)
+        {
+            Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
         }
         Move();
         CheckLoss();
