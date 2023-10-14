@@ -133,7 +133,7 @@ MonoBehaviour:
   ProjectileOrigin: {fileID: 3315082114636632065}
   cooldown: 2
   defending: 0
-  range: 4
+  range: 6
   health: 75
   damageTime: 0
   frameRate: 16
