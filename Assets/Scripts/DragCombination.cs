@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DragCombination : MonoBehaviour
 {
     private GameObject selectedObject;
     private GameObject baseObject;
-    private Vector2 startingPosition;
+    private Vector3 startingPosition;
     private List<GameObject> combining = new List<GameObject>();
     private List<GameObject> dragged = new List<GameObject>();
     private Dictionary<Vector3, GameObject> filledPosisitons = new Dictionary<Vector3, GameObject>();
@@ -15,6 +16,9 @@ public class DragCombination : MonoBehaviour
     private GameObject grid;
     public GameObject unit;
     private GameObject newUnit;
+    public AudioManager audioManagerScript;
+    public IEnumerator fadeIn;
+    public AudioSource musicSource;
 
     void Start()
     {
@@ -83,19 +87,17 @@ public class DragCombination : MonoBehaviour
         // Resets object transparency
         selectedObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
 
-        Vector2 selectedV2 = selectedObject.transform.position;
-
         GridCreate gridScript = grid.GetComponent<GridCreate>();
-        Vector2 nearestPos = startingPosition;
+        Vector3 nearestPos = startingPosition;
         float nearestDistance = Vector3.Distance(grid.transform.position, selectedObject.transform.position);
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
         Debug.Log(nearestDistance);
 
-        foreach (Vector2 p in gridPositions)
+        foreach (Vector3 p in gridPositions)
         {
-            float newDistance = Vector2.Distance(p, selectedV2);
+            float newDistance = Vector3.Distance(p, selectedObject.transform.position);
             if (newDistance < nearestDistance)
             {
                 nearestDistance = newDistance;
@@ -114,10 +116,11 @@ public class DragCombination : MonoBehaviour
 
         if (isIngredient)
         {
-            Vector2 combV2 = combinationZone.transform.position;
+            float xDifference = Mathf.Abs(combinationZone.transform.position.x - selectedObject.transform.position.x);
+            float yDifference = Mathf.Abs(combinationZone.transform.position.y - selectedObject.transform.position.y);
 
             // Checks if the selected object is close enough or on the object that's been designated as the combination area
-            if (Vector2.Distance(selectedV2, combV2) < sensitivity)
+            if (xDifference < sensitivity && yDifference < sensitivity)
             {
                 // Check if there are >3 of the ingredient in the combining list
                 if (selectedObject.transform.parent.transform.childCount > 3)
@@ -136,14 +139,14 @@ public class DragCombination : MonoBehaviour
 
                 // Once placed, decrease count for that ingredient by 1
                 baseObject.GetComponent<Ingredient>().UseIngredient();
-
+                
             }
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
         else if (nearestDistance > sensitivity || nearestPos == startingPosition)
         {
-            // If Unit is not within distance, place back in original spot and destroy current instance
+            // If tower (not ingredient1) is not within distance, place back in original spot and destroy current instance
             GameObject clone = Instantiate(selectedObject);
             clone.transform.position = startingPosition;
             Destroy(selectedObject);
@@ -151,9 +154,11 @@ public class DragCombination : MonoBehaviour
         else
         {
             // If tower is within distance of a grid spot, snaps object into the same position
-            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5 - 1f);
+            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, nearestPos.z - 1f);
             filledPosisitons.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
+            AudioManager.Instance.PlaySFX("DonutPlace");
+            AudioManager.Instance.PlayMusic("BassyEvent");
         }
 
         selectedObject = null;
@@ -191,7 +196,7 @@ public class DragCombination : MonoBehaviour
             Debug.Log("BOOSTING:\nAttack: " + attack + ", Speed: " + speed + ", Health: " + health);
 
             // Create tower with those stats
-            CreateNewTower(attack, speed, health);
+            StartCoroutine(CombineWithDelay(attack, speed, health));
         }
 
     }
@@ -209,9 +214,13 @@ public class DragCombination : MonoBehaviour
     }
 
     // Creates new unit based on the given stats
-    void CreateNewTower(float addAttack, float addSpeed, float addHealth)
+    IEnumerator CombineWithDelay(float addAttack, float addSpeed, float addHealth)
     {
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3);
+
         newUnit = Instantiate(unit, combinationZone.transform.position, Quaternion.identity);
+        //Layer = Instantiate(layer1, combinationZone.transform.position, Quaternion.identity);
 
         // Change the unit's attack, speed, and health based on additional ingredient stats
         newUnit.GetComponent<UnitBehaviour>().projAddAttack += addAttack;
