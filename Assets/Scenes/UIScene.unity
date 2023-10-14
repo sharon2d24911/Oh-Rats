@@ -454,6 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 658908493}
   - component: {fileID: 658908492}
+  - component: {fileID: 658908494}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -476,6 +477,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   WinScreen: {fileID: 0}
+  LoseScreen: {fileID: 0}
+  bossPos: {x: 22, y: -3, z: 0}
 --- !u!4 &658908493
 Transform:
   m_ObjectHideFlags: 0
@@ -490,6 +493,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &658908494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658908491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21ec560d2b45fe479b2af0676d82068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPosHeightAdjust: 0.5
+  waveTimerMax: 2
+  waveTimerMin: 3
+  waveInterval: 30
+  cooldownInterval: 20
+  enemyPrefab: {fileID: 8389707924955351752, guid: e32c1181774641146b446c79cd76b6cd,
+    type: 3}
+  bossPrefab: {fileID: 3574632674719258354, guid: 53d2b0f58451016459b5299f6bf8a2b6,
+    type: 3}
 --- !u!1 &871706448
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +578,7 @@ SpriteRenderer:
   m_Size: {x: 9.6, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &871706450
@@ -1344,6 +1368,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   WinScreen: {fileID: 0}
+  LoseScreen: {fileID: 0}
+  bossPos: {x: 22, y: -3, z: 0}
 --- !u!212 &1768407629
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1391,7 +1417,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!4 &1768407630

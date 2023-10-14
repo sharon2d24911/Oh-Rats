@@ -64,6 +64,14 @@ public class UnitBehaviour : MonoBehaviour
         canShoot = true;
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("enemy hit unit");
+        }
+    }
+
     public IEnumerator takeDamage(float dmgAmount)
     {
         health -= dmgAmount;

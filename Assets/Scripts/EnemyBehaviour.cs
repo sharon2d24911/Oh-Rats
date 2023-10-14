@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     private GameObject enemy;
+    private Rigidbody2D rb2d;
     private float currentTime;
     private float step = 4.0f;
     private GameObject GH;
@@ -87,9 +88,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(enemy.transform.position.x <= GameHandler.GameOverXPosition)
         {
-            Debug.Log("Player lost!");
+            Destroy(enemy);
+            GameHandler.PlayerLoss();
             StopMovement(deathTime + 1.0f);
-            Destroy(enemy, deathTime);
         }
     }
 
@@ -98,6 +99,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         enemy = gameObject;
+        rb2d = enemy.GetComponent<Rigidbody2D>();
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
         Damage1 = enemy.transform.GetChild(0).gameObject;
@@ -117,7 +119,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
     }
-
 
     // Update is called once per frame
     void Update()
