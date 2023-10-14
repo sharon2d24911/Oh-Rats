@@ -9,6 +9,7 @@ public class UnitBehaviour : MonoBehaviour
     public Transform ProjectileOrigin;
     public float cooldown;
     private bool canShoot;
+    public bool defending;
     public float range;
     public float health;
     public float damageTime;
@@ -24,7 +25,7 @@ public class UnitBehaviour : MonoBehaviour
     private GameObject unit;
     private SpriteRenderer sprite;
 
-    private void Start()
+    void Start()
     {
         Invoke("ResetCooldown", cooldown);
         unit = gameObject;
@@ -32,14 +33,20 @@ public class UnitBehaviour : MonoBehaviour
         animTimeMax = animTimeMax / frameRate;
     }
 
-    private void Update()
+    void Update()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, range, projectileMask);
-        Shoot();
         Idle();
+        if (defending)
+        {
+            Shoot();
+        }
+        if (health <= 0)
+        {
+            Destroy(unit);
+        }
     }
-
-    private void Idle()
+    void Idle()
     {
         int animFrames = IdleAnimation.Count;
         animTimer += Time.deltaTime;
@@ -64,14 +71,25 @@ public class UnitBehaviour : MonoBehaviour
         canShoot = true;
     }
 
-    public IEnumerator takeDamage(float dmgAmount)
+    public void takeDamage(float dmgAmount)
     {
         health -= dmgAmount;
-        sprite.color = Color.red;
-        yield return new WaitForSeconds(damageTime / 5);
-        sprite.color = Color.white;
+        StartCoroutine(spriteColorChange(sprite));
         Debug.Log("DAMAGE UNIT");
 
+    }
+
+    IEnumerator spriteColorChange(SpriteRenderer sprite) //kinda doesnt work?????????
+    {
+        for (int i = 0; i < IdleAnimation.Count; i++)  //in this case, IdleAnimation can be swapped out for other animations when implemented -->function arg
+        {
+            sprite.color = Color.red;
+        }
+       yield return new WaitForSeconds(damageTime / 5);
+        for (int i = 0; i < IdleAnimation.Count; i++)  //in this case, IdleAnimation can be swapped out for other animations when implemented -->function arg
+        {
+            sprite.color = Color.white;
+        }
     }
 
     void Shoot()

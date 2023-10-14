@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     private GameObject enemy;
+    private Rigidbody2D rb2d;
     private float currentTime;
     private float step = 4.0f;
     private GameObject GH;
@@ -15,6 +16,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float deathTime = 2.0f;
     public float moveTime = 0.5f;
     public float health;
+    private float initialHealth;
     public float damage;
     public float speed;
     public float difficultyIndex;
@@ -52,8 +54,11 @@ public class EnemyBehaviour : MonoBehaviour
     {
         ProjectileScript projectileScript = projectile.GetComponent<ProjectileScript>();
         float dmgAmount = projectileScript.attack;
-        StartCoroutine(takeDamage(dmgAmount));
-        Destroy(projectile, projectileScript.collideTime);
+        if (health > 0)
+        {
+            StartCoroutine(takeDamage(dmgAmount));
+            Destroy(projectile, projectileScript.collideTime);
+        }
     }
 
     IEnumerator UnitDamage(UnitBehaviour unitScript)
@@ -62,7 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
         while (unitScript.health > 0 && health > 0)
         {
             speed = 0f;
-            StartCoroutine(unitScript.takeDamage(damage));
+            unitScript.takeDamage(damage);
 
             yield return new WaitForSeconds(attackTime);
         }
@@ -87,9 +92,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(enemy.transform.position.x <= GameHandler.GameOverXPosition)
         {
-            Debug.Log("Player lost!");
+            Destroy(enemy);
+            GameHandler.PlayerLoss();
             StopMovement(deathTime + 1.0f);
-            Destroy(enemy, deathTime);
         }
     }
 
@@ -98,9 +103,11 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         enemy = gameObject;
+        rb2d = enemy.GetComponent<Rigidbody2D>();
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
         Damage1 = enemy.transform.GetChild(0).gameObject;
+        initialHealth = health;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -120,21 +127,22 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
+        Debug.Log("health" + health);
+        if (health <= 0)
         {
             if (isBoss)
             {
+                Debug.Log("boss health" + health);
                 GameHandler.PlayerWin();
             }
 
             StopMovement(deathTime + 1.0f);
             Destroy(enemy, deathTime); //kills the enemy
         }
-        else if (health <= 50)
+        else if (health <= 0.5*initialHealth)
         {
             Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
         }

@@ -6,19 +6,16 @@ public class DragCombination : MonoBehaviour
 {
     private GameObject selectedObject;
     private GameObject baseObject;
-    private Vector3 startingPosition;
+    private Vector2 startingPosition;
     private List<GameObject> combining = new List<GameObject>();
     private List<GameObject> dragged = new List<GameObject>();
-    private Dictionary<Vector3, GameObject> filledPosisitons = new Dictionary<Vector3, GameObject>();
+    public Dictionary<Vector3, GameObject> filledPositions = new Dictionary<Vector3, GameObject>();
     public GameObject combinationZone;
     private readonly float sensitivity = 2.0f;
     private bool isIngredient;
     private GameObject grid;
     public GameObject unit;
     private GameObject newUnit;
-    public AudioManager audioManagerScript;
-    public IEnumerator fadeIn;
-    public AudioSource musicSource;
 
     void Start()
     {
@@ -87,22 +84,24 @@ public class DragCombination : MonoBehaviour
         // Resets object transparency
         selectedObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
 
+        Vector2 selectedV2 = selectedObject.transform.position;
+
         GridCreate gridScript = grid.GetComponent<GridCreate>();
-        Vector3 nearestPos = startingPosition;
+        Vector2 nearestPos = startingPosition;
         float nearestDistance = Vector3.Distance(grid.transform.position, selectedObject.transform.position);
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
         Debug.Log(nearestDistance);
 
-        foreach (Vector3 p in gridPositions)
+        foreach (Vector2 p in gridPositions)
         {
-            float newDistance = Vector3.Distance(p, selectedObject.transform.position);
+            float newDistance = Vector2.Distance(p, selectedV2);
             if (newDistance < nearestDistance)
             {
                 nearestDistance = newDistance;
 
-                if (!filledPosisitons.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
+                if (!filledPositions.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
                 {
                     Debug.Log("spot empty");
                     nearestPos = p;
@@ -116,11 +115,10 @@ public class DragCombination : MonoBehaviour
 
         if (isIngredient)
         {
-            float xDifference = Mathf.Abs(combinationZone.transform.position.x - selectedObject.transform.position.x);
-            float yDifference = Mathf.Abs(combinationZone.transform.position.y - selectedObject.transform.position.y);
+            Vector2 combV2 = combinationZone.transform.position;
 
             // Checks if the selected object is close enough or on the object that's been designated as the combination area
-            if (xDifference < sensitivity && yDifference < sensitivity)
+            if (Vector2.Distance(selectedV2, combV2) < sensitivity)
             {
                 // Check if there are >3 of the ingredient in the combining list
                 if (selectedObject.transform.parent.transform.childCount > 3)
@@ -139,14 +137,14 @@ public class DragCombination : MonoBehaviour
 
                 // Once placed, decrease count for that ingredient by 1
                 baseObject.GetComponent<Ingredient>().UseIngredient();
-                
+
             }
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
         else if (nearestDistance > sensitivity || nearestPos == startingPosition)
         {
-            // If tower (not ingredient1) is not within distance, place back in original spot and destroy current instance
+            // If Unit is not within distance, place back in original spot and destroy current instance
             GameObject clone = Instantiate(selectedObject);
             clone.transform.position = startingPosition;
             Destroy(selectedObject);
@@ -154,11 +152,10 @@ public class DragCombination : MonoBehaviour
         else
         {
             // If tower is within distance of a grid spot, snaps object into the same position
-            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, nearestPos.z - 1f);
-            filledPosisitons.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
+            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5 - 1f);
+            filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
             AudioManager.Instance.PlaySFX("DonutPlace");
-            AudioManager.Instance.PlayMusic("BassyEvent");
         }
 
         selectedObject = null;

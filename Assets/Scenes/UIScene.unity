@@ -515,8 +515,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combinationZone: {fileID: 1768407627}
   unit: {fileID: 3315082115871708691, guid: 61e8f44353aee9f4aaf024502ff83606, type: 3}
-  audioManagerScript: {fileID: 0}
-  musicSource: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -606,6 +604,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 14b401deab7e89b4ba38de840503b15e, type: 3}
   musicSource: {fileID: 2611767}
   sfxSource: {fileID: 1656127182}
+  minVolume: 0
 --- !u!1 &569500513
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +734,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   WinScreen: {fileID: 0}
+  LoseScreen: {fileID: 0}
+  bossPos: {x: 22, y: -3, z: 1}
 --- !u!4 &658908493
 Transform:
   m_ObjectHideFlags: 0
@@ -1886,6 +1887,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   WinScreen: {fileID: 0}
+  LoseScreen: {fileID: 0}
+  bossPos: {x: 22, y: -3, z: 1}
 --- !u!212 &1768407629
 SpriteRenderer:
   m_ObjectHideFlags: 0
