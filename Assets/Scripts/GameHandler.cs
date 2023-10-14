@@ -16,6 +16,7 @@ public class GameHandler : MonoBehaviour
     {
         WinScreen.gameObject.SetActive(true);
         Debug.Log("Player won!");
+        Time.timeScale = 0;
     }
 
     public void PlayerLoss()
@@ -26,6 +27,7 @@ public class GameHandler : MonoBehaviour
         {
             LoseScreen.gameObject.SetActive(true);
             Debug.Log("Player lost!");
+            Time.timeScale = 0;
         }
 
     }

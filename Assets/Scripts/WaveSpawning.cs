@@ -63,6 +63,7 @@ public class WaveSpawning : MonoBehaviour
                 Vector3 enemyPos = selectLane();
                 if (currentWave == bossWave)
                 {
+                    AudioManager.Instance.PlayMusic("BassyEvent");
                     Vector3 bossPos = GameHandler.bossPos;
                     Spawn(bossPrefab, bossPos);
                     currentWave += 1;

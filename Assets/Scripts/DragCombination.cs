@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DragCombination : MonoBehaviour
@@ -154,6 +155,7 @@ public class DragCombination : MonoBehaviour
             selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5 - 1f);
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
+            AudioManager.Instance.PlaySFX("DonutPlace");
         }
 
         selectedObject = null;
@@ -191,7 +193,7 @@ public class DragCombination : MonoBehaviour
             Debug.Log("BOOSTING:\nAttack: " + attack + ", Speed: " + speed + ", Health: " + health);
 
             // Create tower with those stats
-            CreateNewTower(attack, speed, health);
+            StartCoroutine(CombineWithDelay(attack, speed, health));
         }
 
     }
@@ -209,9 +211,13 @@ public class DragCombination : MonoBehaviour
     }
 
     // Creates new unit based on the given stats
-    void CreateNewTower(float addAttack, float addSpeed, float addHealth)
+    IEnumerator CombineWithDelay(float addAttack, float addSpeed, float addHealth)
     {
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3);
+
         newUnit = Instantiate(unit, combinationZone.transform.position, Quaternion.identity);
+        //Layer = Instantiate(layer1, combinationZone.transform.position, Quaternion.identity);
 
         // Change the unit's attack, speed, and health based on additional ingredient stats
         newUnit.GetComponent<UnitBehaviour>().projAddAttack += addAttack;

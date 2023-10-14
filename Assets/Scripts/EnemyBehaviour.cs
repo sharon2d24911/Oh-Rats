@@ -115,10 +115,12 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.tag == "Projectile")
         {
             Debug.Log("projectile hit");
+            AudioManager.Instance.PlaySFX("ProjectileHit");
             ProjectileCollide(collision.gameObject);
         }else if (collision.gameObject.tag == "Unit")
         {
             Debug.Log("enemy hit unit");
+            AudioManager.Instance.PlaySFX("Bite1");
             UnitBehaviour unitScript = collision.gameObject.GetComponent<UnitBehaviour>();
             StartCoroutine(UnitDamage(unitScript));
         }
