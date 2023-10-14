@@ -10,7 +10,7 @@ public class GameHandler : MonoBehaviour
     public Text WinScreen;
     public Text LoseScreen;
     private int numOfRats = 0;
-    public Vector3 bossPos = new Vector3(22, -3, 0);
+    public Vector3 bossPos = new Vector3(22, -3, 1);
 
     public void PlayerWin()
     {

@@ -8,7 +8,7 @@ public class DragCombination : MonoBehaviour
     private Vector2 startingPosition;
     private List<GameObject> combining = new List<GameObject>();
     private List<GameObject> dragged = new List<GameObject>();
-    private Dictionary<Vector3, GameObject> filledPosisitons = new Dictionary<Vector3, GameObject>();
+    public Dictionary<Vector3, GameObject> filledPositions = new Dictionary<Vector3, GameObject>();
     public GameObject combinationZone;
     private readonly float sensitivity = 2.0f;
     private bool isIngredient;
@@ -100,7 +100,7 @@ public class DragCombination : MonoBehaviour
             {
                 nearestDistance = newDistance;
 
-                if (!filledPosisitons.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
+                if (!filledPositions.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
                 {
                     Debug.Log("spot empty");
                     nearestPos = p;
@@ -152,7 +152,7 @@ public class DragCombination : MonoBehaviour
         {
             // If tower is within distance of a grid spot, snaps object into the same position
             selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5 - 1f);
-            filledPosisitons.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
+            filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
         }
 
