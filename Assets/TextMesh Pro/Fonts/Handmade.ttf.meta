@@ -11,7 +11,8 @@ TrueTypeFontImporter:
   fontName: Handmade
   fontNames:
   - Handmade
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4dc5aeda65cee8f4c9e2368fb28e9cd7, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

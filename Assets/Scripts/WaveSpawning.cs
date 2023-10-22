@@ -9,7 +9,6 @@ public class WaveSpawning : MonoBehaviour
     private GameObject grid;
     private GridCreate gridScript;
     private List<Vector3> gridPositions;
-    private Camera MainCamera;
     private Dictionary<Vector3, GameObject> unitPositions;
     private float waveTimer = 0f;
     private float waveIntervalTimer = 0f;
@@ -37,8 +36,7 @@ public class WaveSpawning : MonoBehaviour
         grid = GameObject.Find("Grid"); ;
         gridScript = grid.GetComponent<GridCreate>();
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
-        MainCamera = Camera.main;
-        unitPositions = MainCamera.GetComponent<DragCombination>().filledPositions;
+        unitPositions = GameHandler.GetComponent<DragCombination>().filledPositions;
     }
 
     // Update is called once per frame

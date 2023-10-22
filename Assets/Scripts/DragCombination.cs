@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DragCombination : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class DragCombination : MonoBehaviour
     private bool isIngredient;
     private GameObject grid;
     public GameObject unit;
+    public Button mixButton;
     private GameObject newUnit;
 
     void Start()
@@ -25,6 +27,11 @@ public class DragCombination : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!CheckMinimum())
+            mixButton.interactable = false;
+        else
+            mixButton.interactable = true;
+
         // When left mouse is pressed
         if (Input.GetMouseButtonDown(0))
             CheckHitObject();
@@ -163,51 +170,39 @@ public class DragCombination : MonoBehaviour
 
     public void CheckIfCombine()
     {
-        Debug.Log("Checking if mixable!");
+        // Pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
+        // If player hits mix button, use up all the placed ingredients by tallying up their stats
+        float attack = 0;
+        float speed = 0;
+        float health = 0;
+        while (combining.Count > 0)
+        {
+            attack += combining[0].GetComponentInParent<Ingredient>().attack;
+            speed += combining[0].GetComponentInParent<Ingredient>().speed;
+            health += combining[0].GetComponentInParent<Ingredient>().health;
+            Destroy(combining[0]);
+            combining.Remove(combining[0]);
+        }
+        Debug.Log("BOOSTING:\nAttack: " + attack + ", Speed: " + speed + ", Health: " + health);
 
-        // If nothing in Combine list, return that the bowl is empty!
-        if (combining.Count == 0)
-        {
-            Debug.Log("There's nothing to combine!");
-        }
-        // Else if there isn't at least one of each ingredient, return that the base tower requires at least one of each
-        else if (!CheckMinimum())
-        {
-            Debug.Log("You haven't added the minimum of one of each ingredient to create a unit!");
-        }
-        // Else while the list isn't empty, pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
-        else
-        {
-            // If player hits mix button, use up all the placed ingredients by tallying up their stats
-            float attack = 0;
-            float speed = 0;
-            float health = 0;
-            while (combining.Count > 0)
-            {
-                attack += combining[0].GetComponentInParent<Ingredient>().attack;
-                speed += combining[0].GetComponentInParent<Ingredient>().speed;
-                health += combining[0].GetComponentInParent<Ingredient>().health;
-                Destroy(combining[0]);
-                combining.Remove(combining[0]);
-            }
-            Debug.Log("BOOSTING:\nAttack: " + attack + ", Speed: " + speed + ", Health: " + health);
-
-            // Create tower with those stats
-            StartCoroutine(CombineWithDelay(attack, speed, health));
-        }
+        // Create tower with those stats
+        StartCoroutine(CombineWithDelay(attack, speed, health));
 
     }
 
     // Checks if the user has placed at minimum one of each ingredient
     bool CheckMinimum()
     {
+        if (combining.Count < 3)
+            return false;
         GameObject[] allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
         foreach (GameObject ingredient in allIngredients)
         {
-            if (ingredient.transform.childCount < 1)
+            if (ingredient.transform.childCount < 1 || (ingredient.transform.childCount == 1 && selectedObject != null && selectedObject.transform.parent == ingredient))
                 return false;
         }
         return true;
+        
     }
 
     // Creates new unit based on the given stats
