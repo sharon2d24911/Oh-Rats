@@ -1,28 +1,10 @@
 fileFormatVersion: 2
-guid: 4626da3f8ce2c544d8c246ef28981207
+guid: 0131b4d8a8750ec40b0ed42a94b54f62
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9065656386477125227
-    second: cheese
-  - first:
-      213: 2378450021636071196
-    second: butter
-  - first:
-      213: -1327361340822389978
-    second: eggs
-  - first:
-      213: -5034703955856199138
-    second: sugar_individual
-  - first:
-      213: 4129085186536377779
-    second: butter
-  - first:
-      213: -6734107803153752858
-    second: butter_individual
-  - first:
-      213: 7634809879669098404
-    second: flour_individual
+      213: -5119084475945496806
+    second: placecard
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -104,17 +86,29 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sugar_individual
+      name: placecard
       rect:
         serializedVersion: 2
-        x: 263
-        y: 993
-        width: 20
-        height: 23
+        x: 45
+        y: 76
+        width: 275
+        height: 395
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,71 +116,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e12ffe95d63212ab0800000000000000
-      internalID: -5034703955856199138
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: butter
-      rect:
-        serializedVersion: 2
-        x: 580
-        y: 967
-        width: 25
-        height: 21
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3bd04dea9157d4930800000000000000
-      internalID: 4129085186536377779
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: butter_individual
-      rect:
-        serializedVersion: 2
-        x: 584
-        y: 998
-        width: 17
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ec95d1c1a4ab82a0800000000000000
-      internalID: -6734107803153752858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: flour_individual
-      rect:
-        serializedVersion: 2
-        x: 294
-        y: 997
-        width: 17
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a7c155722b44f960800000000000000
-      internalID: 7634809879669098404
+      spriteID: a1f4d0c8acb55f8b0800000000000000
+      internalID: -5119084475945496806
       vertices: []
       indices: 
       edges: []

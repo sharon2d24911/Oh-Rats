@@ -18,15 +18,18 @@ public class DragCombination : MonoBehaviour
     public GameObject unit;
     public Button mixButton;
     private GameObject newUnit;
+    private GameObject[] allIngredients;
 
     void Start()
     {
         grid = GameObject.Find("Grid");
+        allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Check if the mix button should allow interaction
         if (!CheckMinimum())
             mixButton.interactable = false;
         else
@@ -170,11 +173,18 @@ public class DragCombination : MonoBehaviour
 
     public void CheckIfCombine()
     {
-        // Pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
         // If player hits mix button, use up all the placed ingredients by tallying up their stats
         float attack = 0;
         float speed = 0;
         float health = 0;
+
+        // Clear ingredients used counters
+        foreach (GameObject ingredient in allIngredients)
+        {
+            ingredient.GetComponent<Ingredient>().ClearUse();
+        }
+
+        // Pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
         while (combining.Count > 0)
         {
             attack += combining[0].GetComponentInParent<Ingredient>().attack;
@@ -193,9 +203,11 @@ public class DragCombination : MonoBehaviour
     // Checks if the user has placed at minimum one of each ingredient
     bool CheckMinimum()
     {
+        // Minimum of 3 ingredients, early check
         if (combining.Count < 3)
             return false;
-        GameObject[] allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
+
+        // Checks if each ingredient has at least one child (and is not the currently selected one, as that hasn't been placed in the bowl yet)
         foreach (GameObject ingredient in allIngredients)
         {
             if (ingredient.transform.childCount < 1 || (ingredient.transform.childCount == 1 && selectedObject != null && selectedObject.transform.parent == ingredient))

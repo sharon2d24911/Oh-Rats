@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 49d06a664d4982045b167189e9bc2ffa
+guid: 0bbfc0df4f2aaac4aaee6e3b0c475804
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1462799768519014029
-    second: Bandage_0
+      213: 827538889749247048
+    second: attack
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,10 +46,10 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.40817267, y: 0.5390266}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 156, y: 301, z: 250, w: 264}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -102,22 +102,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bandage_0
+      name: attack
       rect:
         serializedVersion: 2
-        x: 149
-        y: 290
-        width: 89
-        height: 105
+        x: 121
+        y: 90
+        width: 258
+        height: 271
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d867914a3a8ec4410800000000000000
-      internalID: 1462799768519014029
+      spriteID: 84433595c320c7b00800000000000000
+      internalID: 827538889749247048
       vertices: []
       indices: 
       edges: []
