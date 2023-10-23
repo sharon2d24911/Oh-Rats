@@ -620,15 +620,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21ec560d2b45fe479b2af0676d82068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - enemyName: BasicRat
+    enemyPrefab: {fileID: 8389707924955351752, guid: e32c1181774641146b446c79cd76b6cd,
+      type: 3}
+  - enemyName: BossRat
+    enemyPrefab: {fileID: 3574632674719258354, guid: 53d2b0f58451016459b5299f6bf8a2b6,
+      type: 3}
+  - enemyName: HealthRat
+    enemyPrefab: {fileID: 5560318420793073805, guid: c4f98ecce2423064dbd6182af85deec2,
+      type: 3}
+  wavesFile: {fileID: 4900000, guid: dfff19f1c5d64a54bbb6d5968b87e806, type: 3}
   enemyPosHeightAdjust: 0.3
-  waveTimerMax: 5
-  waveTimerMin: 3
-  waveInterval: 30
-  cooldownInterval: 20
-  enemyPrefab: {fileID: 8389707924955351752, guid: e32c1181774641146b446c79cd76b6cd,
-    type: 3}
-  bossPrefab: {fileID: 3574632674719258354, guid: 53d2b0f58451016459b5299f6bf8a2b6,
-    type: 3}
 --- !u!1 &342972033
 GameObject:
   m_ObjectHideFlags: 0

@@ -136,25 +136,13 @@ MonoBehaviour:
   range: 6
   health: 75
   damageTime: 0
-  frameRate: 16
+  frameRate: 4
   IdleAnimation:
-  - {fileID: -3862428025798899099, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -7964620265046509877, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: 8384417662516016476, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: 4708604792743146237, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -2109455371500923007, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -8247484536160416524, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: 2310751802792784767, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -8275271331950631016, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: 4157747420609083364, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -534465898039033871, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -6146656496744482957, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: 5016996076684497219, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -8380958898011037361, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -3014813430427769397, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: -7719845962038156794, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  - {fileID: 4376948223558474575, guid: d3741692d54201c41aaef6d1d4ea519e, type: 3}
-  animTimeMax: 1.5
+  - {fileID: -7661385469000880986, guid: e7f9dce87056a64409ab0ddc5a054f25, type: 3}
+  - {fileID: -2258042998815052933, guid: e7f9dce87056a64409ab0ddc5a054f25, type: 3}
+  - {fileID: 6872893637250818340, guid: e7f9dce87056a64409ab0ddc5a054f25, type: 3}
+  - {fileID: 8901822673835516465, guid: e7f9dce87056a64409ab0ddc5a054f25, type: 3}
+  animTimeMax: 0.8
   projAddAttack: 0
   projAddSpeed: 0
   projectileMask:

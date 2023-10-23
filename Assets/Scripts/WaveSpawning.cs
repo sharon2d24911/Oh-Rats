@@ -2,35 +2,80 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WaveSpawning : MonoBehaviour
 {
+    [System.Serializable]
+    public struct EnemyObjects
+    {
+        public string enemyName;
+        public GameObject enemyPrefab;
+    }
+
+    [System.Serializable]
+    private class Wave
+    {
+        public int wave;
+        public string[] enemyTypes;
+        public float duration;
+        public int difficulty;
+        public float warmUp;
+        public float minSpawnInterval;
+        public float maxSpawnInterval;
+    }
+
+    [System.Serializable]
+    private class Waves
+    {
+        public Wave[] waves;
+    }
+
+
     private GameObject GH;
     private GameHandler GameHandler;
     private GameObject grid;
     private GridCreate gridScript;
     private List<Vector3> gridPositions;
     private Camera MainCamera;
-    private Dictionary<Vector3, GameObject> unitPositions;
+    private Dictionary<Vector2, GameObject> unitPositions;
     private float waveTimer = 0f;
-    private float waveIntervalTimer = 0f;
-    private float cooldownIntervalTimer = 0f;
-    public float enemyPosHeightAdjust = 0.5f;
-    public float waveTimerMax = 5f;
-    public float waveTimerMin = 3f;
-    public float waveInterval = 10f; //10 seconds
-    public float cooldownInterval = 10f; //10 seconds
+    private float waveDurationTimer = 0f;
+    private float warmupTimer = 0f;
     private float currentWaveTimeMax;
-    private int currentWave = 0;
-    public GameObject enemyPrefab;//tech Demo version
     private int previousLane;
-    private int bossWave = 1;
-    public GameObject bossPrefab;//tech Demo version
-    //public List<GameObject> enemyPrefabs = new List<GameObject>();
-    //public List<TextAsset> waves = new List<TextAsset>();
+    private Waves wavesInFile;
+    public EnemyObjects[] enemyPrefabs;
+    public TextAsset wavesFile;
+    public float enemyPosHeightAdjust = 0.5f; //make enemies be at the correct Y coord to allow projectiles to hit them
+
+    //variables that change depending on current wave in the JSON
+    private int currentWave = 0;
+    private int wavesNum;
+    private float waveTimerMax;
+    private float waveTimerMin;
+    private float waveDuration;
+    private int waveDifficulty;
+    private float warmUpDuration;
+    private string[] waveEnemyTypes;
+    private int waveEnemiesNum;
+
+    //public float waveTimerMax = 5f; //longest time between enemy spawns
+    //public float waveTimerMin = 3f; //shortest time between enemy spawns
+    //the spawning system picks a random float between waveTimerMax and waveTimerMin
+    //public float waveInterval = 10f; //10 seconds
+    //public float cooldownInterval = 10f; //10 seconds
+
+    //Probably not gonna be a thing in final version. TBD
+    //private int bossWave = 1;
+
+    //public GameObject enemyPrefab;//tech Demo version
+    //public GameObject bossPrefab;//tech Demo version
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //setup certain references that are important for spawning
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
         currentWaveTimeMax = Random.Range(waveTimerMin, waveTimerMax);
@@ -39,57 +84,112 @@ public class WaveSpawning : MonoBehaviour
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
         MainCamera = Camera.main;
         unitPositions = MainCamera.GetComponent<DragCombination>().filledPositions;
+
+
+        //read in waves JSON, setup
+        wavesInFile = JsonUtility.FromJson<Waves>(wavesFile.text);
+        wavesNum = wavesInFile.waves.Length;
+
+        foreach (Wave wave in wavesInFile.waves)
+        {
+            Debug.Log("max" + wave.maxSpawnInterval + "duration" + wave.duration);
+        }
+
+        //setup of first wave
+        waveTimerMax = wavesInFile.waves[0].maxSpawnInterval;
+        waveTimerMin = wavesInFile.waves[0].minSpawnInterval;
+        waveDifficulty = wavesInFile.waves[0].difficulty;
+        waveDuration = wavesInFile.waves[0].duration;
+        warmUpDuration = wavesInFile.waves[0].warmUp;
+        waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
+        waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
+
     }
 
     // Update is called once per frame
     void Update()
-    {
-        waveTimer += Time.deltaTime;
-        
-        //starts with cooldown
-        if (cooldownIntervalTimer < cooldownInterval)
+    {      
+        //starts with warmup
+        if (warmupTimer < warmUpDuration)
         {
-            cooldownIntervalTimer += Time.deltaTime;
+            warmupTimer += Time.deltaTime;
             toggleActive(false);
         }
 
-        //once cooldown has expired, start wave
-        else if (waveIntervalTimer < waveInterval)
+        //once warmup has expired, start wave
+        else if (waveDurationTimer < waveDuration)
         {
             toggleActive(true);
-            waveIntervalTimer += Time.deltaTime;
+            waveDurationTimer += Time.deltaTime;
+            waveTimer += Time.deltaTime;
+
+            //
             if (waveTimer > currentWaveTimeMax)
             {
                 Vector3 enemyPos = selectLane();
-                if (currentWave == bossWave)
-                {
-                    AudioManager.Instance.PlayMusic("BassyEvent");
-                    Vector3 bossPos = GameHandler.bossPos;
-                    Spawn(bossPrefab, bossPos);
-                    currentWave += 1;
-                }
-                else if (currentWave < bossWave)
-                {
-                    Spawn(enemyPrefab, enemyPos); //enemyPrefab to be replaced with more expandable version
-                }
-                waveTimer = 0;
-                currentWaveTimeMax = Random.Range(waveTimerMin, waveTimerMax);
+
+                ///AudioManager.Instance.PlayMusic("BassyEvent");
+                ///this line of code was implemented when the bossWave came about
+                ///the new version of the waves system doesn't have this included, so a music event like this might have to be handled differently
+                ///maybe depending of the enemy type(s) in the wave? or the wave number? a music attribute can also be added to the JSON, although this would likely be limited
+
+
+                Spawn(enemyPos); //handles which enemy spawns internally
+
+                waveTimer = 0f;
+                currentWaveTimeMax = Random.Range(waveTimerMin, waveTimerMax); //changes time it should take between spawns
             }
         }
 
         //once wave has finished, start cooldown when last unit has been killed
         else
         {
+            toggleActive(true);
             GameObject[] leftOvers = GameObject.FindGameObjectsWithTag("Enemy");
-            if (leftOvers.Length == 0)
+            if (leftOvers.Length == 0) //checks if there are no object with enemy tag currently in the scene
             {
                 Debug.Log("newWave");
-                cooldownIntervalTimer = 0;
-                waveIntervalTimer = 0;
                 currentWave += 1;
+
+                if(currentWave < wavesNum)
+                {
+                    //changes variables to be those of the next wave
+                    waveTimerMax = wavesInFile.waves[currentWave].maxSpawnInterval;
+                    waveTimerMin = wavesInFile.waves[currentWave].minSpawnInterval;
+                    waveDuration = wavesInFile.waves[currentWave].duration;
+                    waveDifficulty = wavesInFile.waves[currentWave].difficulty;
+                    warmUpDuration = wavesInFile.waves[currentWave].warmUp;
+                    waveEnemyTypes = wavesInFile.waves[currentWave].enemyTypes;
+                    waveEnemiesNum = waveEnemyTypes.Length;
+                }
+                else
+                {
+                    Debug.Log("waves done!");
+                }
+
+                warmupTimer = 0f;
+                waveTimer = 0f;
+                currentWaveTimeMax = Random.Range(waveTimerMin, waveTimerMax);
+                waveDurationTimer = 0f;
+
             }
         }
     }
+
+   GameObject getEnemyObj(string givenName)
+    {
+        foreach (EnemyObjects e in enemyPrefabs)
+        {
+            if(givenName == e.enemyName)
+            {
+                Debug.Log(e.enemyName);  //how to grab enemy names
+                return e.enemyPrefab;
+            }
+        }
+        GameObject empty = new GameObject("NULL"); //returns a "NULL GameObject". so sloppy, but I seriously dont know how else to manage this. please have mercy if this causes bugs
+        return empty;
+    }
+
 
     void toggleActive(bool state)
     {
@@ -109,24 +209,31 @@ public class WaveSpawning : MonoBehaviour
     {
         int rows = gridScript.rows;
         int cols = gridScript.columns;
-        Debug.Log("range" + (rows - 1));
+        //Debug.Log("range" + (rows - 1));
         int randInd = (Random.Range(0, (rows))) * cols;
-        Debug.Log("randInd" + randInd);
+        //Debug.Log("randInd" + randInd);
         while (randInd == previousLane)
         {
             randInd = (Random.Range(0, (rows ))) * cols; ;  //stops two rats from spawning in same lane one after another
         }
-        Debug.Log("randInd" + randInd);
-        Debug.Log("previousLane" + previousLane);
+        //Debug.Log("randInd" + randInd);
+        //Debug.Log("previousLane" + previousLane);
         previousLane = randInd;
-        Debug.Log("previousLane" + previousLane);
+        //Debug.Log("previousLane" + previousLane);
         Vector3 selectedPos = new Vector3(GameHandler.EnemyStartXPosition, gridPositions[randInd].y + enemyPosHeightAdjust, 1);
 
         return selectedPos;
     }
 
-    void Spawn(GameObject enemy, Vector3 position)
+    void Spawn(Vector3 position)
     {
+        float probability = Random.Range(0f, 1f);
+        Debug.Log("probability " + probability);
+        float goalPost = 0.5f / (1f - (waveDifficulty * 0.125f)); //waveDifficulty determines what the probability must equal to spawn a non-basic enemy type
+        int randInd = (int)Mathf.Round( (goalPost * probability) * (waveEnemiesNum - 1)); //selects random index between range of enemy types
+        string enemyName = waveEnemyTypes[randInd];
+        Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum "  + waveEnemiesNum);
+        GameObject enemy = getEnemyObj(enemyName);
         Instantiate(enemy, position, enemy.transform.rotation);
     }
 }
