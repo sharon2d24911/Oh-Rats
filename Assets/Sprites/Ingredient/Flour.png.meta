@@ -105,10 +105,10 @@ TextureImporter:
       name: Flour
       rect:
         serializedVersion: 2
-        x: 65
-        y: 30
-        width: 183
-        height: 243
+        x: 62
+        y: 28
+        width: 189
+        height: 247
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

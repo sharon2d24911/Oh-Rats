@@ -36,7 +36,7 @@ public class DragCombination : MonoBehaviour
             mixButton.interactable = true;
 
         // When left mouse is pressed
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f)
             CheckHitObject();
 
         // If left mouse button is held down
@@ -155,9 +155,10 @@ public class DragCombination : MonoBehaviour
         else if (nearestDistance > sensitivity || nearestPos == startingPosition)
         {
             // If Unit is not within distance, place back in original spot and destroy current instance
-            GameObject clone = Instantiate(selectedObject);
-            clone.transform.position = startingPosition;
-            Destroy(selectedObject);
+            // GameObject clone = Instantiate(selectedObject);
+            // clone.transform.position = startingPosition;
+            // Destroy(selectedObject);
+            selectedObject.transform.position = startingPosition;
         }
         else
         {
