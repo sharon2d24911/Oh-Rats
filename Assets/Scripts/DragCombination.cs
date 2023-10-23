@@ -10,7 +10,7 @@ public class DragCombination : MonoBehaviour
     private Vector2 startingPosition;
     private List<GameObject> combining = new List<GameObject>();
     private List<GameObject> dragged = new List<GameObject>();
-    public Dictionary<Vector3, GameObject> filledPositions = new Dictionary<Vector3, GameObject>();
+    public Dictionary<Vector2, GameObject> filledPositions = new Dictionary<Vector2, GameObject>();
     public GameObject combinationZone;
     private readonly float sensitivity = 2.0f;
     private bool isIngredient;
@@ -98,7 +98,8 @@ public class DragCombination : MonoBehaviour
 
         GridCreate gridScript = grid.GetComponent<GridCreate>();
         Vector2 nearestPos = startingPosition;
-        float nearestDistance = Vector3.Distance(grid.transform.position, selectedObject.transform.position);
+        float nearestDistance = Vector2.Distance(grid.transform.position, selectedV2);
+        int gridDepth = 0, i = 0;
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
@@ -106,6 +107,7 @@ public class DragCombination : MonoBehaviour
 
         foreach (Vector2 p in gridPositions)
         {
+            i++;
             float newDistance = Vector2.Distance(p, selectedV2);
             if (newDistance < nearestDistance)
             {
@@ -114,6 +116,9 @@ public class DragCombination : MonoBehaviour
                 if (!filledPositions.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
                 {
                     Debug.Log("spot empty");
+                    Debug.Log("i " + i);
+                    gridDepth = (i / gridScript.columns) * gridScript.rows;
+                    Debug.Log("gridDepth " + gridDepth);
                     nearestPos = p;
                 }
                 else //position is occupied in the dictionary, not free on the grid
@@ -152,18 +157,18 @@ public class DragCombination : MonoBehaviour
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
-        else if (nearestDistance > sensitivity || nearestPos == startingPosition)
+        else if (nearestDistance > sensitivity || nearestPos == selectedV2)
         {
             // If Unit is not within distance, place back in original spot and destroy current instance
             // GameObject clone = Instantiate(selectedObject);
             // clone.transform.position = startingPosition;
             // Destroy(selectedObject);
-            selectedObject.transform.position = startingPosition;
+            selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
         }
         else
         {
             // If tower is within distance of a grid spot, snaps object into the same position
-            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5 - 1f);
+            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 13f - gridDepth);
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
             AudioManager.Instance.PlaySFX("DonutPlace");

@@ -1,0 +1,23 @@
+{"waves":
+ [
+	{
+		"wave": 1,
+		"enemyTypes": ["BasicRat"],
+		"duration": 60,
+		"warmUp": 30,
+		"minSpawnInterval": 15,
+		"maxSpawnInterval": 20,
+		"difficulty" : 1
+	},
+
+	{
+		"wave": 2,
+		"enemyTypes": ["BasicRat", "HealthRat"],
+		"duration": 45,
+		"warmUp": 15,
+		"minSpawnInterval": 12.5,
+		"maxSpawnInterval": 18,
+		"difficulty" : 2
+	}
+ ]	
+}
