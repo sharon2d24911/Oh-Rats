@@ -40,7 +40,7 @@ public class WaveSpawning : MonoBehaviour
     private float waveTimer = 0f;
     private float waveDurationTimer = 0f;
     private float warmupTimer = 0f;
-    private float currentWaveTimeMax;
+    private float currentWaveTimeMax = 0f;
     private int previousLane;
     private Waves wavesInFile;
     public EnemyObjects[] enemyPrefabs;
@@ -77,11 +77,10 @@ public class WaveSpawning : MonoBehaviour
         //setup certain references that are important for spawning
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
-        currentWaveTimeMax = Random.Range(waveTimerMin, waveTimerMax);
         grid = GameObject.Find("Grid"); ;
         gridScript = grid.GetComponent<GridCreate>();
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
-        unitPositions = GameHandler.GetComponent<DragCombination>().filledPositions;
+        unitPositions = GH.GetComponent<DragCombination>().filledPositions;
 
 
         //read in waves JSON, setup

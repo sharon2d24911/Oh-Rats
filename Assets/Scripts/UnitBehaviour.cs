@@ -19,7 +19,7 @@ public class UnitBehaviour : MonoBehaviour
     public Transform ProjectileOrigin;
     public float cooldown;
     private bool canShoot;
-    private Camera MainCamera;
+    private GameObject GH;
     private Dictionary<Vector2, GameObject> unitPositions;
     [HideInInspector] public bool defending = false;
     [HideInInspector] public bool placed = false;
@@ -57,8 +57,8 @@ public class UnitBehaviour : MonoBehaviour
         Invoke("ResetCooldown", cooldown);
         unit = gameObject;
         sprite = unit.GetComponent<SpriteRenderer>();
-        MainCamera = Camera.main;
-        unitPositions = MainCamera.GetComponent<DragCombination>().filledPositions;
+        GH = GameObject.Find("GameHandler");
+        unitPositions = GH.GetComponent<DragCombination>().filledPositions;
         attackLayer = unit.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
         healthLayer = unit.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>();
         speedLayer = unit.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>();
