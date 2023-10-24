@@ -117,7 +117,7 @@ public class DragCombination : MonoBehaviour
                 {
                     Debug.Log("spot empty");
                     Debug.Log("i " + i);
-                    gridDepth = (i / gridScript.columns) * gridScript.rows;
+                    gridDepth = (i / gridScript.columns);
                     Debug.Log("gridDepth " + gridDepth);
                     nearestPos = p;
                 }
@@ -168,7 +168,9 @@ public class DragCombination : MonoBehaviour
         else
         {
             // If tower is within distance of a grid spot, snaps object into the same position
-            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 13f - gridDepth);
+            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, gridDepth + 1f);
+            selectedObject.GetComponent<UnitBehaviour>().placed = true;
+
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
             AudioManager.Instance.PlaySFX("DonutPlace");
@@ -236,6 +238,11 @@ public class DragCombination : MonoBehaviour
         newUnit.GetComponent<UnitBehaviour>().projAddAttack += addAttack;
         newUnit.GetComponent<UnitBehaviour>().projAddSpeed += addSpeed;
         newUnit.GetComponent<UnitBehaviour>().health += addHealth;
+
+        //Note from Matthieu: for right now, this is simply hard coded cause I couldnt find a simpler way to grab the "base" values for each stat. If you have a fix, please implement it. Thanks
+        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / 5) - 1;
+        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / 0.2) - 1;
+        newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / 25) - 1;
         newUnit.tag = "Unit";
     }
 
