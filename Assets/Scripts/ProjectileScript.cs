@@ -7,15 +7,13 @@ public class ProjectileScript : MonoBehaviour
     public float attack;
     public float speed;
     public float collideTime = 0.5f;
-    private float destroyTime = 2f;
-    private float timer;
+    public float screenEdge = 13.3f;
     private void Update()
     {
         transform.position += new Vector3(speed * Time.fixedDeltaTime, 0, 0);
-        timer += Time.deltaTime;
-        if (timer > destroyTime)
+        if (transform.position.x > screenEdge)
         {
-            Destroy(gameObject); //destroys projectile after given time
+            Destroy(gameObject); //destroys projectile after reaching the edge of the screen
         }
     }
 }

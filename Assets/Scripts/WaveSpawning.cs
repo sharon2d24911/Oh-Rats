@@ -169,7 +169,7 @@ public class WaveSpawning : MonoBehaviour
 
                 warmupTimer = 0f;
                 waveTimer = 0f;
-                currentWaveTimeMax = Random.Range(waveTimerMin, waveTimerMax);
+                currentWaveTimeMax = 0f;
                 waveDurationTimer = 0f;
 
             }
@@ -220,7 +220,7 @@ public class WaveSpawning : MonoBehaviour
         //Debug.Log("previousLane" + previousLane);
         previousLane = randInd;
         //Debug.Log("previousLane" + previousLane);
-        Vector3 selectedPos = new Vector3(GameHandler.EnemyStartXPosition, gridPositions[randInd].y + enemyPosHeightAdjust, 1);
+        Vector3 selectedPos = new Vector3(GameHandler.EnemyStartXPosition, gridPositions[randInd].y + enemyPosHeightAdjust, (randInd/cols) + 1.5f);
 
         return selectedPos;
     }

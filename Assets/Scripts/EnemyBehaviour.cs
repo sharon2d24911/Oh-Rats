@@ -45,7 +45,6 @@ public class EnemyBehaviour : MonoBehaviour
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
         StopMovement(stunTime);
-        Debug.Log("DAMAGE");
         Debug.Log("health:" + health);
 
     }
@@ -67,7 +66,8 @@ public class EnemyBehaviour : MonoBehaviour
         while (unitScript.health > 0 && health > 0)
         {
             speed = 0f;
-            unitScript.takeDamage(damage);
+            AudioManager.Instance.PlaySFX("Bite1");
+            StartCoroutine(unitScript.takeDamage(damage));
 
             yield return new WaitForSeconds(attackTime);
         }
@@ -119,10 +119,12 @@ public class EnemyBehaviour : MonoBehaviour
             ProjectileCollide(collision.gameObject);
         }else if (collision.gameObject.tag == "Unit")
         {
-            Debug.Log("enemy hit unit");
-            AudioManager.Instance.PlaySFX("Bite1");
             UnitBehaviour unitScript = collision.gameObject.GetComponent<UnitBehaviour>();
-            StartCoroutine(UnitDamage(unitScript));
+            if (unitScript.placed)  //only damage placed units
+            {
+                Debug.Log("enemy hit unit");
+                StartCoroutine(UnitDamage(unitScript));
+            }
         }
 
     }
