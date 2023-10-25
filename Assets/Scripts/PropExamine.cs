@@ -50,12 +50,12 @@ public class PropExamine : MonoBehaviour
     void OnMouseEnter()
     {
         if (Time.timeScale != 0f)
-            Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     void OnMouseExit()
     {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     private void ToggleSize()

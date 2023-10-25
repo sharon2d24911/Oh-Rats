@@ -5,7 +5,12 @@ public class Menu : MonoBehaviour
 {
     public Animator animator;
     private string sceneToLoad;
-    
+
+    void Start()
+    {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
     // Using animator to fade scene out to black
     public void FadeToScene(string sceneName)
     {
