@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour
         
         sceneToLoad = sceneName;
         animator.SetTrigger("FadeOut");
+        Camera.main.GetComponent<AudioManager>().PlaySFX("StartButton");
     }
 
     // Animation event on the completion of fading out to call scene

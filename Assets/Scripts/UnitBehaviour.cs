@@ -24,6 +24,7 @@ public class UnitBehaviour : MonoBehaviour
     private GameObject target;
     private GameObject unit;
     private SpriteRenderer sprite;
+    private string fireSound;
 
     void Start()
     {
@@ -98,6 +99,9 @@ public class UnitBehaviour : MonoBehaviour
            return;
         canShoot = false;
         Invoke("ResetCooldown", cooldown);
+        // Sfx for projectile fire
+        string[] fireSound = { "ProjectileFire1", "ProjectileFire2", "ProjectileFire3", "ProjectileFire4" };
+        AudioManager.Instance.PlaySFX(this.fireSound = fireSound[Mathf.FloorToInt(Random.Range(0, 4))]);
         myProjectile = Instantiate(projectile, ProjectileOrigin.position, Quaternion.identity);
         
         // Projectile update to match the unit's boosted stats

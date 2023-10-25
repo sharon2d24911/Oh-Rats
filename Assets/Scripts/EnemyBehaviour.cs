@@ -21,7 +21,9 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed;
     public float difficultyIndex;
     public bool isBoss; //only should be set true for enemies that are bosses, duh
-
+    private string hitsSound;
+    private string biteSound;
+    private string hurtSound;
     void Move()
     {
         currentTime += Time.deltaTime;
@@ -41,6 +43,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         health -= dmgAmount;
         SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
+        string[] hurtSound = { "RatHurt1", "RatHurt2", "RatHurt3", "RatHurt4" };
+        AudioManager.Instance.PlaySFX(this.hurtSound = hurtSound[Mathf.FloorToInt(Random.Range(0, 4))]);
         sprite.color = Color.red;
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
@@ -115,12 +119,14 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.tag == "Projectile")
         {
             Debug.Log("projectile hit");
-            AudioManager.Instance.PlaySFX("ProjectileHit");
+            string[] hitsSound = {"ProjectileHit1", "ProjectileHit2", "ProjectileHit3"};
+            AudioManager.Instance.PlaySFX(this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))]);
             ProjectileCollide(collision.gameObject);
         }else if (collision.gameObject.tag == "Unit")
         {
             Debug.Log("enemy hit unit");
-            AudioManager.Instance.PlaySFX("Bite1");
+            string[] biteSound = { "Bite1", "Bite2", "Bite3" };
+            AudioManager.Instance.PlaySFX(this.biteSound = biteSound[Mathf.FloorToInt(Random.Range(0, 3))]);
             UnitBehaviour unitScript = collision.gameObject.GetComponent<UnitBehaviour>();
             StartCoroutine(UnitDamage(unitScript));
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameHandler : MonoBehaviour
 
     public void PlayerWin()
     {
-        WinScreen.gameObject.SetActive(true);
+        SceneManager.LoadScene("WinScene");
         Debug.Log("Player won!");
         Time.timeScale = 0;
     }
@@ -25,7 +26,7 @@ public class GameHandler : MonoBehaviour
 
         if (numOfRats == 3)
         {
-            LoseScreen.gameObject.SetActive(true);
+            SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");
             Time.timeScale = 0;
         }

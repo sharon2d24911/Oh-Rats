@@ -25,6 +25,7 @@ public class WaveSpawning : MonoBehaviour
     private int previousLane;
     private int bossWave = 1;
     public GameObject bossPrefab;//tech Demo version
+    private string spawnSound;
     //public List<GameObject> enemyPrefabs = new List<GameObject>();
     //public List<TextAsset> waves = new List<TextAsset>();
 
@@ -63,7 +64,9 @@ public class WaveSpawning : MonoBehaviour
                 Vector3 enemyPos = selectLane();
                 if (currentWave == bossWave)
                 {
-                    AudioManager.Instance.PlayMusic("BassyEvent");
+                    //Camera.main.GetComponent<AudioManager>().StopMusic("BassyMain"); backup
+                    //Camera.main.GetComponent<AudioManager>().PlayMusic("BassyMain"); backup
+                    StartCoroutine(Camera.main.GetComponent<AudioManager>().FadeTwo(true, "BassyMain", "BassyEvent", 0.1f, 1f)); // Fade in two music
                     Vector3 bossPos = GameHandler.bossPos;
                     Spawn(bossPrefab, bossPos);
                     currentWave += 1;
@@ -128,5 +131,7 @@ public class WaveSpawning : MonoBehaviour
     void Spawn(GameObject enemy, Vector3 position)
     {
         Instantiate(enemy, position, enemy.transform.rotation);
+        string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
+        AudioManager.Instance.PlaySFX(this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))]);
     }
 }

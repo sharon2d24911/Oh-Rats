@@ -16,6 +16,12 @@ public class DragCombination : MonoBehaviour
     private GameObject grid;
     public GameObject unit;
     private GameObject newUnit;
+    private string sugarDropSound;
+    private string flourDropSound;
+    private string eggDropSound;
+    private string sugarGrabSound;
+    private string flourGrabSound;
+    private string eggGrabSound;
 
     void Start()
     {
@@ -57,6 +63,24 @@ public class DragCombination : MonoBehaviour
             {
                 isIngredient = true;
                 GameObject ingredient = Instantiate(selectedObject.GetComponent<Ingredient>().singularIngredient);
+                
+                // Sfx for ingredient grab
+                if (selectedObject.name == "Sugar") // sugar sfx
+                {
+                    string[] sugarGrabSound = { "SugarGrab1", "SugarGrab2" };
+                    AudioManager.Instance.PlaySFX(this.sugarGrabSound = sugarGrabSound[Mathf.FloorToInt(Random.Range(0, 2))]);
+                }
+                else if (selectedObject.name == "Flour") // flour sfx
+                {
+                    string[] flourGrabSound = { "FlourGrab1", "FlourGrab2" };
+                    AudioManager.Instance.PlaySFX(this.flourGrabSound = flourGrabSound[Mathf.FloorToInt(Random.Range(0, 2))]);
+                }
+                else if (selectedObject.name == "Egg") // egg sfx
+                {
+                    string[] eggGrabSound = { "EggGrab1", "EggGrab2", "EggGrab3" };
+                    AudioManager.Instance.PlaySFX(this.eggGrabSound = eggGrabSound[Mathf.FloorToInt(Random.Range(0, 3))]);
+                }
+
                 baseObject = selectedObject;
                 selectedObject = ingredient;
                 // Set parent to be the ingredient
@@ -131,6 +155,23 @@ public class DragCombination : MonoBehaviour
                 // Snaps object into the same position
                 selectedObject.transform.position = combinationZone.transform.position;
                 dragged.Add(selectedObject);
+
+                // Sfx for ingredient drop
+                if (selectedObject.name == "sugar_individual_PH(Clone)") // sugar sfx
+                {
+                    string[] sugarDropSound = { "SugarDrop1", "SugarDrop2"};
+                    AudioManager.Instance.PlaySFX(this.sugarDropSound = sugarDropSound[Mathf.FloorToInt(Random.Range(0, 2))]);
+                }
+                else if(selectedObject.name == "flour_individual_PH(Clone)") // flour sfx
+                {
+                    string[] flourDropSound = { "FlourDrop1", "FlourDrop2" };
+                    AudioManager.Instance.PlaySFX(this.flourDropSound = flourDropSound[Mathf.FloorToInt(Random.Range(0, 2))]);
+                }
+                else if (selectedObject.name == "egg_individual_PH(Clone)") // egg sfx
+                {
+                    string[] eggDropSound = { "EggDrop1", "EggDrop2", "EggDrop3", "EggDrop4" };
+                    AudioManager.Instance.PlaySFX(this.eggDropSound = eggDropSound[Mathf.FloorToInt(Random.Range(0, 4))]);
+                }
 
                 // Adds selected object to list
                 combining.Add(selectedObject);
@@ -214,7 +255,7 @@ public class DragCombination : MonoBehaviour
     IEnumerator CombineWithDelay(float addAttack, float addSpeed, float addHealth)
     {
         // Wait for 3 seconds
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
         newUnit = Instantiate(unit, combinationZone.transform.position, Quaternion.identity);
         //Layer = Instantiate(layer1, combinationZone.transform.position, Quaternion.identity);
