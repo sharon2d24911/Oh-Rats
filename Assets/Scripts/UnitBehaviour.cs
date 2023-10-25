@@ -4,34 +4,67 @@ using UnityEngine;
 
 public class UnitBehaviour : MonoBehaviour
 {
+    [System.Serializable]
+    public struct Animations
+    {
+        public string animation;
+        public List<Sprite> BaseAnimation;
+        public List<Sprite> AttackAnimation;
+        public List<Sprite> HealthAnimation;
+        public List<Sprite> SpeedAnimation;
+    }
+
     public GameObject projectile;
     private GameObject myProjectile;
     public Transform ProjectileOrigin;
     public float cooldown;
     private bool canShoot;
-    public bool defending;
+    private GameObject GH;
+    private Dictionary<Vector2, GameObject> unitPositions;
+    [HideInInspector] public bool defending = false;
+    [HideInInspector] public bool placed = false;
     public float range;
     public float health;
     public float damageTime;
-    public float frameRate = 16f;
-    public List<Sprite> IdleAnimation;
-    private float animTimer;
-    public float animTimeMax; //max seconds per frame. concept taken from lab 4
-    int animIndex = 0;
     [HideInInspector] public float projAddAttack = 0;
     [HideInInspector] public float projAddSpeed = 0;
     public LayerMask projectileMask;
     private GameObject target;
     private GameObject unit;
-    private SpriteRenderer sprite;
     private string fireSound;
+
+    //======Animation Stuff=========
+    public float frameRate = 4f;
+    private float animTimer;
+    public float animTimeMax; //max seconds per frame. concept taken from lab 4
+    public Animations[] animations;
+    int animIndex = 0;
+    private SpriteRenderer sprite;
+    private SpriteRenderer attackLayer;
+    private SpriteRenderer healthLayer;
+    private SpriteRenderer speedLayer;
+    [HideInInspector] public int healthBoost, speedBoost, attackBoost;
+    //======Animation Stuff=========
+
 
     void Start()
     {
+        Debug.Log("Im alive!");
+
+        Debug.Log(healthBoost);
+        Debug.Log(speedBoost);
+        Debug.Log(attackBoost);
+
         Invoke("ResetCooldown", cooldown);
         unit = gameObject;
         sprite = unit.GetComponent<SpriteRenderer>();
+        GH = GameObject.Find("GameHandler");
+        unitPositions = GH.GetComponent<DragCombination>().filledPositions;
+        attackLayer = unit.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
+        healthLayer = unit.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>();
+        speedLayer = unit.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>();
         animTimeMax = animTimeMax / frameRate;
+
     }
 
     void Update()
@@ -44,26 +77,42 @@ public class UnitBehaviour : MonoBehaviour
         }
         if (health <= 0)
         {
-            Destroy(unit);
+            unitPositions.Remove(unit.transform.position);
+            Destroy(unit); //kills the unit
         }
     }
+
     void Idle()
     {
-        int animFrames = IdleAnimation.Count;
+        int animFrames = animations[0].BaseAnimation.Count; //should be conistent across all animations, otherwise everything will look wonky
         animTimer += Time.deltaTime;
 
        if(animTimer > animTimeMax)
         {
             animTimer = 0;
             if (animIndex < animFrames - 1)
-            {
-                animIndex++;
-            }
-            else
-            {
-                animIndex = 0;
-            }
-        sprite.sprite = IdleAnimation[animIndex];
+           {
+               animIndex++;
+           }
+           else
+           {
+               animIndex = 0;
+           }
+
+            //assuming Idle is the first array in "Animations"
+            //-->cycles through all layers of animations 
+
+        sprite.sprite = animations[0].BaseAnimation[animIndex]; 
+        attackLayer.sprite = animations[0].AttackAnimation[animIndex + (animFrames * (attackBoost/2) ) ]; //adjusts starting point of anim index depending on the boost of each stat
+        speedLayer.sprite = animations[0].SpeedAnimation[animIndex + (animFrames * (speedBoost/2) ) ];
+        healthLayer.sprite = animations[0].HealthAnimation[animIndex + (animFrames * (healthBoost/2) ) ];
+
+        sprite.color += new Color(0, 0, 0, 1);
+        //depending on stats of the unit, change appearance of layers
+        attackLayer.color += new Color(0, 0, 0, (attackBoost > 0 ? 1 : 0));  //use of ternary operator to determine whether each respective layer should be visible or not
+        speedLayer.color += new Color(0, 0, 0, (speedBoost > 0 ? 1 : 0));
+        healthLayer.color += new Color(0, 0, 0, (healthBoost > 0 ? 1 : 0));
+
         }
     }
 
@@ -72,22 +121,15 @@ public class UnitBehaviour : MonoBehaviour
         canShoot = true;
     }
 
-    public void takeDamage(float dmgAmount)
+
+    public IEnumerator takeDamage(float dmgAmount)
     {
+        
         health -= dmgAmount;
-        StartCoroutine(spriteColorChange(sprite));
+        sprite.color = Color.red;
         Debug.Log("DAMAGE UNIT");
-
-    }
-
-    IEnumerator spriteColorChange(SpriteRenderer sprite) //kinda doesnt work?????????
-    {
-        for (int i = 0; i < IdleAnimation.Count; i++)  //in this case, IdleAnimation can be swapped out for other animations when implemented -->function arg
-        {
-            sprite.color = Color.red;
-        }
-       yield return new WaitForSeconds(damageTime / 5);
-        for (int i = 0; i < IdleAnimation.Count; i++)  //in this case, IdleAnimation can be swapped out for other animations when implemented -->function arg
+        yield return new WaitForSeconds(damageTime / 5);
+        if (unit != null && sprite != null)
         {
             sprite.color = Color.white;
         }
@@ -108,9 +150,5 @@ public class UnitBehaviour : MonoBehaviour
         myProjectile.GetComponent<ProjectileScript>().attack += projAddAttack;
         myProjectile.GetComponent<ProjectileScript>().speed += projAddSpeed;
 
-        if (health <= 0)
-        {
-            Destroy(unit); //kills the unit
-        }
     }
 }

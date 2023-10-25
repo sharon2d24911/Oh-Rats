@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DragCombination : MonoBehaviour
 {
@@ -9,12 +10,13 @@ public class DragCombination : MonoBehaviour
     private Vector2 startingPosition;
     private List<GameObject> combining = new List<GameObject>();
     private List<GameObject> dragged = new List<GameObject>();
-    public Dictionary<Vector3, GameObject> filledPositions = new Dictionary<Vector3, GameObject>();
+    public Dictionary<Vector2, GameObject> filledPositions = new Dictionary<Vector2, GameObject>();
     public GameObject combinationZone;
     private readonly float sensitivity = 2.0f;
     private bool isIngredient;
     private GameObject grid;
     public GameObject unit;
+    public Button mixButton;
     private GameObject newUnit;
     private string sugarDropSound;
     private string flourDropSound;
@@ -22,17 +24,25 @@ public class DragCombination : MonoBehaviour
     private string sugarGrabSound;
     private string flourGrabSound;
     private string eggGrabSound;
+    private GameObject[] allIngredients;
 
     void Start()
     {
         grid = GameObject.Find("Grid");
+        allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Check if the mix button should allow interaction
+        if (!CheckMinimum())
+            mixButton.interactable = false;
+        else
+            mixButton.interactable = true;
+
         // When left mouse is pressed
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f)
             CheckHitObject();
 
         // If left mouse button is held down
@@ -112,7 +122,8 @@ public class DragCombination : MonoBehaviour
 
         GridCreate gridScript = grid.GetComponent<GridCreate>();
         Vector2 nearestPos = startingPosition;
-        float nearestDistance = Vector3.Distance(grid.transform.position, selectedObject.transform.position);
+        float nearestDistance = Vector2.Distance(grid.transform.position, selectedV2);
+        int gridDepth = 0, i = 0;
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
@@ -120,6 +131,7 @@ public class DragCombination : MonoBehaviour
 
         foreach (Vector2 p in gridPositions)
         {
+            i++;
             float newDistance = Vector2.Distance(p, selectedV2);
             if (newDistance < nearestDistance)
             {
@@ -128,6 +140,9 @@ public class DragCombination : MonoBehaviour
                 if (!filledPositions.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
                 {
                     Debug.Log("spot empty");
+                    Debug.Log("i " + i);
+                    gridDepth = (i / gridScript.columns);
+                    Debug.Log("gridDepth " + gridDepth);
                     nearestPos = p;
                 }
                 else //position is occupied in the dictionary, not free on the grid
@@ -183,17 +198,20 @@ public class DragCombination : MonoBehaviour
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
-        else if (nearestDistance > sensitivity || nearestPos == startingPosition)
+        else if (nearestDistance > sensitivity || nearestPos == selectedV2)
         {
             // If Unit is not within distance, place back in original spot and destroy current instance
-            GameObject clone = Instantiate(selectedObject);
-            clone.transform.position = startingPosition;
-            Destroy(selectedObject);
+            // GameObject clone = Instantiate(selectedObject);
+            // clone.transform.position = startingPosition;
+            // Destroy(selectedObject);
+            selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
         }
         else
         {
             // If tower is within distance of a grid spot, snaps object into the same position
-            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5 - 1f);
+            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, gridDepth + 1f);
+            selectedObject.GetComponent<UnitBehaviour>().placed = true;
+
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
             AudioManager.Instance.PlaySFX("DonutPlace");
@@ -204,51 +222,48 @@ public class DragCombination : MonoBehaviour
 
     public void CheckIfCombine()
     {
-        Debug.Log("Checking if mixable!");
+        // If player hits mix button, use up all the placed ingredients by tallying up their stats
+        float attack = 0;
+        float speed = 0;
+        float health = 0;
 
-        // If nothing in Combine list, return that the bowl is empty!
-        if (combining.Count == 0)
+        // Clear ingredients used counters
+        foreach (GameObject ingredient in allIngredients)
         {
-            Debug.Log("There's nothing to combine!");
+            ingredient.GetComponent<Ingredient>().ClearUse();
         }
-        // Else if there isn't at least one of each ingredient, return that the base tower requires at least one of each
-        else if (!CheckMinimum())
-        {
-            Debug.Log("You haven't added the minimum of one of each ingredient to create a unit!");
-        }
-        // Else while the list isn't empty, pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
-        else
-        {
-            // If player hits mix button, use up all the placed ingredients by tallying up their stats
-            float attack = 0;
-            float speed = 0;
-            float health = 0;
-            while (combining.Count > 0)
-            {
-                attack += combining[0].GetComponentInParent<Ingredient>().attack;
-                speed += combining[0].GetComponentInParent<Ingredient>().speed;
-                health += combining[0].GetComponentInParent<Ingredient>().health;
-                Destroy(combining[0]);
-                combining.Remove(combining[0]);
-            }
-            Debug.Log("BOOSTING:\nAttack: " + attack + ", Speed: " + speed + ", Health: " + health);
 
-            // Create tower with those stats
-            StartCoroutine(CombineWithDelay(attack, speed, health));
+        // Pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
+        while (combining.Count > 0)
+        {
+            attack += combining[0].GetComponentInParent<Ingredient>().attack;
+            speed += combining[0].GetComponentInParent<Ingredient>().speed;
+            health += combining[0].GetComponentInParent<Ingredient>().health;
+            Destroy(combining[0]);
+            combining.Remove(combining[0]);
         }
+        Debug.Log("BOOSTING:\nAttack: " + attack + ", Speed: " + speed + ", Health: " + health);
+
+        // Create tower with those stats
+        StartCoroutine(CombineWithDelay(attack, speed, health));
 
     }
 
     // Checks if the user has placed at minimum one of each ingredient
     bool CheckMinimum()
     {
-        GameObject[] allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
+        // Minimum of 3 ingredients, early check
+        if (combining.Count < 3)
+            return false;
+
+        // Checks if each ingredient has at least one child (and is not the currently selected one, as that hasn't been placed in the bowl yet)
         foreach (GameObject ingredient in allIngredients)
         {
-            if (ingredient.transform.childCount < 1)
+            if (ingredient.transform.childCount < 1 || (ingredient.transform.childCount == 1 && selectedObject != null && selectedObject.transform.parent == ingredient))
                 return false;
         }
         return true;
+        
     }
 
     // Creates new unit based on the given stats
@@ -264,6 +279,11 @@ public class DragCombination : MonoBehaviour
         newUnit.GetComponent<UnitBehaviour>().projAddAttack += addAttack;
         newUnit.GetComponent<UnitBehaviour>().projAddSpeed += addSpeed;
         newUnit.GetComponent<UnitBehaviour>().health += addHealth;
+
+        //Note from Matthieu: for right now, this is simply hard coded cause I couldnt find a simpler way to grab the "base" values for each stat. If you have a fix, please implement it. Thanks
+        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / 5) - 1;
+        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / 0.2) - 1;
+        newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / 25) - 1;
         newUnit.tag = "Unit";
     }
 

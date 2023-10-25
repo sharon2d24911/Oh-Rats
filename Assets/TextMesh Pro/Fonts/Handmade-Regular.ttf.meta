@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 4dc5aeda65cee8f4c9e2368fb28e9cd7
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Handmade
+  fontNames:
+  - Handmade
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 70b10596a03abf5438a91d917b7ffd6a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

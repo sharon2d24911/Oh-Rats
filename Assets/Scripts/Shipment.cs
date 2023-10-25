@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shipment : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Shipment : MonoBehaviour
     public GameObject target;
     private Vector3 targetPosition;
     private Vector3 startPosition;
+    public Image progressBar;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,10 @@ public class Shipment : MonoBehaviour
 
         // Moves box towards ingredients area over the number of seconds it takes for the new shipment to show up
         transform.position = Vector3.Lerp(startPosition, targetPosition, shipmentTimer / shipmentTimerMax);
+        if (shipmentTimer < shipmentTimerMax)
+        {
+            progressBar.fillAmount = shipmentTimer / shipmentTimerMax;
+        }
         if (shipmentTimer >= shipmentTimerMax && ingredients.Count > 0)
         {
             for (int i = 0; i < ingredients.Count; i++)
@@ -38,6 +44,7 @@ public class Shipment : MonoBehaviour
             }
             shipmentTimer = 0;
             transform.position = startPosition;
+            progressBar.fillAmount = 0;
         }
 
     }
