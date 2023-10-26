@@ -120,7 +120,7 @@ public class WaveSpawning : MonoBehaviour
         //once warmup has expired, start wave
         else if (waveDurationTimer < waveDuration)
         {
-            playTrack(waveTrack);
+            playTrack(waveTrack); //fade in of new track
             toggleActive(true);
             waveDurationTimer += Time.deltaTime;
             waveTimer += Time.deltaTime;
@@ -155,6 +155,8 @@ public class WaveSpawning : MonoBehaviour
 
                 if(currentWave < wavesNum)
                 {
+                    endTrack(waveTrack); //fadeout of current track
+
                     //changes variables to be those of the next wave
                     waveTimerMax = wavesInFile.waves[currentWave].maxSpawnInterval;
                     waveTimerMin = wavesInFile.waves[currentWave].minSpawnInterval;
@@ -212,16 +214,26 @@ public class WaveSpawning : MonoBehaviour
     {
         if (trackName != "none")
         {
-            //*****Doesnt work without Sharon's Audio Manager Updates*****
             Debug.Log("PLAY SONG" + trackName + "(needs Sharon's updates to work properly");
 
-            //UNCOMMENT WHEN SURE THAT EVERYTHING WORKS
 
-
-            //StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, 1f, 1f)); //should audio manager be moved to GameHandler?
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, 1f, 1f));
 
         }
     }
+
+    void endTrack(string trackName)
+    {
+        if (trackName != "none")
+        {
+            Debug.Log("End SONG" + trackName + "(needs Sharon's updates to work properly");
+
+
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(false, trackName, 1f, 1f)); 
+
+        }
+    }
+
 
     Vector3 selectLane()
     {

@@ -155,6 +155,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else if (health <= 0.5*initialHealth)
         {
+            Damage1.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder;
             Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
         }
         Move();
