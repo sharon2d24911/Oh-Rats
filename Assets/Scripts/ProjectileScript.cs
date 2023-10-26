@@ -10,7 +10,7 @@ public class ProjectileScript : MonoBehaviour
     public float screenEdge = 13.3f;
     private void Update()
     {
-        transform.position += new Vector3(speed * Time.fixedDeltaTime, 0, 0);
+        transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
         if (transform.position.x > screenEdge)
         {
             Destroy(gameObject); //destroys projectile after reaching the edge of the screen
