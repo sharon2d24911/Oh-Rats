@@ -43,6 +43,7 @@ public class WaveSpawning : MonoBehaviour
     private float warmupTimer = 0f;
     private float currentWaveTimeMax = 0f;
     private int previousLane;
+    private string spawnSound;
     private Waves wavesInFile;
     public EnemyObjects[] enemyPrefabs;
     public TextAsset wavesFile;
@@ -129,7 +130,7 @@ public class WaveSpawning : MonoBehaviour
             {
                 Vector3 enemyPos = selectLane();
 
-                ///AudioManager.Instance.PlayMusic("BassyEvent");
+                //StartCoroutine(Camera.main.GetComponent<AudioManager>().FadeTwo(true, "BassyMain", "BassyEvent", 0.1f, 1f)); // Fade in two music
                 ///this line of code was implemented when the bossWave came about
                 ///the new version of the waves system doesn't have this included, so a music event like this might have to be handled differently
                 ///maybe depending of the enemy type(s) in the wave? or the wave number? a music attribute can also be added to the JSON, although this would likely be limited
@@ -254,7 +255,9 @@ public class WaveSpawning : MonoBehaviour
         GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
         Debug.Log("pos z" + position.z);
         Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
-       spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5);
+        spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5);
         Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
+        string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
+        AudioManager.Instance.PlaySFX(this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))]);
     }
 }

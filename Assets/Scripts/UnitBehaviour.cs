@@ -31,6 +31,7 @@ public class UnitBehaviour : MonoBehaviour
     public LayerMask projectileMask;
     private GameObject target;
     private GameObject unit;
+    private string fireSound;
 
     //======Animation Stuff=========
     public float frameRate = 4f;
@@ -169,6 +170,9 @@ public class UnitBehaviour : MonoBehaviour
         Animate();
         yield return new WaitForSeconds(animTimeMax * frameRate);
         Invoke("ResetCooldown", (cooldown - animTimeMax * frameRate));
+        // Sfx for projectile fire
+        string[] fireSound = { "ProjectileFire1", "ProjectileFire2", "ProjectileFire3", "ProjectileFire4" };
+        AudioManager.Instance.PlaySFX(this.fireSound = fireSound[Mathf.FloorToInt(Random.Range(0, 4))]);
         myProjectile = Instantiate(projectile, ProjectileOrigin.position, Quaternion.identity);
         // Projectile update to match the unit's boosted stats
         myProjectile.GetComponent<ProjectileScript>().attack += projAddAttack;
