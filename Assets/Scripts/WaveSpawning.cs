@@ -231,6 +231,10 @@ public class WaveSpawning : MonoBehaviour
         string enemyName = waveEnemyTypes[randInd];
         Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum "  + waveEnemiesNum);
         GameObject enemy = getEnemyObj(enemyName);
-        Instantiate(enemy, position, enemy.transform.rotation);
+        GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
+        Debug.Log("pos z" + position.z);
+        Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
+       spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5);
+        Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
     }
 }

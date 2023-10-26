@@ -60,10 +60,18 @@ public class UnitBehaviour : MonoBehaviour
         GH = GameObject.Find("GameHandler");
         unitPositions = GH.GetComponent<DragCombination>().filledPositions;
         attackLayer = unit.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>();
-        healthLayer = unit.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>();
-        speedLayer = unit.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>();
+        healthLayer = unit.transform.GetChild(3).gameObject.GetComponent<SpriteRenderer>();
+        speedLayer = unit.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>();
         animTimeMax = animTimeMax / frameRate;
 
+    }
+
+    public void layerSprites(int gridDepth)
+    {
+        sprite.sortingOrder = gridDepth;
+        attackLayer.sortingOrder = gridDepth + 2;
+        healthLayer.sortingOrder = gridDepth + 3;
+        speedLayer.sortingOrder = gridDepth + 1;
     }
 
     void Update()

@@ -168,8 +168,9 @@ public class DragCombination : MonoBehaviour
         else
         {
             // If tower is within distance of a grid spot, snaps object into the same position
-            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, gridDepth + 1f);
+            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5f - gridDepth);
             selectedObject.GetComponent<UnitBehaviour>().placed = true;
+            selectedObject.GetComponent<UnitBehaviour>().layerSprites(5*gridDepth + 1);
 
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);

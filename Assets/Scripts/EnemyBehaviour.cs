@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject GH;
     private GameHandler GameHandler;
     private GameObject Damage1;
+    private SpriteRenderer sprite;
     public float stunTime = 0.5f;
     public float attackTime = 1.5f;
     public float deathTime = 2.0f;
@@ -40,7 +41,6 @@ public class EnemyBehaviour : MonoBehaviour
     IEnumerator takeDamage(float dmgAmount)
     {
         health -= dmgAmount;
-        SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
         sprite.color = Color.red;
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
@@ -103,6 +103,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         enemy = gameObject;
+        sprite = enemy.GetComponent<SpriteRenderer>();
         rb2d = enemy.GetComponent<Rigidbody2D>();
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
