@@ -37,7 +37,9 @@ public class UnitBehaviour : MonoBehaviour
     private float animTimer;
     public float animTimeMax; //max seconds per frame. concept taken from lab 4
     public Animations[] animations;
-    int animIndex = 0;
+    private string currentAnim = "Idle";
+    private int animNum = 0;
+    private int animIndex = 0;
     private SpriteRenderer sprite;
     private SpriteRenderer attackLayer;
     private SpriteRenderer healthLayer;
@@ -77,11 +79,14 @@ public class UnitBehaviour : MonoBehaviour
     void Update()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, range, projectileMask);
-        Idle();
         if (defending)
         {
-            Shoot();
+            if (canShoot)
+            {
+                StartCoroutine(Shoot());
+            }
         }
+        Animate();
         if (health <= 0)
         {
             unitPositions.Remove(unit.transform.position);
@@ -89,9 +94,19 @@ public class UnitBehaviour : MonoBehaviour
         }
     }
 
-    void Idle()
+
+    void Animate()
     {
-        int animFrames = animations[0].BaseAnimation.Count; //should be conistent across all animations, otherwise everything will look wonky
+        switch (currentAnim)
+        {
+            case "Idle":
+                animNum = 0;
+                break;
+            case "Attack":
+                animNum = 1;
+                break;
+        }
+        int animFrames = animations[animNum].BaseAnimation.Count; //should be conistent across all animations, otherwise everything will look wonky
         animTimer += Time.deltaTime;
 
        if(animTimer > animTimeMax)
@@ -103,25 +118,28 @@ public class UnitBehaviour : MonoBehaviour
            }
            else
            {
+                if(animNum != 0) //all other animations should end after one cycle
+                {
+                    currentAnim = "Idle";
+                }
                animIndex = 0;
            }
 
             //assuming Idle is the first array in "Animations"
             //-->cycles through all layers of animations 
+                sprite.sprite = animations[animNum].BaseAnimation[animIndex];
+                attackLayer.sprite = animations[animNum].AttackAnimation[animIndex + (animFrames * (attackBoost / 2))]; //adjusts starting point of anim index depending on the boost of each stat
+                speedLayer.sprite = animations[animNum].SpeedAnimation[animIndex + (animFrames * (speedBoost / 2))];
+                healthLayer.sprite = animations[animNum].HealthAnimation[animIndex + (animFrames * (healthBoost / 2))];
 
-        sprite.sprite = animations[0].BaseAnimation[animIndex]; 
-        attackLayer.sprite = animations[0].AttackAnimation[animIndex + (animFrames * (attackBoost/2) ) ]; //adjusts starting point of anim index depending on the boost of each stat
-        speedLayer.sprite = animations[0].SpeedAnimation[animIndex + (animFrames * (speedBoost/2) ) ];
-        healthLayer.sprite = animations[0].HealthAnimation[animIndex + (animFrames * (healthBoost/2) ) ];
-
-        sprite.color += new Color(0, 0, 0, 1);
-        //depending on stats of the unit, change appearance of layers
-        attackLayer.color += new Color(0, 0, 0, (attackBoost > 0 ? 1 : 0));  //use of ternary operator to determine whether each respective layer should be visible or not
-        speedLayer.color += new Color(0, 0, 0, (speedBoost > 0 ? 1 : 0));
-        healthLayer.color += new Color(0, 0, 0, (healthBoost > 0 ? 1 : 0));
-
+                sprite.color += new Color(0, 0, 0, 1);
+                //depending on stats of the unit, change appearance of layers
+                attackLayer.color += new Color(0, 0, 0, (attackBoost > 0 ? 1 : 0));  //use of ternary operator to determine whether each respective layer should be visible or not
+                speedLayer.color += new Color(0, 0, 0, (speedBoost > 0 ? 1 : 0));
+                healthLayer.color += new Color(0, 0, 0, (healthBoost > 0 ? 1 : 0));
         }
     }
+
 
     void ResetCooldown()
     {
@@ -142,17 +160,18 @@ public class UnitBehaviour : MonoBehaviour
         }
     }
 
-    void Shoot()
+    IEnumerator Shoot()
     {
-        if (!canShoot)
-           return;
         canShoot = false;
-        Invoke("ResetCooldown", cooldown);
+        animIndex = 0;
+        animTimer = 0;
+        currentAnim = "Attack";
+        Animate();
+        yield return new WaitForSeconds(animTimeMax * frameRate);
+        Invoke("ResetCooldown", (cooldown - animTimeMax * frameRate));
         myProjectile = Instantiate(projectile, ProjectileOrigin.position, Quaternion.identity);
-        
         // Projectile update to match the unit's boosted stats
         myProjectile.GetComponent<ProjectileScript>().attack += projAddAttack;
         myProjectile.GetComponent<ProjectileScript>().speed += projAddSpeed;
-
     }
 }

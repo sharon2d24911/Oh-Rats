@@ -22,6 +22,7 @@ public class WaveSpawning : MonoBehaviour
         public float warmUp;
         public float minSpawnInterval;
         public float maxSpawnInterval;
+        public string track;
     }
 
     [System.Serializable]
@@ -55,6 +56,7 @@ public class WaveSpawning : MonoBehaviour
     private float waveDuration;
     private int waveDifficulty;
     private float warmUpDuration;
+    private string waveTrack;
     private string[] waveEnemyTypes;
     private int waveEnemiesNum;
 
@@ -97,6 +99,7 @@ public class WaveSpawning : MonoBehaviour
         waveTimerMin = wavesInFile.waves[0].minSpawnInterval;
         waveDifficulty = wavesInFile.waves[0].difficulty;
         waveDuration = wavesInFile.waves[0].duration;
+        waveTrack = wavesInFile.waves[0].track;
         warmUpDuration = wavesInFile.waves[0].warmUp;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
@@ -116,6 +119,7 @@ public class WaveSpawning : MonoBehaviour
         //once warmup has expired, start wave
         else if (waveDurationTimer < waveDuration)
         {
+            playTrack(waveTrack);
             toggleActive(true);
             waveDurationTimer += Time.deltaTime;
             waveTimer += Time.deltaTime;
@@ -154,6 +158,7 @@ public class WaveSpawning : MonoBehaviour
                     waveTimerMax = wavesInFile.waves[currentWave].maxSpawnInterval;
                     waveTimerMin = wavesInFile.waves[currentWave].minSpawnInterval;
                     waveDuration = wavesInFile.waves[currentWave].duration;
+                    waveTrack = wavesInFile.waves[currentWave].track;
                     waveDifficulty = wavesInFile.waves[currentWave].difficulty;
                     warmUpDuration = wavesInFile.waves[currentWave].warmUp;
                     waveEnemyTypes = wavesInFile.waves[currentWave].enemyTypes;
@@ -199,6 +204,21 @@ public class WaveSpawning : MonoBehaviour
                 UnitBehaviour unitScript = unit.GetComponent<UnitBehaviour>();
                 unitScript.defending = state;
             }
+        }
+    }
+
+    void playTrack(string trackName)
+    {
+        if (trackName != "none")
+        {
+            //*****Doesnt work without Sharon's Audio Manager Updates*****
+            Debug.Log("PLAY SONG" + trackName + "(needs Sharon's updates to work properly");
+
+            //UNCOMMENT WHEN SURE THAT EVERYTHING WORKS
+
+
+            //StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, 1f, 1f)); //should audio manager be moved to GameHandler?
+
         }
     }
 
