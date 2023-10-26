@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PropExamine : MonoBehaviour
 {
+    public Sprite small;
+    public Sprite big;
     public Vector3 smallPos;
     public Vector3 smallRot;
     public Vector3 smallScale;
@@ -16,6 +18,7 @@ public class PropExamine : MonoBehaviour
     private Vector3 targetPos;
     private Vector3 targetRot;
     private Vector3 targetScale;
+    private Sprite targetImage;
     private bool isBig;
 
     private void Start()
@@ -24,6 +27,7 @@ public class PropExamine : MonoBehaviour
         transform.eulerAngles = smallRot;
         transform.localScale = smallScale;
         targetScale = transform.localScale;
+        GetComponent<SpriteRenderer>().sprite = small;
         isBig = false;
     }
 
@@ -44,6 +48,7 @@ public class PropExamine : MonoBehaviour
             transform.position = targetPos; //Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
             transform.eulerAngles = targetRot;
             transform.localScale = targetScale; //Vector3.Lerp(transform.localScale, targetScale, speed * Time.deltaTime);
+            GetComponent<SpriteRenderer>().sprite = targetImage;
         }
     }
 
@@ -66,10 +71,12 @@ public class PropExamine : MonoBehaviour
         Vector3 position = isBig ? bigPos : smallPos;
         Vector3 rotation = isBig ? bigRot : smallRot;
         Vector3 scale = isBig ? bigScale : smallScale;
+        Sprite image = isBig ? big : small;
         // Set the target for next click
         targetPos = position;
         targetRot = rotation;
         targetScale = scale;
+        targetImage = image;
     }
     
 }
