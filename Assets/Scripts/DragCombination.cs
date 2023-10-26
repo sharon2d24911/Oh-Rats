@@ -172,17 +172,17 @@ public class DragCombination : MonoBehaviour
                 dragged.Add(selectedObject);
 
                 // Sfx for ingredient drop
-                if (selectedObject.name == "sugar_individual_PH(Clone)") // sugar sfx
+                if (selectedObject.name == "Sugar_individual(Clone)") // sugar sfx
                 {
                     string[] sugarDropSound = { "SugarDrop1", "SugarDrop2"};
                     AudioManager.Instance.PlaySFX(this.sugarDropSound = sugarDropSound[Mathf.FloorToInt(Random.Range(0, 2))]);
                 }
-                else if(selectedObject.name == "flour_individual_PH(Clone)") // flour sfx
+                else if(selectedObject.name == "Flour_individual(Clone)") // flour sfx
                 {
                     string[] flourDropSound = { "FlourDrop1", "FlourDrop2" };
                     AudioManager.Instance.PlaySFX(this.flourDropSound = flourDropSound[Mathf.FloorToInt(Random.Range(0, 2))]);
                 }
-                else if (selectedObject.name == "egg_individual_PH(Clone)") // egg sfx
+                else if (selectedObject.name == "Egg_individual(Clone)") // egg sfx
                 {
                     string[] eggDropSound = { "EggDrop1", "EggDrop2", "EggDrop3", "EggDrop4" };
                     AudioManager.Instance.PlaySFX(this.eggDropSound = eggDropSound[Mathf.FloorToInt(Random.Range(0, 4))]);
