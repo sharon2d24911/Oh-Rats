@@ -23,6 +23,8 @@ public class WaveSpawning : MonoBehaviour
         public float minSpawnInterval;
         public float maxSpawnInterval;
         public string track;
+        public int trackFadeTime;
+        public int trackFinalVolume;
     }
 
     [System.Serializable]
@@ -58,6 +60,8 @@ public class WaveSpawning : MonoBehaviour
     private int waveDifficulty;
     private float warmUpDuration;
     private string waveTrack;
+    private int waveTrackFadeTime;
+    private int waveTrackFinalVolume;
     private string[] waveEnemyTypes;
     private int waveEnemiesNum;
 
@@ -101,6 +105,8 @@ public class WaveSpawning : MonoBehaviour
         waveDifficulty = wavesInFile.waves[0].difficulty;
         waveDuration = wavesInFile.waves[0].duration;
         waveTrack = wavesInFile.waves[0].track;
+        waveTrackFadeTime = wavesInFile.waves[0].trackFadeTime;
+        waveTrackFinalVolume = wavesInFile.waves[0].trackFinalVolume;
         warmUpDuration = wavesInFile.waves[0].warmUp;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
@@ -172,6 +178,8 @@ public class WaveSpawning : MonoBehaviour
                     {
                         endTrack(waveTrack); //fadeout of current track
                         waveTrack = wavesInFile.waves[currentWave].track;
+                        waveTrackFadeTime = wavesInFile.waves[currentWave].trackFadeTime;
+                        waveTrackFinalVolume = wavesInFile.waves[currentWave].trackFinalVolume;
                         playTrack(waveTrack); //fade in of new track
                     }
 
@@ -227,7 +235,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("PLAY SONG" + trackName);
 
 
-            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, 1f, 2f));
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, waveTrackFadeTime, waveTrackFinalVolume));
 
         }
     }
@@ -239,7 +247,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("End SONG");
 
 
-            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(false, trackName, 1f, 2f)); 
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(false, trackName, waveTrackFadeTime, 0)); 
 
         }
     }
