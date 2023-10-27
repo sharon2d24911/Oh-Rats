@@ -5,16 +5,17 @@ public class Menu : MonoBehaviour
 {
     public Animator animator;
     private string sceneToLoad;
+    public Texture2D basic;
 
     void Start()
     {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(basic, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     // Using animator to fade scene out to black
     public void FadeToScene(string sceneName)
     {
-        
+        Time.timeScale = 1f;
         sceneToLoad = sceneName;
         animator.SetTrigger("FadeOut");
         Camera.main.GetComponent<AudioManager>().PlaySFX("StartButton");
@@ -26,5 +27,4 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(sceneToLoad);
     }
-    
 }

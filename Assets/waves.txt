@@ -19,7 +19,6 @@
 		"minSpawnInterval": 12.5,
 		"maxSpawnInterval": 18,
 		"difficulty" : 2,
-		"track" : "none"
 		"track" : "BassyEvent"
 	}
  ]	
