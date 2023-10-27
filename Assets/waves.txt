@@ -7,7 +7,8 @@
 		"warmUp": 30,
 		"minSpawnInterval": 15,
 		"maxSpawnInterval": 20,
-		"difficulty" : 1
+		"difficulty" : 1,
+		"track" : "BassyMain"
 	},
 
 	{
@@ -17,7 +18,8 @@
 		"warmUp": 15,
 		"minSpawnInterval": 12.5,
 		"maxSpawnInterval": 18,
-		"difficulty" : 2
+		"difficulty" : 2,
+		"track" : "BassyEvent"
 	}
  ]	
 }

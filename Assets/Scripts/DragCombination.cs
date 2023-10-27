@@ -26,10 +26,22 @@ public class DragCombination : MonoBehaviour
     private string eggGrabSound;
     [HideInInspector] public GameObject[] allIngredients;
 
+    //=====Animation stuff=======
+    public float frameRate = 4f;
+    private float animTimer;
+    public float animTimeMax; //max seconds per frame. concept taken from lab 4
+    private int animIndex = 0;
+    public Sprite bowlDefault;
+    public List<Sprite> bowlAnims = new List<Sprite>();
+    private bool bowlIsAnimating = false;
+    //=====Animation stuff=======
+
+
     void Start()
     {
         grid = GameObject.Find("Grid");
         allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
+        animTimeMax = animTimeMax / frameRate;
     }
 
     // Update is called once per frame
@@ -53,7 +65,34 @@ public class DragCombination : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && selectedObject != null)
             DropObject();
 
+        if (bowlIsAnimating)
+        {
+            bowlAnimate();
+        }
+
     }
+
+    void bowlAnimate()
+    {
+        int animFrames = bowlAnims.Count;
+        animTimer += Time.deltaTime;
+
+        if (animTimer > animTimeMax)
+        {
+            animTimer = 0;
+            if (animIndex < animFrames - 1)
+            {
+                animIndex++;
+            }
+            else
+            {
+                animIndex = 0;
+            }
+
+            combinationZone.GetComponent<SpriteRenderer>().sprite = bowlAnims[animIndex];
+        }
+    }
+
     
     // Checks if there is an object that can be selected at the mouse position
     void CheckHitObject()
@@ -209,8 +248,9 @@ public class DragCombination : MonoBehaviour
         else
         {
             // If tower is within distance of a grid spot, snaps object into the same position
-            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, gridDepth + 1f);
+            selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5f - gridDepth);
             selectedObject.GetComponent<UnitBehaviour>().placed = true;
+            selectedObject.GetComponent<UnitBehaviour>().layerSprites(5*gridDepth + 1);
 
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
@@ -269,8 +309,15 @@ public class DragCombination : MonoBehaviour
     // Creates new unit based on the given stats
     IEnumerator CombineWithDelay(float addAttack, float addSpeed, float addHealth)
     {
+       //Begin bowl animation
+        bowlIsAnimating = true;
+
         // Wait for 3 seconds
         yield return new WaitForSeconds(2);
+
+        //End bowl animation
+        bowlIsAnimating = false;
+        combinationZone.GetComponent<SpriteRenderer>().sprite = bowlDefault;
 
         newUnit = Instantiate(unit, combinationZone.transform.position, Quaternion.identity);
         //Layer = Instantiate(layer1, combinationZone.transform.position, Quaternion.identity);

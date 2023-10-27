@@ -1574,6 +1574,15 @@ MonoBehaviour:
   combinationZone: {fileID: 1768407627}
   unit: {fileID: 3315082115871708691, guid: 61e8f44353aee9f4aaf024502ff83606, type: 3}
   mixButton: {fileID: 1047695198}
+  allIngredients: []
+  frameRate: 4
+  animTimeMax: 0.4
+  bowlDefault: {fileID: 21300000, guid: 64ddf6c52947d414c889a93f17afe1c4, type: 3}
+  bowlAnims:
+  - {fileID: 1803674546448181814, guid: cd3fd8e64cdb16f44855ae5a33f83034, type: 3}
+  - {fileID: -3147219776244755523, guid: cd3fd8e64cdb16f44855ae5a33f83034, type: 3}
+  - {fileID: 6527756298342610281, guid: cd3fd8e64cdb16f44855ae5a33f83034, type: 3}
+  - {fileID: -5939245590430032672, guid: cd3fd8e64cdb16f44855ae5a33f83034, type: 3}
 --- !u!1 &342972033
 GameObject:
   m_ObjectHideFlags: 0

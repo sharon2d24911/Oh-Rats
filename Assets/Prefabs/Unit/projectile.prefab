@@ -144,5 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 15
-  speed: 0.6
+  speed: 4.8
   collideTime: 0
+  screenEdge: 13.3

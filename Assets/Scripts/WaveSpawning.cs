@@ -22,6 +22,7 @@ public class WaveSpawning : MonoBehaviour
         public float warmUp;
         public float minSpawnInterval;
         public float maxSpawnInterval;
+        public string track;
     }
 
     [System.Serializable]
@@ -56,6 +57,7 @@ public class WaveSpawning : MonoBehaviour
     private float waveDuration;
     private int waveDifficulty;
     private float warmUpDuration;
+    private string waveTrack;
     private string[] waveEnemyTypes;
     private int waveEnemiesNum;
 
@@ -98,10 +100,12 @@ public class WaveSpawning : MonoBehaviour
         waveTimerMin = wavesInFile.waves[0].minSpawnInterval;
         waveDifficulty = wavesInFile.waves[0].difficulty;
         waveDuration = wavesInFile.waves[0].duration;
+        waveTrack = wavesInFile.waves[0].track;
         warmUpDuration = wavesInFile.waves[0].warmUp;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
-        
+        playTrack(waveTrack); //fade in of new track
+
     }
 
     // Update is called once per frame
@@ -117,6 +121,7 @@ public class WaveSpawning : MonoBehaviour
         //once warmup has expired, start wave
         else if (waveDurationTimer < waveDuration)
         {
+            
             toggleActive(true);
             waveDurationTimer += Time.deltaTime;
             waveTimer += Time.deltaTime;
@@ -151,6 +156,7 @@ public class WaveSpawning : MonoBehaviour
 
                 if(currentWave < wavesNum)
                 {
+
                     //changes variables to be those of the next wave
                     waveTimerMax = wavesInFile.waves[currentWave].maxSpawnInterval;
                     waveTimerMin = wavesInFile.waves[currentWave].minSpawnInterval;
@@ -159,6 +165,17 @@ public class WaveSpawning : MonoBehaviour
                     warmUpDuration = wavesInFile.waves[currentWave].warmUp;
                     waveEnemyTypes = wavesInFile.waves[currentWave].enemyTypes;
                     waveEnemiesNum = waveEnemyTypes.Length;
+
+
+                    //Music transition
+                    if (wavesInFile.waves[currentWave].track != "none")  //only change tracks if a transition was mentioned
+                    {
+                        endTrack(waveTrack); //fadeout of current track
+                        waveTrack = wavesInFile.waves[currentWave].track;
+                        playTrack(waveTrack); //fade in of new track
+                    }
+
+
                 }
                 else
                 {
@@ -203,6 +220,31 @@ public class WaveSpawning : MonoBehaviour
         }
     }
 
+    void playTrack(string trackName)
+    {
+        if (trackName != "none")
+        {
+            Debug.Log("PLAY SONG" + trackName);
+
+
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, 1f, 2f));
+
+        }
+    }
+
+    void endTrack(string trackName)
+    {
+        if (trackName != "none")
+        {
+            Debug.Log("End SONG");
+
+
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(false, trackName, 1f, 2f)); 
+
+        }
+    }
+
+
     Vector3 selectLane()
     {
         int rows = gridScript.rows;
@@ -232,7 +274,11 @@ public class WaveSpawning : MonoBehaviour
         string enemyName = waveEnemyTypes[randInd];
         Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum "  + waveEnemiesNum);
         GameObject enemy = getEnemyObj(enemyName);
-        Instantiate(enemy, position, enemy.transform.rotation);
+        GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
+        Debug.Log("pos z" + position.z);
+        Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
+        spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5);
+        Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
         string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
         AudioManager.Instance.PlaySFX(this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))]);
     }

@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         // Background music play when game starts
-        StartCoroutine(Fade(true,"BassyMain",1f,1f)); // Fade in
+        //StartCoroutine(Fade(true,"BassyMain",1f,1f)); // Fade in
         //StartCoroutine(Fade(false, "BassyMain", 2f, 0f)); // Fade out
     }
 
