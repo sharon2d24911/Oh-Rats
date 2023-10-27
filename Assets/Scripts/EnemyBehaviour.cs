@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+
+    [System.Serializable]
+    public struct Animations
+    {
+        public string animation;
+        public List<Sprite> BaseAnimation;
+        public List<Sprite> AccessoryAnimation;
+    }
+
+
     private GameObject enemy;
     private Rigidbody2D rb2d;
     private float currentTime;
@@ -11,12 +21,13 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject GH;
     private GameHandler GameHandler;
     private GameObject Damage1;
-    private SpriteRenderer sprite;
+    private GameObject Damage2;
     public float stunTime = 0.5f;
     public float attackTime = 1.5f;
     public float deathTime = 2.0f;
     public float moveTime = 0.5f;
     public float health;
+    private bool isDead = false;
     private float initialHealth;
     public float damage;
     public float speed;
@@ -25,11 +36,31 @@ public class EnemyBehaviour : MonoBehaviour
     private string hitsSound;
     private string biteSound;
     private string hurtSound;
+
+    //======Animation Stuff=========
+    public float frameRate = 4f;
+    private float animTimer;
+    public float animTimeMax; //max seconds per frame. concept taken from lab 4
+    public Animations[] animations;
+    private string currentAnim = "Walk";
+    private int animNum = 0;
+    private int animIndex = 0;
+    private SpriteRenderer sprite;
+    private SpriteRenderer attackLayer;
+    private SpriteRenderer healthLayer;
+    private SpriteRenderer speedLayer;
+    [HideInInspector] public int healthBoost, speedBoost, attackBoost;
+    //======Animation Stuff=========
+
+
+
     void Move()
     {
         currentTime += Time.deltaTime;
 
-        if(currentTime > 0.5*moveTime && currentTime < moveTime) { 
+        Animate();
+
+        if (currentTime < moveTime) { 
             
             enemy.transform.position +=  (Vector3.left * step) * Time.deltaTime * speed;
         
@@ -39,6 +70,62 @@ public class EnemyBehaviour : MonoBehaviour
         }
         
     }
+
+
+    void Animate()
+    {
+        switch (currentAnim)
+        {
+            case "Walk":
+                animNum = 0;
+                break;
+            case "Attack":
+                animNum = 1;
+                break;
+            case "Death":
+                animNum = 2;
+                break;
+        }
+        int animFrames = animations[animNum].BaseAnimation.Count; //should be conistent across all animations, otherwise everything will look wonky
+        animTimer += Time.deltaTime;
+
+
+        if (animTimer > animTimeMax)
+        {
+            animTimer = 0;
+            if (animIndex < animFrames - 1)
+            {
+                animIndex++;
+            }
+            else
+            {
+                if (currentAnim != "Walk" && currentAnim != "Death") //all other animations should end after one cycle
+                {
+                    currentAnim = "Walk";
+                }
+
+                if(currentAnim != "Death")
+                {
+                    animIndex = 0;
+                }    
+            }
+
+            //-->cycles through all layers of animations 
+            sprite.sprite = animations[animNum].BaseAnimation[animIndex];
+
+
+            if (animations[animNum].AccessoryAnimation.Count != 0) //if the rat has an accessory
+            {
+                Debug.Log("animate accessory");
+                if(Damage2 != null)
+                {
+                    Damage2.GetComponent<SpriteRenderer>().sprite = animations[animNum].AccessoryAnimation[animIndex];
+                }
+            }
+        }
+    }
+
+
 
     IEnumerator takeDamage(float dmgAmount)
     {
@@ -72,6 +159,10 @@ public class EnemyBehaviour : MonoBehaviour
             speed = 0f;
             AudioManager.Instance.PlaySFX("Bite1");
             StartCoroutine(unitScript.takeDamage(damage));
+            animIndex = 0;
+            animTimer = 0;
+            currentAnim = "Attack";
+            Animate();
 
             yield return new WaitForSeconds(attackTime);
         }
@@ -112,7 +203,18 @@ public class EnemyBehaviour : MonoBehaviour
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
         Damage1 = enemy.transform.GetChild(0).gameObject;
+
+        if (enemy.transform.childCount > 1)
+        {
+            Damage2 = enemy.transform.GetChild(1).gameObject;
+        }
+        else
+        {
+            Damage2 = null;
+        }
+
         initialHealth = health;
+        animTimeMax = animTimeMax / frameRate;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -141,25 +243,45 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Debug.Log("health" + health);
         if (health <= 0)
         {
+            if (!isDead)
+            {
+                isDead = true;
+                animIndex = 0;
+                animTimer = 0;
+                Destroy(Damage1);
+            }
+            currentAnim = "Death";
+            Animate();
             if (isBoss)
             {
                 Debug.Log("boss health" + health);
                 GameHandler.PlayerWin();
             }
 
-            StopMovement(deathTime + 1.0f);
             Destroy(enemy, deathTime); //kills the enemy
-        }
-        else if (health <= 0.5*initialHealth)
+        }else if(health > 0)
         {
-            Damage1.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder;
+            Move();
+            CheckLoss();
+        }
+
+        if (Damage2 != null)
+        {
+            if (health > 0 && health <= 0.50 * initialHealth)
+            {
+                Destroy(Damage2);
+            }
+        }
+
+        if (health >0 && health <= 0.25*initialHealth)
+        {
             Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
         }
-        Move();
-        CheckLoss();
+
         //.tag == "Projectile"
     }
 }

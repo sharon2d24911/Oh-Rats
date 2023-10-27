@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour
 {
+
     public float GameOverXPosition = -7.0f; //X position enemies much reach for game loss
     public float EnemyStartXPosition = 17.5f;
     public Text WinScreen;
