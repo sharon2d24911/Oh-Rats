@@ -9,8 +9,6 @@ public class GameHandler : MonoBehaviour
 
     public float GameOverXPosition = -7.0f; //X position enemies much reach for game loss
     public float EnemyStartXPosition = 17.5f;
-    public Text WinScreen;
-    public Text LoseScreen;
     private int numOfRats = 0;
     public Vector3 bossPos = new Vector3(22, -3, 1);
     private GameObject BGCanvasGO;

@@ -5,24 +5,21 @@ public class Menu : MonoBehaviour
 {
     public Animator animator;
     private string sceneToLoad;
+    public Texture2D basic;
 
     void Start()
     {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(basic, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     // Using animator to fade scene out to black
     public void FadeToScene(string sceneName)
     {
-        
+        Time.timeScale = 1f;
         sceneToLoad = sceneName;
         animator.SetTrigger("FadeOut");
-    }
-
-    public void LoadMusic()
-    {
-        Camera.main.GetComponent<AudioManager>().PlaySFX("StartButton");
-        StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, "BassyMain", 1f, 1f)); // Fade in music
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("StartButton");
+        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().Fade(true, "BassyMain", 2, 1)); // Fade in music
     }
 
     // Animation event on the completion of fading out to call scene
@@ -30,5 +27,4 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(sceneToLoad);
     }
-    
 }

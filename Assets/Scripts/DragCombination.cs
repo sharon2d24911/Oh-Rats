@@ -8,8 +8,8 @@ public class DragCombination : MonoBehaviour
     private GameObject selectedObject;
     private GameObject baseObject;
     private Vector2 startingPosition;
-    private List<GameObject> combining = new List<GameObject>();
-    private List<GameObject> dragged = new List<GameObject>();
+    [HideInInspector] public List<GameObject> combining = new List<GameObject>();
+    [HideInInspector] public List<GameObject> dragged = new List<GameObject>();
     public Dictionary<Vector2, GameObject> filledPositions = new Dictionary<Vector2, GameObject>();
     public GameObject combinationZone;
     private readonly float sensitivity = 2.0f;
@@ -24,7 +24,7 @@ public class DragCombination : MonoBehaviour
     private string sugarGrabSound;
     private string flourGrabSound;
     private string eggGrabSound;
-    private GameObject[] allIngredients;
+    [HideInInspector] public GameObject[] allIngredients;
 
     //=====Animation stuff=======
     public float frameRate = 4f;
@@ -290,12 +290,12 @@ public class DragCombination : MonoBehaviour
     }
 
     // Checks if the user has placed at minimum one of each ingredient
-    bool CheckMinimum()
+    public bool CheckMinimum()
     {
         // Minimum of 3 ingredients, early check
         if (combining.Count < 3)
             return false;
-
+        
         // Checks if each ingredient has at least one child (and is not the currently selected one, as that hasn't been placed in the bowl yet)
         foreach (GameObject ingredient in allIngredients)
         {

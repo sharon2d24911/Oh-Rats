@@ -66,22 +66,31 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(music, x => x.soundName == musicName);
         musicSource.clip = s.clip;
         // If fading out, calculate the duration based on the length of the audio clip
-        if (!fadeIn)
-        {
-            double lengthOfSource = (double)musicSource.clip.samples / musicSource.clip.frequency; // Calculate clip's length
-            yield return new WaitForSecondsRealtime((float)(lengthOfSource - duration));
-        }
+
         float time = 0f;
-        float startVol = musicSource.volume;
+        float startVol;
+        if (fadeIn)
+        {
+           startVol = 0;
+           musicSource.Play();
+        }
+        else
+        {
+            startVol = musicSource.volume;
+            targetVolume = 0;
+        }
+        
         Debug.Log("Start Volume: " + startVol);
         Debug.Log("Target Volume: " + targetVolume);
         Debug.Log("Time: " + time);
+        Debug.Log("Duration: " + duration);
         while (time < duration)
         {
             time += Time.deltaTime;
             // Fade from the start volume to the target volume
-            musicSource.Play();
             musicSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
+            Debug.Log("Track: " + musicSource.volume);
+            Debug.Log("Volume: " + musicSource.volume);
             yield return null;
         }
         yield break;
