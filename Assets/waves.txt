@@ -8,7 +8,7 @@
 		"minSpawnInterval": 15,
 		"maxSpawnInterval": 20,
 		"difficulty" : 1,
-		"track" : "BassyEvent"
+		"track" : "BassyMain"
 	},
 
 	{
@@ -20,6 +20,7 @@
 		"maxSpawnInterval": 18,
 		"difficulty" : 2,
 		"track" : "none"
+		"track" : "BassyEvent"
 	}
  ]	
 }

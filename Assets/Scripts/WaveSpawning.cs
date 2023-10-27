@@ -104,7 +104,8 @@ public class WaveSpawning : MonoBehaviour
         warmUpDuration = wavesInFile.waves[0].warmUp;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
-        
+        playTrack(waveTrack); //fade in of new track
+
     }
 
     // Update is called once per frame
@@ -120,7 +121,7 @@ public class WaveSpawning : MonoBehaviour
         //once warmup has expired, start wave
         else if (waveDurationTimer < waveDuration)
         {
-            playTrack(waveTrack); //fade in of new track
+            
             toggleActive(true);
             waveDurationTimer += Time.deltaTime;
             waveTimer += Time.deltaTime;
@@ -155,17 +156,26 @@ public class WaveSpawning : MonoBehaviour
 
                 if(currentWave < wavesNum)
                 {
-                    endTrack(waveTrack); //fadeout of current track
 
                     //changes variables to be those of the next wave
                     waveTimerMax = wavesInFile.waves[currentWave].maxSpawnInterval;
                     waveTimerMin = wavesInFile.waves[currentWave].minSpawnInterval;
                     waveDuration = wavesInFile.waves[currentWave].duration;
-                    waveTrack = wavesInFile.waves[currentWave].track;
                     waveDifficulty = wavesInFile.waves[currentWave].difficulty;
                     warmUpDuration = wavesInFile.waves[currentWave].warmUp;
                     waveEnemyTypes = wavesInFile.waves[currentWave].enemyTypes;
                     waveEnemiesNum = waveEnemyTypes.Length;
+
+
+                    //Music transition
+                    if (wavesInFile.waves[currentWave].track != "none")  //only change tracks if a transition was mentioned
+                    {
+                        endTrack(waveTrack); //fadeout of current track
+                        waveTrack = wavesInFile.waves[currentWave].track;
+                        playTrack(waveTrack); //fade in of new track
+                    }
+
+
                 }
                 else
                 {
@@ -214,10 +224,10 @@ public class WaveSpawning : MonoBehaviour
     {
         if (trackName != "none")
         {
-            Debug.Log("PLAY SONG" + trackName + "(needs Sharon's updates to work properly");
+            Debug.Log("PLAY SONG" + trackName);
 
 
-            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, 1f, 1f));
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, 1f, 2f));
 
         }
     }
@@ -226,10 +236,10 @@ public class WaveSpawning : MonoBehaviour
     {
         if (trackName != "none")
         {
-            Debug.Log("End SONG" + trackName + "(needs Sharon's updates to work properly");
+            Debug.Log("End SONG");
 
 
-            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(false, trackName, 1f, 1f)); 
+            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(false, trackName, 1f, 2f)); 
 
         }
     }

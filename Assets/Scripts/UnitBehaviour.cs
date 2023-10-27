@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitBehaviour : MonoBehaviour
 {
+
     [System.Serializable]
     public struct Animations
     {
