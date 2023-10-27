@@ -17,6 +17,10 @@ public class Menu : MonoBehaviour
         
         sceneToLoad = sceneName;
         animator.SetTrigger("FadeOut");
+    }
+
+    public void LoadMusic()
+    {
         Camera.main.GetComponent<AudioManager>().PlaySFX("StartButton");
         StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, "BassyMain", 1f, 1f)); // Fade in music
     }
