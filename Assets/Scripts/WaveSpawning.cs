@@ -235,7 +235,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("PLAY SONG" + trackName);
 
 
-            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, trackName, waveTrackFadeTime, waveTrackFinalVolume));
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().Fade(true, trackName, waveTrackFadeTime, waveTrackFinalVolume));
 
         }
     }
@@ -247,7 +247,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("End SONG");
 
 
-            StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(false, trackName, waveTrackFadeTime, 0)); 
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().Fade(false, trackName, waveTrackFadeTime, 0)); 
 
         }
     }
