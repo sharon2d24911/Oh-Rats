@@ -844,8 +844,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
-  WinScreen: {fileID: 0}
-  LoseScreen: {fileID: 0}
   bossPos: {x: 22, y: -3, z: 1}
 --- !u!4 &340900040
 Transform:
@@ -4825,6 +4823,42 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 07c3ed5067f9dd046b1a69b0659946e8, type: 3}
   - soundName: UIClick
     clip: {fileID: 8300000, guid: 30636647f971b1a43860d06e375a48ca, type: 3}
+  - soundName: PlayerLifeLost
+    clip: {fileID: 8300000, guid: bf6b987fed53a8d40847adb58c299e6d, type: 3}
+  - soundName: Mixing
+    clip: {fileID: 8300000, guid: 7474fe98a3c4708489e2441601f10ad0, type: 3}
+  - soundName: GameOver
+    clip: {fileID: 8300000, guid: 28d6eba8d76b46449a6ffedefe50ecbd, type: 3}
+  - soundName: PaperOff
+    clip: {fileID: 8300000, guid: 288c6d05ef957194eb0b3806873e1d92, type: 3}
+  - soundName: PaperOn
+    clip: {fileID: 8300000, guid: b62644320c934f14c9f778353ad35c9e, type: 3}
+  - soundName: FrameOff
+    clip: {fileID: 8300000, guid: 160492ea2b9ca7c49bfe583d94202cfa, type: 3}
+  - soundName: FrameOn
+    clip: {fileID: 8300000, guid: 46203787cb3589a44b65dec6fdb43ca3, type: 3}
+  - soundName: RatDefeat1
+    clip: {fileID: 8300000, guid: 987720999a6022c40bf41fcc754e0fa1, type: 3}
+  - soundName: RatDefeat2
+    clip: {fileID: 8300000, guid: 4c85dc72b0951174dada6ab0f1ce11b8, type: 3}
+  - soundName: UnitDefeat
+    clip: {fileID: 8300000, guid: 90c415edc2c15bf48b25e845d0f4574d, type: 3}
+  - soundName: UnitDiscard
+    clip: {fileID: 8300000, guid: dd1e58f4b39503d40ac3cf3d66df5602, type: 3}
+  - soundName: BottleCapHurt1
+    clip: {fileID: 8300000, guid: c1be1a321bc09aa48895756181777954, type: 3}
+  - soundName: BottleCapHurt2
+    clip: {fileID: 8300000, guid: 272f166f89cad15409afb9cb9bd64e78, type: 3}
+  - soundName: BottleCapHurt3
+    clip: {fileID: 8300000, guid: 35e0667929d18cb42ba2c2fbad2b8b36, type: 3}
+  - soundName: BottleCapHurt4
+    clip: {fileID: 8300000, guid: 145cccb2d91026e41b6717ed506d56c4, type: 3}
+  - soundName: delivery
+    clip: {fileID: 8300000, guid: 68f91002e41a81648bef378aab3ade48, type: 3}
+  - soundName: DiscardOff
+    clip: {fileID: 8300000, guid: d3ad75087c828a3429e09e26263f7e9c, type: 3}
+  - soundName: DiscardOn
+    clip: {fileID: 8300000, guid: 266dbe7fb32d6934ea96964481a8d432, type: 3}
   layer:
   - soundName: BassyEvent
     clip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
@@ -5009,8 +5043,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
-  WinScreen: {fileID: 0}
-  LoseScreen: {fileID: 0}
   bossPos: {x: 22, y: -3, z: 0}
 --- !u!212 &1768407629
 SpriteRenderer:

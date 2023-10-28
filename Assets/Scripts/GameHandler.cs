@@ -41,9 +41,11 @@ public class GameHandler : MonoBehaviour
     public void PlayerLoss()
     {
         numOfRats += 1;
+        AudioManager.Instance.PlaySFX("PlayerLifeLost");
 
         if (numOfRats == 3)
         {
+            AudioManager.Instance.PlaySFX("GameOver");
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");
             Time.timeScale = 0;

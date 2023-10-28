@@ -36,6 +36,7 @@ public class EnemyBehaviour : MonoBehaviour
     private string hitsSound;
     private string biteSound;
     private string hurtSound;
+    private string defeatSound;
 
     //======Animation Stuff=========
     public float frameRate = 4f;
@@ -250,6 +251,8 @@ public class EnemyBehaviour : MonoBehaviour
             if (!isDead)
             {
                 isDead = true;
+                string[] defeatSound = { "RatDefeat1", "RatDefeat2" };
+                AudioManager.Instance.PlaySFX(this.defeatSound = defeatSound[Mathf.FloorToInt(Random.Range(0, 2))]);
                 animIndex = 0;
                 animTimer = 0;
                 Destroy(Damage1);

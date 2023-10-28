@@ -312,7 +312,8 @@ public class DragCombination : MonoBehaviour
        //Begin bowl animation
         bowlIsAnimating = true;
 
-        // Wait for 3 seconds
+        AudioManager.Instance.PlaySFX("Mixing");
+        // Wait for 2 seconds
         yield return new WaitForSeconds(2);
 
         //End bowl animation

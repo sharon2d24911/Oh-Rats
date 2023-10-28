@@ -39,6 +39,7 @@ public class Shipment : MonoBehaviour
             for (int i = 0; i < ingredients.Count; i++)
             {
                 // Adds one of each ingredient
+                AudioManager.Instance.PlaySFX("delivery");
                 ingredients[i].GetComponent<Ingredient>().AddIngredient();
                 Debug.Log(ingredients[i].name + " remaining: " + ingredients[i].remaining);
             }
