@@ -154,6 +154,11 @@ MonoBehaviour:
   rows: 4
   columns: 6
   gridSpread: 0.1
+  width: 0
+  height: 0
+  midCol: 0
+  boxWidth: 0
+  boxHeight: 0
 --- !u!212 &17078320
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -844,8 +849,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
-  WinScreen: {fileID: 0}
-  LoseScreen: {fileID: 0}
   bossPos: {x: 22, y: -3, z: 1}
 --- !u!4 &340900040
 Transform:
@@ -5009,8 +5012,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
-  WinScreen: {fileID: 0}
-  LoseScreen: {fileID: 0}
   bossPos: {x: 22, y: -3, z: 0}
 --- !u!212 &1768407629
 SpriteRenderer:
