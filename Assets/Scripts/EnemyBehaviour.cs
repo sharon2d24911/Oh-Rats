@@ -40,6 +40,7 @@ public class EnemyBehaviour : MonoBehaviour
     private string biteSound;
     private string hurtSound;
     private string defeatSound;
+    private string capHurtSound;
 
     //======Animation Stuff=========
     public float frameRate = 4f;
@@ -295,6 +296,8 @@ public class EnemyBehaviour : MonoBehaviour
             Damage2.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder + 1;
             if (health > 0 && health <= 0.50 * initialHealth)
             {
+                string[] capHurtSound = { "BottleCapHurt1", "BottleCapHurt2", "BottleCapHurt3", "BottleCapHurt4" };
+                AudioManager.Instance.PlaySFX(this.capHurtSound = capHurtSound[Mathf.FloorToInt(Random.Range(0, 4))]);
                 Destroy(Damage2);
             }
         }
