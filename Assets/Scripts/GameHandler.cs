@@ -15,6 +15,10 @@ public class GameHandler : MonoBehaviour
     private Canvas BGCanvas;
     private GameObject UICanvasGO;
     private Canvas UICanvas;
+    private int maxRats = 3, playerLivesMaxInd = 3 -1;
+    public float ratLifeAdjust;
+    public GameObject ratLife;
+    private List<GameObject> playerLives = new List<GameObject>();
     Camera mainCamera;
 
     private void Start()
@@ -29,6 +33,18 @@ public class GameHandler : MonoBehaviour
         UICanvas = UICanvasGO.GetComponent<Canvas>();
         UICanvas.renderMode = RenderMode.ScreenSpaceCamera;
         UICanvas.worldCamera = mainCamera;
+
+        if(ratLife != null)
+        {
+            for (int i = 0; i < maxRats; i++)
+            {
+                GameObject life = Instantiate(ratLife);
+                life.transform.parent = BGCanvasGO.transform.GetChild(5);
+                playerLives.Add(life);
+                life.transform.position += new Vector3(i * ratLifeAdjust, 0f,0f);
+                life.transform.position = new Vector3(life.transform.position.x, -9.336f, 4f);
+            }
+        }
     }
 
     public void PlayerWin()
@@ -41,8 +57,9 @@ public class GameHandler : MonoBehaviour
     public void PlayerLoss()
     {
         numOfRats += 1;
-
-        if (numOfRats == 3)
+        Destroy(playerLives[playerLivesMaxInd]);
+        playerLivesMaxInd -= 1;
+        if (numOfRats == maxRats)
         {
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");

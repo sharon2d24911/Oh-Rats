@@ -850,6 +850,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   bossPos: {x: 22, y: -3, z: 1}
+  ratLifeAdjust: 1.2
+  ratLife: {fileID: 3020151495939840660, guid: 4736db3c3f3ea5d4d82b0d4455cdc8b5, type: 3}
 --- !u!4 &340900040
 Transform:
   m_ObjectHideFlags: 0
@@ -5013,6 +5015,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   bossPos: {x: 22, y: -3, z: 0}
+  ratLifeAdjust: 0
+  ratLife: {fileID: 0}
 --- !u!212 &1768407629
 SpriteRenderer:
   m_ObjectHideFlags: 0

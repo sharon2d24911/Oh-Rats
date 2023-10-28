@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick");
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().musicSource.volume = (GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().musicSource.volume) / 4;
     }
 
     public void Resume()
@@ -19,6 +20,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick");
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().musicSource.volume = (GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().musicSource.volume) * 4;
     }
 
     public void Home()
