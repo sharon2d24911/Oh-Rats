@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rows: 4
-  columns: 6
-  gridSpread: 0.1
+  columns: 5
+  gridSpread: 0.15
   width: 0
   height: 0
   midCol: 0
@@ -2626,9 +2626,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 558721739
+  m_SortingLayer: 1
+  m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: f95efc368b37074489ed66b8ba5bbd1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2648,7 +2648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912907660}
   m_LocalRotation: {x: -0.21643952, y: -0, z: -0, w: 0.97629607}
-  m_LocalPosition: {x: 96.140015, y: 20.138092, z: -3171.136}
+  m_LocalPosition: {x: 96.140015, y: 20.138092, z: 0}
   m_LocalScale: {x: 15.271849, y: 16.886112, z: 0}
   m_Children:
   - {fileID: 1939595706}
@@ -4902,6 +4902,8 @@ MonoBehaviour:
   - soundName: BassyMain
     clip: {fileID: 8300000, guid: 06abb4443c5032041a1030abc4068b36, type: 3}
   - soundName: BassyEvent
+    clip: {fileID: 8300000, guid: b0c647ecb7b270a42b2ec606d8cda22e, type: 3}
+  - soundName: BassyDrums
     clip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
   sfx:
   - soundName: Bite1
