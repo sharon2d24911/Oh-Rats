@@ -18,12 +18,11 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1f;
         sceneToLoad = sceneName;
         animator.SetTrigger("FadeOut");
-    }
-
-    public void LoadMusic()
-    {
-        Camera.main.GetComponent<AudioManager>().PlaySFX("StartButton");
-        StartCoroutine(Camera.main.GetComponent<AudioManager>().Fade(true, "BassyMain", 1f, 1f)); // Fade in music
+        if(SceneManager.GetActiveScene().name == "TitleScene")
+        {
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("StartButton");
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().Fade(true, "BassyMain", 2, 1)); // Fade in music
+        }
     }
 
     // Animation event on the completion of fading out to call scene

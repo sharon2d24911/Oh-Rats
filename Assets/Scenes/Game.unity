@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 4
   columns: 5
-  gridSpread: 0.1
+  gridSpread: 0.15
   width: 0
   height: 0
   midCol: 0
@@ -907,7 +907,7 @@ MonoBehaviour:
   combinationZone: {fileID: 1768407627}
   unit: {fileID: 3315082115871708691, guid: 61e8f44353aee9f4aaf024502ff83606, type: 3}
   mixButton: {fileID: 1047695198}
-  garbageCursor: {fileID: 0}
+  garbageCursor: {fileID: 2800000, guid: b088f1a0ae03ffa449861dfdbfd7039e, type: 3}
   allIngredients: []
   tutorialMode: 0
   topLeft: {x: 0, y: 0}
@@ -2617,9 +2617,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -158869257
+  m_SortingLayer: -1
+  m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: f95efc368b37074489ed66b8ba5bbd1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4894,6 +4894,8 @@ MonoBehaviour:
   - soundName: BassyMain
     clip: {fileID: 8300000, guid: 06abb4443c5032041a1030abc4068b36, type: 3}
   - soundName: BassyEvent
+    clip: {fileID: 8300000, guid: b0c647ecb7b270a42b2ec606d8cda22e, type: 3}
+  - soundName: BassyDrums
     clip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
   sfx:
   - soundName: Bite1

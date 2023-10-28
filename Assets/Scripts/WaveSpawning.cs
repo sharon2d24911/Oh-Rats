@@ -114,6 +114,7 @@ public class WaveSpawning : MonoBehaviour
         waveShowcaseEnemy = wavesInFile.waves[0].showcaseEnemy;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
+        playTrack(waveTrack); //fade in of new track
 
     }
 

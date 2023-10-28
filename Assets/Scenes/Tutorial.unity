@@ -289,6 +289,11 @@ MonoBehaviour:
   rows: 4
   columns: 6
   gridSpread: 0.1
+  width: 0
+  height: 0
+  midCol: 0
+  boxWidth: 0
+  boxHeight: 0
 --- !u!212 &17078320
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -806,6 +811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 167710202}
   - component: {fileID: 167710201}
+  - component: {fileID: 167710203}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: AudioManager
@@ -932,6 +938,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &167710203
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167710200}
+  m_Enabled: 1
 --- !u!1 &209491685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1650,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   bossPos: {x: 22, y: -3, z: 1}
+  ratLifeAdjust: 0
+  ratLife: {fileID: 0}
 --- !u!4 &340900040
 Transform:
   m_ObjectHideFlags: 0
@@ -2304,7 +2320,6 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
-  - component: {fileID: 519420029}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2312,14 +2327,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &519420029
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -7186,6 +7193,8 @@ MonoBehaviour:
   GameOverXPosition: -7
   EnemyStartXPosition: 17.5
   bossPos: {x: 22, y: -3, z: 0}
+  ratLifeAdjust: 0
+  ratLife: {fileID: 0}
 --- !u!212 &1768407629
 SpriteRenderer:
   m_ObjectHideFlags: 0
