@@ -26,6 +26,8 @@ public class DragCombination : MonoBehaviour
     private string flourGrabSound;
     private string eggGrabSound;
     [HideInInspector] public GameObject[] allIngredients;
+    [HideInInspector] public bool tutorialMode;
+    [HideInInspector] public Vector2 topLeft;
     private bool trashMode;
 
     //=====Animation stuff=======
@@ -45,6 +47,8 @@ public class DragCombination : MonoBehaviour
         allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
         animTimeMax = animTimeMax / frameRate;
         trashMode = false;
+        tutorialMode = false;
+        topLeft = Vector2.zero;
     }
 
     // Update is called once per frame
@@ -110,7 +114,7 @@ public class DragCombination : MonoBehaviour
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
 
-            if (!dragged.Contains(hit.collider.gameObject))
+            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop")
             {
                 // Separates behaviour depending on selected object type
                 if (selectedObject.tag == "Ingredient" && selectedObject.GetComponent<Ingredient>().remaining > 0)
@@ -142,17 +146,17 @@ public class DragCombination : MonoBehaviour
                 }
                 else if (selectedObject.tag == "Unit")
                     isIngredient = false;
-                else // Nothing else can be dragged, but add condition for trash if needed
-                    selectedObject = null;
             } else if (selectedObject.tag == "Unit" && trashMode)
             {
                 // If unit is clicked on and you are in trash mode
                 Debug.Log("TRASH MODE: " + selectedObject + " goodbye.");
                 // Destroy unit and clear up position
-                // If you try to test this before implementing this code it will allow you to drag the donut all over the place and break everything
+                filledPositions.Remove(selectedObject.transform.position);
+                Destroy(selectedObject);
                 trashMode = false;
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
-            }
+            } else // Nothing else can be dragged, but add condition for trash if needed
+                selectedObject = null;
 
             
         }
@@ -182,7 +186,16 @@ public class DragCombination : MonoBehaviour
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
-        Debug.Log(nearestDistance);
+        /*// Use for tutorial only, forces player to put donut only on the top left grid spot
+        if (tutorialMode)
+        {
+            topLeft = gridPositions[0];
+            for (int j = 1; j < gridPositions.Count; j++)
+            {
+                Debug.Log("ADDING TO: " + gridPositions[j]);
+                filledPositions.Add(gridPositions[j], selectedObject);
+            }
+        }*/
 
         foreach (Vector2 p in gridPositions)
         {
@@ -253,12 +266,9 @@ public class DragCombination : MonoBehaviour
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
-        else if (nearestDistance > sensitivity || nearestPos == selectedV2)
+        else if (nearestDistance > sensitivity || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {
-            // If Unit is not within distance, place back in original spot and destroy current instance
-            // GameObject clone = Instantiate(selectedObject);
-            // clone.transform.position = startingPosition;
-            // Destroy(selectedObject);
+            // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
         }
         else
@@ -267,7 +277,6 @@ public class DragCombination : MonoBehaviour
             selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5f - gridDepth);
             selectedObject.GetComponent<UnitBehaviour>().placed = true;
             selectedObject.GetComponent<UnitBehaviour>().layerSprites(5*gridDepth + 1);
-
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
             AudioManager.Instance.PlaySFX("DonutPlace");
