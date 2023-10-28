@@ -243,11 +243,11 @@ public class EnemyBehaviour : MonoBehaviour
         }else if (collision.gameObject.tag == "Unit")
         {
             Debug.Log("enemy hit unit");
-            string[] biteSound = { "Bite1", "Bite2", "Bite3" };
-            AudioManager.Instance.PlaySFX(this.biteSound = biteSound[Mathf.FloorToInt(Random.Range(0, 3))]);
             UnitBehaviour unitScript = collision.gameObject.GetComponent<UnitBehaviour>();
             if (unitScript.placed)  //only damage placed units
             {
+                string[] biteSound = { "Bite1", "Bite2", "Bite3" };
+                AudioManager.Instance.PlaySFX(this.biteSound = biteSound[Mathf.FloorToInt(Random.Range(0, 3))]);
                 Debug.Log("enemy hit unit");
                 StartCoroutine(UnitDamage(unitScript));
             }

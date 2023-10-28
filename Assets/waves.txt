@@ -10,7 +10,7 @@
 		"maxSpawnInterval": 15,
 		"difficulty" : 1,
 		"track" : "BassyMain",
-		"trackFadeTime" : 2,
+		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1
 	},
 
@@ -23,8 +23,8 @@
 		"minSpawnInterval": 17,
 		"maxSpawnInterval": 17,
 		"difficulty" : 1,
-		"track" : "BassyEvent",
-		"trackFadeTime" : 3,
+		"track" : "none",
+		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1
 	},
 	{
@@ -36,7 +36,7 @@
 		"minSpawnInterval": 9,
 		"maxSpawnInterval": 10,
 		"difficulty" : 1,
-		"track" : "BassyMain",
+		"track" : "BassyEvent",
 		"trackFadeTime" : 2,
 		"trackFinalVolume" : 1
 	},
@@ -49,8 +49,8 @@
 		"minSpawnInterval": 9,
 		"maxSpawnInterval": 10,
 		"difficulty" : 2,
-		"track" : "BassyMain",
-		"trackFadeTime" : 2,
+		"track" : "none",
+		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1
 	},
 	{
@@ -62,8 +62,8 @@
 		"minSpawnInterval": 5,
 		"maxSpawnInterval": 6,
 		"difficulty" : 3,
-		"track" : "BassyMain",
-		"trackFadeTime" : 2,
+		"track" : "BassyDrums",
+		"trackFadeTime" : 9,
 		"trackFinalVolume" : 1
 	}
  ]	
