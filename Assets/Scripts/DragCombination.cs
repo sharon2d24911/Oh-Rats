@@ -17,6 +17,7 @@ public class DragCombination : MonoBehaviour
     private GameObject grid;
     public GameObject unit;
     public Button mixButton;
+    public Texture2D garbageCursor;
     private GameObject newUnit;
     private string sugarDropSound;
     private string flourDropSound;
@@ -25,6 +26,9 @@ public class DragCombination : MonoBehaviour
     private string flourGrabSound;
     private string eggGrabSound;
     [HideInInspector] public GameObject[] allIngredients;
+    [HideInInspector] public bool tutorialMode;
+    [HideInInspector] public Vector2 topLeft;
+    private bool trashMode;
 
     //=====Animation stuff=======
     public float frameRate = 4f;
@@ -42,6 +46,9 @@ public class DragCombination : MonoBehaviour
         grid = GameObject.Find("Grid");
         allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
         animTimeMax = animTimeMax / frameRate;
+        trashMode = false;
+        tutorialMode = false;
+        topLeft = Vector2.zero;
     }
 
     // Update is called once per frame
@@ -102,43 +109,56 @@ public class DragCombination : MonoBehaviour
 
         // Raycasting: did the mouse hit a collider?
         RaycastHit2D hit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        if (hit.collider != null && !dragged.Contains(hit.collider.gameObject))
+        if (hit.collider != null)
         {
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
 
-            // Separates behaviour depending on selected object type
-            if (selectedObject.tag == "Ingredient" && selectedObject.GetComponent<Ingredient>().remaining > 0)
+            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop")
             {
-                isIngredient = true;
-                GameObject ingredient = Instantiate(selectedObject.GetComponent<Ingredient>().singularIngredient);
-                
-                // Sfx for ingredient grab
-                if (selectedObject.name == "Sugar") // sugar sfx
+                // Separates behaviour depending on selected object type
+                if (selectedObject.tag == "Ingredient" && selectedObject.GetComponent<Ingredient>().remaining > 0)
                 {
-                    string[] sugarGrabSound = { "SugarGrab1", "SugarGrab2" };
-                    AudioManager.Instance.PlaySFX(this.sugarGrabSound = sugarGrabSound[Mathf.FloorToInt(Random.Range(0, 2))]);
-                }
-                else if (selectedObject.name == "Flour") // flour sfx
-                {
-                    string[] flourGrabSound = { "FlourGrab1", "FlourGrab2" };
-                    AudioManager.Instance.PlaySFX(this.flourGrabSound = flourGrabSound[Mathf.FloorToInt(Random.Range(0, 2))]);
-                }
-                else if (selectedObject.name == "Egg") // egg sfx
-                {
-                    string[] eggGrabSound = { "EggGrab1", "EggGrab2", "EggGrab3" };
-                    AudioManager.Instance.PlaySFX(this.eggGrabSound = eggGrabSound[Mathf.FloorToInt(Random.Range(0, 3))]);
-                }
+                    isIngredient = true;
+                    GameObject ingredient = Instantiate(selectedObject.GetComponent<Ingredient>().singularIngredient);
 
-                baseObject = selectedObject;
-                selectedObject = ingredient;
-                // Set parent to be the ingredient
-                selectedObject.transform.SetParent(baseObject.transform, true);
-            }
-            else if (selectedObject.tag == "Unit")
-                isIngredient = false;
-            else // Nothing else can be dragged, but add condition for trash if needed
+                    // Sfx for ingredient grab
+                    if (selectedObject.name == "Sugar") // sugar sfx
+                    {
+                        string[] sugarGrabSound = { "SugarGrab1", "SugarGrab2" };
+                        AudioManager.Instance.PlaySFX(this.sugarGrabSound = sugarGrabSound[Mathf.FloorToInt(Random.Range(0, 2))]);
+                    }
+                    else if (selectedObject.name == "Flour") // flour sfx
+                    {
+                        string[] flourGrabSound = { "FlourGrab1", "FlourGrab2" };
+                        AudioManager.Instance.PlaySFX(this.flourGrabSound = flourGrabSound[Mathf.FloorToInt(Random.Range(0, 2))]);
+                    }
+                    else if (selectedObject.name == "Egg") // egg sfx
+                    {
+                        string[] eggGrabSound = { "EggGrab1", "EggGrab2", "EggGrab3" };
+                        AudioManager.Instance.PlaySFX(this.eggGrabSound = eggGrabSound[Mathf.FloorToInt(Random.Range(0, 3))]);
+                    }
+
+                    baseObject = selectedObject;
+                    selectedObject = ingredient;
+                    // Set parent to be the ingredient
+                    selectedObject.transform.SetParent(baseObject.transform, true);
+                }
+                else if (selectedObject.tag == "Unit")
+                    isIngredient = false;
+            } else if (selectedObject.tag == "Unit" && trashMode)
+            {
+                // If unit is clicked on and you are in trash mode
+                Debug.Log("TRASH MODE: " + selectedObject + " goodbye.");
+                // Destroy unit and clear up position
+                filledPositions.Remove(selectedObject.transform.position);
+                Destroy(selectedObject);
+                trashMode = false;
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+            } else // Nothing else can be dragged, but add condition for trash if needed
                 selectedObject = null;
+
+            
         }
     }
 
@@ -166,7 +186,16 @@ public class DragCombination : MonoBehaviour
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
-        Debug.Log(nearestDistance);
+        /*// Use for tutorial only, forces player to put donut only on the top left grid spot
+        if (tutorialMode)
+        {
+            topLeft = gridPositions[0];
+            for (int j = 1; j < gridPositions.Count; j++)
+            {
+                Debug.Log("ADDING TO: " + gridPositions[j]);
+                filledPositions.Add(gridPositions[j], selectedObject);
+            }
+        }*/
 
         foreach (Vector2 p in gridPositions)
         {
@@ -237,12 +266,9 @@ public class DragCombination : MonoBehaviour
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
-        else if (nearestDistance > sensitivity || nearestPos == selectedV2)
+        else if (nearestDistance > sensitivity || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {
-            // If Unit is not within distance, place back in original spot and destroy current instance
-            // GameObject clone = Instantiate(selectedObject);
-            // clone.transform.position = startingPosition;
-            // Destroy(selectedObject);
+            // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
         }
         else
@@ -334,6 +360,22 @@ public class DragCombination : MonoBehaviour
         newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / 25) - 1;
         newUnit.tag = "Unit";
     }
+
+    // Unit removal
+    public void RemoveUnit()
+    {
+        // Every time button is clicked it reverses the mode
+        trashMode = !trashMode;
+
+        if (trashMode)
+        {
+            Cursor.SetCursor(garbageCursor, Vector2.zero, CursorMode.ForceSoftware);
+        } else
+        {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+        }
+    }
+
 
     // OPTION if player wants to clear combination before mixing, delete if we don't use
     void ClearBowl()

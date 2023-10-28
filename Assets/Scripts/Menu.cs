@@ -5,11 +5,11 @@ public class Menu : MonoBehaviour
 {
     public Animator animator;
     private string sceneToLoad;
-    public Texture2D basic;
+    //public Texture2D basic;
 
     void Start()
     {
-        Cursor.SetCursor(basic, Vector2.zero, CursorMode.ForceSoftware);
+        //Cursor.SetCursor(basic, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     // Using animator to fade scene out to black
