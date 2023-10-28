@@ -76,6 +76,9 @@ public class Tutorial : MonoBehaviour
         else if (popUpIndex == 4)
         {
             // If user drags unit to a correct position on the board
+            // CURRENTLY WILL ALLOW PLACEMENT ON ANY GRID SPACE. FIX
+            //gameHandler.GetComponent<DragCombination>().tutorialMode = true;
+            // ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft)
             if (gameHandler.GetComponent<DragCombination>().filledPositions.Count > 0)
             {
                 toHide[popUpIndex].SetActive(false);
