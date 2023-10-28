@@ -114,7 +114,7 @@ public class DragCombination : MonoBehaviour
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
 
-            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop")
+            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop" && (selectedObject.tag == "Ingredient" || selectedObject.tag == "Unit"))
             {
                 // Separates behaviour depending on selected object type
                 if (selectedObject.tag == "Ingredient" && selectedObject.GetComponent<Ingredient>().remaining > 0)
