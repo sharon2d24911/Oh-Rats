@@ -154,6 +154,11 @@ MonoBehaviour:
   rows: 4
   columns: 6
   gridSpread: 0.1
+  width: 0
+  height: 0
+  midCol: 0
+  boxWidth: 0
+  boxHeight: 0
 --- !u!212 &17078320
 SpriteRenderer:
   m_ObjectHideFlags: 0

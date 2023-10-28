@@ -10,6 +10,7 @@ TagManager:
   - Projectile
   - Prop
   - AudioManager
+  - GameHandler
   layers:
   - Default
   - TransparentFX
@@ -52,7 +53,4 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 558721739
-    locked: 0
-  - name: Accessories
-    uniqueID: 93193811
     locked: 0

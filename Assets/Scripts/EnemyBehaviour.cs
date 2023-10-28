@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
         public string animation;
         public List<Sprite> BaseAnimation;
         public List<Sprite> AccessoryAnimation;
+        public List<Sprite> BandageAnimation;
     }
 
 
@@ -29,6 +30,8 @@ public class EnemyBehaviour : MonoBehaviour
     public float health;
     private bool isDead = false;
     private float initialHealth;
+    [HideInInspector] public int lane = 0;
+    private float gridWidth;
     public float damage;
     public float speed;
     public float difficultyIndex;
@@ -118,7 +121,16 @@ public class EnemyBehaviour : MonoBehaviour
             if (animations[animNum].AccessoryAnimation.Count != 0) //if the rat has an accessory
             {
                 Debug.Log("animate accessory");
-                if(Damage2 != null)
+                if(animations[animNum].BandageAnimation.Count > 0)
+                {
+                    Damage1.GetComponent<SpriteRenderer>().sprite = animations[animNum].BandageAnimation[animIndex];
+                }
+                else
+                {
+                    Damage1.GetComponent<SpriteRenderer>().sprite = animations[1].BandageAnimation[4]; //super temporary, so gross, please fix
+                }
+                
+                if (Damage2 != null)
                 {
                     Damage2.GetComponent<SpriteRenderer>().sprite = animations[animNum].AccessoryAnimation[animIndex];
                 }
@@ -186,7 +198,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     void CheckLoss() // --> return int? something to indicate to GameHandler that unit just crossed the line
     {
-        if(enemy.transform.position.x <= GameHandler.GameOverXPosition)
+        Debug.Log("lane: " + lane);
+        if (enemy.transform.position.x <= (GameHandler.GameOverXPosition + (GameObject.Find("Grid").gameObject.GetComponent<GridCreate>().rows - lane))) 
         {
             Destroy(enemy);
             GameHandler.PlayerLoss();
@@ -272,8 +285,14 @@ public class EnemyBehaviour : MonoBehaviour
             CheckLoss();
         }
 
+        if (Damage1 != null)
+        {
+
+            Damage1.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder + 1;
+        }
         if (Damage2 != null)
         {
+            Damage2.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder + 1;
             if (health > 0 && health <= 0.50 * initialHealth)
             {
                 Destroy(Damage2);
