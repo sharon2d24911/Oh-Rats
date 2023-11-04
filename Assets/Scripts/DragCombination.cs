@@ -28,7 +28,7 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public GameObject[] allIngredients;
     [HideInInspector] public bool tutorialMode;
     [HideInInspector] public Vector2 topLeft;
-    private bool trashMode;
+    [HideInInspector] public bool trashMode;
 
     //=====Animation stuff=======
     public float frameRate = 4f;
@@ -146,6 +146,8 @@ public class DragCombination : MonoBehaviour
                 }
                 else if (selectedObject.tag == "Unit")
                     isIngredient = false;
+                else
+                    selectedObject = null;
             } else if (selectedObject.tag == "Unit" && trashMode)
             {
                 // If unit is clicked on and you are in trash mode

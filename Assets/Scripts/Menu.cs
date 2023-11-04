@@ -9,7 +9,8 @@ public class Menu : MonoBehaviour
 
     void Start()
     {
-        //Cursor.SetCursor(basic, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+        //Time.timeScale = 1f;
     }
 
     // Using animator to fade scene out to black

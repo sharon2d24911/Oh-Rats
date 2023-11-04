@@ -27,6 +27,8 @@ public class PropExamine : MonoBehaviour
     private Vector2 targetBCSize;
     private bool isBig;
 
+    private GameObject gameHandler;
+
     private void Start()
     {
         transform.localPosition = smallPos;
@@ -35,6 +37,7 @@ public class PropExamine : MonoBehaviour
         targetScale = transform.localScale;
         GetComponent<SpriteRenderer>().sprite = small;
         isBig = false;
+        gameHandler = FindObjectOfType<GameHandler>().gameObject;
     }
 
     private void Update()
@@ -61,13 +64,14 @@ public class PropExamine : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (Time.timeScale != 0f)
+        if (Time.timeScale != 0f && !gameHandler.GetComponent<DragCombination>().trashMode)
             Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     void OnMouseExit()
     {
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+        if (!gameHandler.GetComponent<DragCombination>().trashMode)
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     private void ToggleSize()
