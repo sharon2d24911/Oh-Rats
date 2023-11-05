@@ -51,7 +51,6 @@ public class GameHandler : MonoBehaviour
     {
         SceneManager.LoadScene("WinScene");
         Debug.Log("Player won!");
-        Time.timeScale = 0;
     }
 
     public void PlayerLoss()
@@ -65,7 +64,6 @@ public class GameHandler : MonoBehaviour
             AudioManager.Instance.PlaySFX("GameOver");
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");
-            Time.timeScale = 0;
         }
 
     }

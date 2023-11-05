@@ -9,7 +9,8 @@ public class Menu : MonoBehaviour
 
     void Start()
     {
-        //Cursor.SetCursor(basic, Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+        //Time.timeScale = 1f;
     }
 
     // Using animator to fade scene out to black
@@ -18,11 +19,11 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1f;
         sceneToLoad = sceneName;
         animator.SetTrigger("FadeOut");
-        if(sceneName != "Game")
+        if(SceneManager.GetActiveScene().name == "TitleScene")
         {
             GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("StartButton");
             StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().Fade(true, "BassyMain", 2, 1)); // Fade in music
-        }  
+        }
     }
 
     // Animation event on the completion of fading out to call scene

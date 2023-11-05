@@ -28,7 +28,7 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public GameObject[] allIngredients;
     [HideInInspector] public bool tutorialMode;
     [HideInInspector] public Vector2 topLeft;
-    private bool trashMode;
+    [HideInInspector] public bool trashMode;
 
     //=====Animation stuff=======
     public float frameRate = 4f;
@@ -114,7 +114,7 @@ public class DragCombination : MonoBehaviour
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
 
-            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop")
+            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop" && (selectedObject.tag == "Ingredient" || selectedObject.tag == "Unit"))
             {
                 // Separates behaviour depending on selected object type
                 if (selectedObject.tag == "Ingredient" && selectedObject.GetComponent<Ingredient>().remaining > 0)
@@ -146,6 +146,8 @@ public class DragCombination : MonoBehaviour
                 }
                 else if (selectedObject.tag == "Unit")
                     isIngredient = false;
+                else
+                    selectedObject = null;
             } else if (selectedObject.tag == "Unit" && trashMode)
             {
                 // If unit is clicked on and you are in trash mode
@@ -277,7 +279,6 @@ public class DragCombination : MonoBehaviour
             selectedObject.transform.position = new Vector3(nearestPos.x, nearestPos.y, 5f - gridDepth);
             selectedObject.GetComponent<UnitBehaviour>().placed = true;
             selectedObject.GetComponent<UnitBehaviour>().layerSprites(6*gridDepth + 1);
-
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
             AudioManager.Instance.PlaySFX("DonutPlace");
