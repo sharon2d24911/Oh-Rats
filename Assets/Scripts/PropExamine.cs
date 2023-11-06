@@ -97,19 +97,19 @@ public class PropExamine : MonoBehaviour
     {
         if (isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S1 - Framed bakery" || this.name == "S1 - Framed photo"))
         {
-            AudioManager.Instance.PlaySFX("FrameOn");
+            AudioManager.Instance.PlaySFX("FrameOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FrameOn"]);
         }
         else if (!isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S1 - Framed bakery" || this.name == "S1 - Framed photo"))
         {
-            AudioManager.Instance.PlaySFX("FrameOff");
+            AudioManager.Instance.PlaySFX("FrameOff",GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FrameOff"]);
         }
         else if (isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule"))
         {
-            AudioManager.Instance.PlaySFX("PaperOn");
+            AudioManager.Instance.PlaySFX("PaperOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PaperOn"]);
         }
         else if (!isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule"))
         {
-            AudioManager.Instance.PlaySFX("PaperOff");
+            AudioManager.Instance.PlaySFX("PaperOff", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PaperOff"]);
         }
     }
 }

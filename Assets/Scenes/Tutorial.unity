@@ -920,7 +920,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
   musicSource: {fileID: 1231472197}
   sfxSource: {fileID: 2009149348}
-  layerSource: {fileID: 209491686}
+  musicSource2: {fileID: 209491686}
 --- !u!4 &167710202
 Transform:
   m_ObjectHideFlags: 0
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 209491687}
   - component: {fileID: 209491686}
   m_Layer: 0
-  m_Name: Music Layer Source
+  m_Name: Music Source 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -977,7 +977,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1628,9 +1628,10 @@ GameObject:
   - component: {fileID: 340900039}
   - component: {fileID: 340900041}
   - component: {fileID: 340900042}
+  - component: {fileID: 340900043}
   m_Layer: 0
   m_Name: GameHandler
-  m_TagString: Untagged
+  m_TagString: GameHandler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1711,6 +1712,7 @@ MonoBehaviour:
   allIngredients: []
   tutorialMode: 0
   topLeft: {x: 0, y: 0}
+  trashMode: 0
   frameRate: 4
   animTimeMax: 0.4
   bowlDefault: {fileID: 21300000, guid: 64ddf6c52947d414c889a93f17afe1c4, type: 3}
@@ -1719,6 +1721,18 @@ MonoBehaviour:
   - {fileID: -3147219776244755523, guid: cd3fd8e64cdb16f44855ae5a33f83034, type: 3}
   - {fileID: 6527756298342610281, guid: cd3fd8e64cdb16f44855ae5a33f83034, type: 3}
   - {fileID: -5939245590430032672, guid: cd3fd8e64cdb16f44855ae5a33f83034, type: 3}
+--- !u!114 &340900043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340900038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da3531b5be8409419790197f3d8db3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &342972033
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     public Sound[] music, sfx, layer;
-    public AudioSource musicSource, sfxSource, layerSource;
+    public AudioSource musicSource, sfxSource, musicSource2;
+    public bool fadingOut1 = false;
 
     private void Awake()
     {
@@ -41,7 +42,6 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = s.clip;
             musicSource.Play();
-            layerSource.Play();
         }
     }
 
@@ -56,39 +56,74 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = s.clip;
             musicSource.Stop();
-            layerSource.Stop();
         }
     }
 
-    // Fade out function for future use
-    public IEnumerator Fade(bool fadeIn, string musicName, float duration, float targetVolume)
+    public IEnumerator FadeIn(string musicName, float duration, float targetVolume)
     {
         Sound s = Array.Find(music, x => x.soundName == musicName);
-        musicSource.clip = s.clip;
-        // If fading out, calculate the duration based on the length of the audio clip
-
-        float time = 0f;
-        float startVol;
-        if (fadeIn)
+        AudioSource activeSource;
+        Debug.Log("vol: " + musicSource.volume);
+        // Music source 1 currently not in use, fade it in
+        if (musicSource.volume == 0 || fadingOut1 == false)
         {
-           startVol = 0;
-           musicSource.Play();
+            activeSource = musicSource;
         }
         else
         {
-            startVol = musicSource.volume;
-            targetVolume = 0;
+            activeSource = musicSource2;
         }
+        activeSource.clip = s.clip;
+
+        float time = 0f;
+        float startVol;
+
+        startVol = 0;
+        activeSource.Play();
+ 
         
-        Debug.Log("Start Volume: " + startVol);
-        Debug.Log("Target Volume: " + targetVolume);
-        Debug.Log("Time: " + time);
-        Debug.Log("Duration: " + duration);
+        Debug.Log("Current source fadein: " + activeSource);
+
         while (time < duration)
         {
             time += Time.deltaTime;
             // Fade from the start volume to the target volume
-            musicSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
+            activeSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
+            yield return null;
+        }
+        yield break;
+    }
+
+    public IEnumerator FadeOut(string musicName, float duration, float targetVolume)
+    {
+        Sound s = Array.Find(music, x => x.soundName == musicName);
+        AudioSource activeSource;
+        // Music source 1 currently in use, fade it out
+        if (musicSource.volume > 0)
+        {
+            fadingOut1 = true;
+            activeSource = musicSource;
+        }
+        else
+        {
+            activeSource = musicSource2;
+        }
+        activeSource.clip = s.clip;
+        // If fading out, calculate the duration based on the length of the audio clip
+
+        float time = 0f;
+        float startVol;
+
+
+        startVol = activeSource.volume;
+        targetVolume = 0;
+
+        Debug.Log("Current source fadeout: " + activeSource);
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            // Fade from the start volume to the target volume
+            activeSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
             yield return null;
         }
         yield break;
@@ -98,7 +133,7 @@ public class AudioManager : MonoBehaviour
     {
         Sound s1 = Array.Find(layer, x => x.soundName == layerName);
         Sound s2 = Array.Find(music, x => x.soundName == musicName);
-        layerSource.clip = s1.clip;
+        //layerSource.clip = s1.clip;
         musicSource.clip = s2.clip;
         // If fading out, calculate the duration based on the length of the audio clip
         if (!fadeIn)
@@ -107,15 +142,15 @@ public class AudioManager : MonoBehaviour
             yield return new WaitForSecondsRealtime((float)(lengthOfSource1 - duration));
         }
         float time = 0f;
-        float startVol1 = layerSource.volume;
+        //float startVol1 = layerSource.volume;
         float startVol2 = musicSource.volume;
         while (time < duration)
         {
             time += Time.deltaTime;
             // Fade from the start volume to the target volume
             musicSource.Play();
-            layerSource.Play();
-            layerSource.volume = Mathf.Lerp(startVol1, targetVolume, time / duration);
+            //layerSource.Play();
+            //layerSource.volume = Mathf.Lerp(startVol1, targetVolume, time / duration);
             musicSource.volume = Mathf.Lerp(startVol2, targetVolume, time / duration);
             yield return null;
         }
@@ -123,7 +158,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public void PlaySFX(string name)
+    public void PlaySFX(string name,float volume)
     {
         Sound s = Array.Find(sfx, x => x.soundName == name);
         if (s == null)
@@ -132,7 +167,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            sfxSource.PlayOneShot(s.clip); // Play sfx once
+            sfxSource.PlayOneShot(s.clip,volume); // Play sfx once
         }
     }
 }

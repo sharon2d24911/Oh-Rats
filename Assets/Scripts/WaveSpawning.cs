@@ -240,7 +240,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("PLAY SONG" + trackName);
 
 
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().Fade(true, trackName, waveTrackFadeTime, waveTrackFinalVolume));
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(trackName, waveTrackFadeTime, waveTrackFinalVolume));
 
         }
     }
@@ -252,7 +252,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("End SONG");
 
 
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().Fade(false, trackName, waveTrackFadeTime, 0)); 
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut(trackName, waveTrackFadeTime, 0)); 
 
         }
     }
@@ -303,6 +303,7 @@ public class WaveSpawning : MonoBehaviour
         spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
         Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
         string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
-        AudioManager.Instance.PlaySFX(this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))]);
+        this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
+        AudioManager.Instance.PlaySFX(this.spawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound]);
     }
 }
