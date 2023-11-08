@@ -4995,7 +4995,7 @@ MonoBehaviour:
   - soundName: PlayerLifeLost
     clip: {fileID: 8300000, guid: bf6b987fed53a8d40847adb58c299e6d, type: 3}
   - soundName: Mixing
-    clip: {fileID: 8300000, guid: 7474fe98a3c4708489e2441601f10ad0, type: 3}
+    clip: {fileID: 8300000, guid: 1089f654bc6a67847a1bf5cb5c1c4b2a, type: 3}
   - soundName: GameOver
     clip: {fileID: 8300000, guid: 28d6eba8d76b46449a6ffedefe50ecbd, type: 3}
   - soundName: PaperOff
@@ -5015,15 +5015,11 @@ MonoBehaviour:
   - soundName: UnitDiscard
     clip: {fileID: 8300000, guid: dd1e58f4b39503d40ac3cf3d66df5602, type: 3}
   - soundName: BottleCapHurt1
-    clip: {fileID: 8300000, guid: c1be1a321bc09aa48895756181777954, type: 3}
+    clip: {fileID: 8300000, guid: b318a9b29b6603e449a13cb3b18f0614, type: 3}
   - soundName: BottleCapHurt2
-    clip: {fileID: 8300000, guid: 272f166f89cad15409afb9cb9bd64e78, type: 3}
-  - soundName: BottleCapHurt3
-    clip: {fileID: 8300000, guid: 35e0667929d18cb42ba2c2fbad2b8b36, type: 3}
-  - soundName: BottleCapHurt4
-    clip: {fileID: 8300000, guid: 145cccb2d91026e41b6717ed506d56c4, type: 3}
+    clip: {fileID: 8300000, guid: f4f58d5e5847155438a4ec5272d347bc, type: 3}
   - soundName: delivery
-    clip: {fileID: 8300000, guid: 68f91002e41a81648bef378aab3ade48, type: 3}
+    clip: {fileID: 8300000, guid: 945f989f1470fa548beb7a37b7a427f5, type: 3}
   - soundName: DiscardOff
     clip: {fileID: 8300000, guid: d3ad75087c828a3429e09e26263f7e9c, type: 3}
   - soundName: DiscardOn
@@ -5034,6 +5030,7 @@ MonoBehaviour:
   musicSource: {fileID: 1231472197}
   sfxSource: {fileID: 2009149348}
   musicSource2: {fileID: 209491686}
+  fadingOut1: 0
 --- !u!4 &1669982742
 Transform:
   m_ObjectHideFlags: 0

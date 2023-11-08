@@ -157,6 +157,7 @@ public class DragCombination : MonoBehaviour
                 Debug.Log("TRASH MODE: " + selectedObject + " goodbye.");
                 // Destroy unit and clear up position
                 filledPositions.Remove(selectedObject.transform.position);
+                AudioManager.Instance.PlaySFX("UnitDiscard", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UnitDiscard"]);
                 Destroy(selectedObject);
                 trashMode = false;
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
@@ -377,9 +378,11 @@ public class DragCombination : MonoBehaviour
         if (trashMode)
         {
             Cursor.SetCursor(garbageCursor, Vector2.zero, CursorMode.ForceSoftware);
+            AudioManager.Instance.PlaySFX("DiscardOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOn"]);
         } else
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+            AudioManager.Instance.PlaySFX("DiscardOff", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOff"]);
         }
     }
 

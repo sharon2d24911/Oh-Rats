@@ -300,8 +300,8 @@ public class EnemyBehaviour : MonoBehaviour
             Damage2.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder + 1;
             if (health > 0 && health <= 0.50 * initialHealth)
             {
-                string[] capHurtSound = { "BottleCapHurt1", "BottleCapHurt3", "BottleCapHurt4" };
-                this.capHurtSound = capHurtSound[Mathf.FloorToInt(Random.Range(0, 3))];
+                string[] capHurtSound = { "BottleCapHurt1", "BottleCapHurt2"};
+                this.capHurtSound = capHurtSound[Mathf.FloorToInt(Random.Range(0, 2))];
                 AudioManager.Instance.PlaySFX(this.capHurtSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capHurtSound]);
                 Destroy(Damage2);
             }
