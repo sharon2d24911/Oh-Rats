@@ -127,19 +127,19 @@ public class DragCombination : MonoBehaviour
                     {
                         string[] sugarGrabSound = { "SugarGrab1", "SugarGrab2" };
                         this.sugarGrabSound = sugarGrabSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                        AudioManager.Instance.PlaySFX(this.sugarGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.sugarGrabSound]);
+                        AudioManager.Instance.PlaySFX(this.sugarGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.sugarGrabSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.sugarGrabSound][1]);
                     }
                     else if (selectedObject.name == "Flour") // flour sfx
                     {
                         string[] flourGrabSound = { "FlourGrab1", "FlourGrab2" };
                         this.flourGrabSound = flourGrabSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                        AudioManager.Instance.PlaySFX(this.flourGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.flourGrabSound]);
+                        AudioManager.Instance.PlaySFX(this.flourGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.flourGrabSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.flourGrabSound][1]);
                     }
                     else if (selectedObject.name == "Egg") // egg sfx
                     {
                         string[] eggGrabSound = { "EggGrab1", "EggGrab2", "EggGrab3" };
                         this.eggGrabSound = eggGrabSound[Mathf.FloorToInt(Random.Range(0, 3))];
-                        AudioManager.Instance.PlaySFX(this.eggGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.eggGrabSound]);
+                        AudioManager.Instance.PlaySFX(this.eggGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.eggGrabSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.eggGrabSound][1]);
                     }
 
                     baseObject = selectedObject;
@@ -157,7 +157,7 @@ public class DragCombination : MonoBehaviour
                 Debug.Log("TRASH MODE: " + selectedObject + " goodbye.");
                 // Destroy unit and clear up position
                 filledPositions.Remove(selectedObject.transform.position);
-                AudioManager.Instance.PlaySFX("UnitDiscard", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UnitDiscard"]);
+                AudioManager.Instance.PlaySFX("UnitDiscard", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UnitDiscard"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UnitDiscard"][1]);
                 Destroy(selectedObject);
                 trashMode = false;
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
@@ -250,19 +250,19 @@ public class DragCombination : MonoBehaviour
                 {
                     string[] sugarDropSound = { "SugarDrop1", "SugarDrop2"};
                     this.sugarDropSound = sugarDropSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                    AudioManager.Instance.PlaySFX(this.sugarDropSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.sugarDropSound]);
+                    AudioManager.Instance.PlaySFX(this.sugarDropSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.sugarDropSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.sugarDropSound][1]);
                 }
                 else if(selectedObject.name == "Flour_individual(Clone)") // flour sfx
                 {
                     string[] flourDropSound = { "FlourDrop1", "FlourDrop2" };
                     this.flourDropSound = flourDropSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                    AudioManager.Instance.PlaySFX(this.flourDropSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.flourDropSound]);
+                    AudioManager.Instance.PlaySFX(this.flourDropSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.flourDropSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.flourDropSound][1]);
                 }
                 else if (selectedObject.name == "Egg_individual(Clone)") // egg sfx
                 {
                     string[] eggDropSound = { "EggDrop1", "EggDrop2", "EggDrop3", "EggDrop4" };
                     this.eggDropSound = eggDropSound[Mathf.FloorToInt(Random.Range(0, 4))];
-                    AudioManager.Instance.PlaySFX(this.eggDropSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.eggDropSound]);
+                    AudioManager.Instance.PlaySFX(this.eggDropSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.eggDropSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.eggDropSound][1]);
                 }
 
                 // Adds selected object to list
@@ -288,7 +288,7 @@ public class DragCombination : MonoBehaviour
             selectedObject.GetComponent<UnitBehaviour>().layerSprites(6*gridDepth + 1);
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
-            AudioManager.Instance.PlaySFX("DonutPlace", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutPlace"]);
+            AudioManager.Instance.PlaySFX("DonutPlace", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutPlace"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutPlace"][1]);
         }
 
         selectedObject = null;
@@ -346,9 +346,9 @@ public class DragCombination : MonoBehaviour
        //Begin bowl animation
         bowlIsAnimating = true;
 
-        AudioManager.Instance.PlaySFX("Mixing", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["Mixing"]);
-        // Wait for 2 seconds
-        yield return new WaitForSeconds(2);
+        AudioManager.Instance.PlaySFX("Mixing", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["Mixing"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["Mixing"][1]);
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(3);
 
         //End bowl animation
         bowlIsAnimating = false;
@@ -378,11 +378,11 @@ public class DragCombination : MonoBehaviour
         if (trashMode)
         {
             Cursor.SetCursor(garbageCursor, Vector2.zero, CursorMode.ForceSoftware);
-            AudioManager.Instance.PlaySFX("DiscardOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOn"]);
+            AudioManager.Instance.PlaySFX("DiscardOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOn"][1]);
         } else
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
-            AudioManager.Instance.PlaySFX("DiscardOff", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOff"]);
+            AudioManager.Instance.PlaySFX("DiscardOff", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOff"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DiscardOff"][1]);
         }
     }
 

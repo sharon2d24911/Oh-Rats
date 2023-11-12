@@ -56,14 +56,14 @@ public class GameHandler : MonoBehaviour
     public void PlayerLoss()
     {
         numOfRats += 1;
-        AudioManager.Instance.PlaySFX("PlayerLifeLost", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"]);
+        AudioManager.Instance.PlaySFX("PlayerLifeLost", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][1]);
         Destroy(playerLives[playerLivesMaxInd]);
         playerLivesMaxInd -= 1;
         if (numOfRats == maxRats)
         {
             GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain");
             GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyEvent");
-            AudioManager.Instance.PlaySFX("GameOver", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"]);
+            AudioManager.Instance.PlaySFX("GameOver", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][1]);
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");
         }
