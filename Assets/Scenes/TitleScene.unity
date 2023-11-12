@@ -865,7 +865,7 @@ MonoBehaviour:
   - soundName: PlayerLifeLost
     clip: {fileID: 8300000, guid: bf6b987fed53a8d40847adb58c299e6d, type: 3}
   - soundName: Mixing
-    clip: {fileID: 8300000, guid: 1089f654bc6a67847a1bf5cb5c1c4b2a, type: 3}
+    clip: {fileID: 8300000, guid: 155324d8e399fcc42bb3515617435f7f, type: 3}
   - soundName: GameOver
     clip: {fileID: 8300000, guid: 28d6eba8d76b46449a6ffedefe50ecbd, type: 3}
   - soundName: PaperOff
@@ -889,7 +889,7 @@ MonoBehaviour:
   - soundName: BottleCapHurt2
     clip: {fileID: 8300000, guid: f4f58d5e5847155438a4ec5272d347bc, type: 3}
   - soundName: delivery
-    clip: {fileID: 8300000, guid: 945f989f1470fa548beb7a37b7a427f5, type: 3}
+    clip: {fileID: 8300000, guid: b11f8cabfa1a07e42b7f1eb7bb0a8851, type: 3}
   - soundName: DiscardOff
     clip: {fileID: 8300000, guid: d3ad75087c828a3429e09e26263f7e9c, type: 3}
   - soundName: DiscardOn

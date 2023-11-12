@@ -59,7 +59,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeIn(string musicName, float duration, float targetVolume)
+    public IEnumerator FadeIn(string musicName, float duration, float targetVolume, float speed)
     {
         Sound s = Array.Find(music, x => x.soundName == musicName);
         AudioSource activeSource;
@@ -79,6 +79,7 @@ public class AudioManager : MonoBehaviour
         float startVol;
 
         startVol = 0;
+        activeSource.pitch = speed;
         activeSource.Play();
  
         
@@ -94,7 +95,7 @@ public class AudioManager : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator FadeOut(string musicName, float duration, float targetVolume)
+    public IEnumerator FadeOut(string musicName, float duration, float targetVolume, float speed)
     {
         Sound s = Array.Find(music, x => x.soundName == musicName);
         AudioSource activeSource;
@@ -158,7 +159,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    public void PlaySFX(string name,float volume)
+    public void PlaySFX(string name,float volume,float pan)
     {
         Sound s = Array.Find(sfx, x => x.soundName == name);
         if (s == null)
@@ -167,6 +168,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            sfxSource.panStereo = pan;
             sfxSource.PlayOneShot(s.clip,volume); // Play sfx once
         }
     }

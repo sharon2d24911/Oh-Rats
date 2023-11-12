@@ -26,6 +26,7 @@ public class WaveSpawning : MonoBehaviour
         public string track;
         public int trackFadeTime;
         public int trackFinalVolume;
+        public float trackSpeed;
     }
 
     [System.Serializable]
@@ -64,6 +65,7 @@ public class WaveSpawning : MonoBehaviour
     private string waveTrack;
     private int waveTrackFadeTime;
     private int waveTrackFinalVolume;
+    private float waveTrackSpeed;
     private string waveShowcaseEnemy;
     private string[] waveEnemyTypes;
     private int waveEnemiesNum;
@@ -110,6 +112,7 @@ public class WaveSpawning : MonoBehaviour
         waveTrack = wavesInFile.waves[0].track;
         waveTrackFadeTime = wavesInFile.waves[0].trackFadeTime;
         waveTrackFinalVolume = wavesInFile.waves[0].trackFinalVolume;
+        waveTrackSpeed = wavesInFile.waves[0].trackSpeed;
         warmUpDuration = wavesInFile.waves[0].warmUp;
         waveShowcaseEnemy = wavesInFile.waves[0].showcaseEnemy;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
@@ -185,6 +188,7 @@ public class WaveSpawning : MonoBehaviour
                         waveTrack = wavesInFile.waves[currentWave].track;
                         waveTrackFadeTime = wavesInFile.waves[currentWave].trackFadeTime;
                         waveTrackFinalVolume = wavesInFile.waves[currentWave].trackFinalVolume;
+                        waveTrackSpeed = wavesInFile.waves[currentWave].trackSpeed;
                         playTrack(waveTrack); //fade in of new track
                     }
 
@@ -240,7 +244,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("PLAY SONG" + trackName);
 
 
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(trackName, waveTrackFadeTime, waveTrackFinalVolume));
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(trackName, waveTrackFadeTime, waveTrackFinalVolume, waveTrackSpeed));
 
         }
     }
@@ -252,7 +256,7 @@ public class WaveSpawning : MonoBehaviour
             Debug.Log("End SONG");
 
 
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut(trackName, waveTrackFadeTime, 0)); 
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut(trackName, waveTrackFadeTime, 0, waveTrackSpeed)); 
 
         }
     }
@@ -304,6 +308,6 @@ public class WaveSpawning : MonoBehaviour
         Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
         string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
         this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
-        AudioManager.Instance.PlaySFX(this.spawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound]);
+        AudioManager.Instance.PlaySFX(this.spawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][1]);
     }
 }
