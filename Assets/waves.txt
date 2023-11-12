@@ -11,8 +11,7 @@
 		"difficulty" : 1,
 		"track" : "BassyMain",
 		"trackFadeTime" : 1,
-		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackFinalVolume" : 1
 	},
 
 	{
@@ -26,8 +25,7 @@
 		"difficulty" : 1,
 		"track" : "none",
 		"trackFadeTime" : 1,
-		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackFinalVolume" : 1
 	},
 	{
 		"wave": 3,
@@ -40,8 +38,7 @@
 		"difficulty" : 1,
 		"track" : "BassyEvent",
 		"trackFadeTime" : 2,
-		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackFinalVolume" : 1
 	},
 	{
 		"wave": 4,
@@ -54,8 +51,7 @@
 		"difficulty" : 2,
 		"track" : "none",
 		"trackFadeTime" : 1,
-		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackFinalVolume" : 1
 	},
 	{
 		"wave": 5,
@@ -68,8 +64,7 @@
 		"difficulty" : 3,
 		"track" : "BassyDrums",
 		"trackFadeTime" : 9,
-		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackFinalVolume" : 1
 	}
  ]	
 }

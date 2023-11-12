@@ -146,7 +146,7 @@ public class EnemyBehaviour : MonoBehaviour
         health -= dmgAmount;
         string[] hurtSound = { "RatHurt1", "RatHurt2", "RatHurt3", "RatHurt4" };
         this.hurtSound = hurtSound[Mathf.FloorToInt(Random.Range(0, 4))];
-        AudioManager.Instance.PlaySFX(this.hurtSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hurtSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hurtSound][1]);
+        AudioManager.Instance.PlaySFX(this.hurtSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hurtSound]);
         sprite.color = Color.red;
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
@@ -240,7 +240,7 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("projectile hit");
             string[] hitsSound = {"ProjectileHit1", "ProjectileHit2", "ProjectileHit3"};
             this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
-            AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
+            AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound]);
             ProjectileCollide(collision.gameObject);
         }else if (collision.gameObject.tag == "Unit")
         {
@@ -250,7 +250,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 string[] biteSound = { "Bite1", "Bite2", "Bite3" };
                 this.biteSound = biteSound[Mathf.FloorToInt(Random.Range(0, 3))];
-                AudioManager.Instance.PlaySFX(this.biteSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.biteSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.biteSound][1]);
+                AudioManager.Instance.PlaySFX(this.biteSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.biteSound]);
                 Debug.Log("enemy hit unit");
                 StartCoroutine(UnitDamage(unitScript));
             }
@@ -270,7 +270,7 @@ public class EnemyBehaviour : MonoBehaviour
                 isDead = true;
                 string[] defeatSound = { "RatDefeat1", "RatDefeat2" };
                 this.defeatSound = defeatSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                AudioManager.Instance.PlaySFX(this.defeatSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.defeatSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.defeatSound][1]);
+                AudioManager.Instance.PlaySFX(this.defeatSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.defeatSound]);
                 animIndex = 0;
                 animTimer = 0;
                 Destroy(Damage1);
@@ -302,7 +302,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 string[] capHurtSound = { "BottleCapHurt1", "BottleCapHurt2"};
                 this.capHurtSound = capHurtSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                AudioManager.Instance.PlaySFX(this.capHurtSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capHurtSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capHurtSound][1]);
+                AudioManager.Instance.PlaySFX(this.capHurtSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capHurtSound]);
                 Destroy(Damage2);
             }
         }

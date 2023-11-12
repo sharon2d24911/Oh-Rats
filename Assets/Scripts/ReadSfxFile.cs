@@ -5,7 +5,7 @@ using System.IO;
 
 public class ReadSfxFile : MonoBehaviour
 {
-    public Dictionary<string, float[]> sfxDictionary = new Dictionary<string, float[]>();
+    public Dictionary<string, float> sfxDictionary = new Dictionary<string, float>();
 
     // Start is called before the first frame update
     void Start()
@@ -16,15 +16,13 @@ public class ReadSfxFile : MonoBehaviour
         // Read all lines from the text file
         string[] lines = File.ReadAllLines(filePath);
 
-        for (int i = 1; i < lines.Length; i++)
+        foreach (string line in lines)
         {
             // Split each line into key and value
-            string[] parts = lines[i].Split(',');
-            string sfxName = parts[0].Trim();
-            float volume = float.Parse(parts[1]);
-            float pan = float.Parse(parts[2]);
-            float[] array = { volume, pan }; // Store volume and pan into an array
-            sfxDictionary[sfxName] = array;
+            string[] parts = line.Split(',');
+            string key = parts[0].Trim();
+            float value = float.Parse(parts[1]);
+            sfxDictionary[key] = value;
         }
     }
 
