@@ -3,7 +3,7 @@ using TMPro;
 
 public class Ingredient : MonoBehaviour
 {
-    public int remaining;
+    [HideInInspector] public int remaining = 3;
     public float attack;
     public float speed;
     public float health;

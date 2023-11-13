@@ -17,7 +17,8 @@ public class PropExamine : MonoBehaviour
     public Vector3 bigScale;
     public Vector2 bigBC;
     [Header("Cursor")]
-    public Texture2D cursor;
+    public Texture2D interactCursor;
+    public Texture2D defaultCursor;
     //private float speed = 6f;
 
     private Vector3 targetPos;
@@ -65,13 +66,13 @@ public class PropExamine : MonoBehaviour
     void OnMouseEnter()
     {
         if (Time.timeScale != 0f && !gameHandler.GetComponent<DragCombination>().trashMode)
-            Cursor.SetCursor(cursor, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(interactCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     void OnMouseExit()
     {
         if (!gameHandler.GetComponent<DragCombination>().trashMode)
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     private void ToggleSize()
