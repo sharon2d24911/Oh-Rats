@@ -23,7 +23,10 @@ public class WaveSpawning : MonoBehaviour
         public float warmUp;
         public float minSpawnInterval;
         public float maxSpawnInterval;
-        public string track;
+        public string track1;
+        public string track2;
+        public string track3;
+        public string track4;
         public int trackFadeTime;
         public int trackFinalVolume;
         public float trackSpeed;
@@ -62,7 +65,10 @@ public class WaveSpawning : MonoBehaviour
     private float waveDuration;
     private int waveDifficulty;
     private float warmUpDuration;
-    private string waveTrack;
+    private string waveTrack1;
+    private string waveTrack2;
+    private string waveTrack3;
+    private string waveTrack4;
     private int waveTrackFadeTime;
     private int waveTrackFinalVolume;
     private float waveTrackSpeed;
@@ -109,7 +115,10 @@ public class WaveSpawning : MonoBehaviour
         waveTimerMin = wavesInFile.waves[0].minSpawnInterval;
         waveDifficulty = wavesInFile.waves[0].difficulty;
         waveDuration = wavesInFile.waves[0].duration;
-        waveTrack = wavesInFile.waves[0].track;
+        waveTrack1 = wavesInFile.waves[0].track1;
+        waveTrack2 = wavesInFile.waves[0].track2;
+        waveTrack3 = wavesInFile.waves[0].track3;
+        waveTrack4 = wavesInFile.waves[0].track4;
         waveTrackFadeTime = wavesInFile.waves[0].trackFadeTime;
         waveTrackFinalVolume = wavesInFile.waves[0].trackFinalVolume;
         waveTrackSpeed = wavesInFile.waves[0].trackSpeed;
@@ -117,7 +126,7 @@ public class WaveSpawning : MonoBehaviour
         waveShowcaseEnemy = wavesInFile.waves[0].showcaseEnemy;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
-        playTrack(waveTrack); //fade in of new track
+        playTrack(waveTrack1, waveTrack2, waveTrack3, waveTrack4); //fade in of new track
 
     }
 
@@ -182,14 +191,17 @@ public class WaveSpawning : MonoBehaviour
 
 
                     //Music transition
-                    if (wavesInFile.waves[currentWave].track != "none")  //only change tracks if a transition was mentioned
+                    if (wavesInFile.waves[currentWave].track1 != "none")  //only change tracks if a transition was mentioned
                     {
-                        endTrack(waveTrack); //fadeout of current track
-                        waveTrack = wavesInFile.waves[currentWave].track;
+                        endTrack(waveTrack1, waveTrack2, waveTrack3, waveTrack4); //fadeout of current track
+                        waveTrack1 = wavesInFile.waves[currentWave].track1;
+                        waveTrack2 = wavesInFile.waves[currentWave].track2;
+                        waveTrack3 = wavesInFile.waves[currentWave].track3;
+                        waveTrack4 = wavesInFile.waves[currentWave].track4;
                         waveTrackFadeTime = wavesInFile.waves[currentWave].trackFadeTime;
                         waveTrackFinalVolume = wavesInFile.waves[currentWave].trackFinalVolume;
                         waveTrackSpeed = wavesInFile.waves[currentWave].trackSpeed;
-                        playTrack(waveTrack); //fade in of new track
+                        playTrack(waveTrack1, waveTrack2, waveTrack3, waveTrack4); //fade in of new track
                     }
 
 
@@ -237,26 +249,26 @@ public class WaveSpawning : MonoBehaviour
         }
     }
 
-    void playTrack(string trackName)
+    void playTrack(string trackName1, string trackName2, string trackName3, string trackName4)
     {
-        if (trackName != "none")
+        if (trackName1 != "none")
         {
-            Debug.Log("PLAY SONG" + trackName);
+            Debug.Log("PLAY SONG" + trackName1);
 
 
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(trackName, waveTrackFadeTime, waveTrackFinalVolume, waveTrackSpeed));
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(trackName1, trackName2, trackName3, trackName4, waveTrackFadeTime, waveTrackFinalVolume, waveTrackSpeed));
 
         }
     }
 
-    void endTrack(string trackName)
+    void endTrack(string trackName1, string trackName2, string trackName3, string trackName4)
     {
-        if (trackName != "none")
+        if (trackName1 != "none")
         {
             Debug.Log("End SONG");
 
 
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut(trackName, waveTrackFadeTime, 0, waveTrackSpeed)); 
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut(trackName1, trackName2, trackName3, trackName4, waveTrackFadeTime, 0)); 
 
         }
     }

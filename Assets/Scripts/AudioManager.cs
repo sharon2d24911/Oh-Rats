@@ -6,10 +6,9 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-
-    public Sound[] music, sfx, layer;
-    public AudioSource musicSource, sfxSource, musicSource2;
-    public bool fadingOut1 = false;
+    public Sound[] music, sfx;
+    public AudioSource musicSource, sfxSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8;
+    //private bool fadingOut1 = false;
 
     private void Awake()
     {
@@ -22,13 +21,6 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void Start()
-    {
-        // Background music play when game starts
-        //StartCoroutine(Fade(true,"BassyMain",1f,1f)); // Fade in
-        //StartCoroutine(Fade(false, "BassyMain", 2f, 0f)); // Fade out
     }
 
     public void PlayMusic(string name)
@@ -59,105 +51,118 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeIn(string musicName, float duration, float targetVolume, float speed)
+    public IEnumerator FadeIn(string musicName1, string musicName2, string musicName3, string musicName4, float duration, float targetVolume, float speed)
     {
-        Sound s = Array.Find(music, x => x.soundName == musicName);
-        AudioSource activeSource;
-        Debug.Log("vol: " + musicSource.volume);
-        // Music source 1 currently not in use, fade it in
-        if (musicSource.volume == 0 || fadingOut1 == false)
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
+
+        AudioSource[] availableSources = new AudioSource[8];
+        int index = 0;
+
+        // Check to see which musicSources are available to use
+        for (int i = 0; i < musicSources.Length; i++)
         {
-            activeSource = musicSource;
+            if (musicSources[i].volume == 0)
+            {
+                availableSources[index] = musicSources[i];
+                index++;
+            }
         }
-        else
+
+        // Initialize the sources with the clips
+        int sourcesToInitialize = Math.Min(index, musicNames.Length);
+        for (int i = 0; i < sourcesToInitialize; i++)
         {
-            activeSource = musicSource2;
+            if (musicNames[i] != "none")
+            {
+                Sound s = Array.Find(music, x => x.soundName == musicNames[i]);
+                if (s != null)
+                {
+                    availableSources[i].clip = s.clip;
+                    availableSources[i].pitch = speed;
+                    availableSources[i].Play();
+                }
+            }
         }
-        activeSource.clip = s.clip;
 
         float time = 0f;
-        float startVol;
 
-        startVol = 0;
-        activeSource.pitch = speed;
-        activeSource.Play();
- 
-        
-        Debug.Log("Current source fadein: " + activeSource);
-
+        // Fade in all music sources together
         while (time < duration)
         {
             time += Time.deltaTime;
-            // Fade from the start volume to the target volume
-            activeSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
+
+            for (int i = 0; i < sourcesToInitialize; i++)
+            {
+                if (musicNames[i] != "none")
+                {
+                    // Update volume for each source
+                    availableSources[i].volume = Mathf.Lerp(0, targetVolume, time / duration);
+                }
+            }
+
             yield return null;
         }
-        yield break;
     }
 
-    public IEnumerator FadeOut(string musicName, float duration, float targetVolume, float speed)
+
+    public IEnumerator FadeOut(string musicName1, string musicName2, string musicName3, string musicName4, float duration, float targetVolume)
     {
-        Sound s = Array.Find(music, x => x.soundName == musicName);
-        AudioSource activeSource;
-        // Music source 1 currently in use, fade it out
-        if (musicSource.volume > 0)
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
+
+        AudioSource[] playingSources = new AudioSource[4];
+        int index = 0;
+
+        // Check which musicSources are currently playing
+        for (int i = 0; i < musicSources.Length; i++)
         {
-            fadingOut1 = true;
-            activeSource = musicSource;
+            if (musicSources[i].volume > 0)
+            {
+                playingSources[index] = musicSources[i];
+                index++;
+            }
         }
-        else
+
+        // Adjusting the number of iterations to the number of sources actually playing
+        int sourcesToFadeOut = Math.Min(index, musicNames.Length);
+        for (int i = 0; i < sourcesToFadeOut; i++)
         {
-            activeSource = musicSource2;
+            if (musicNames[i] != "none" && playingSources[i] != null)
+            {
+                playingSources[i].clip = Array.Find(music, x => x.soundName == musicNames[i]).clip;
+            }
         }
-        activeSource.clip = s.clip;
-        // If fading out, calculate the duration based on the length of the audio clip
 
         float time = 0f;
-        float startVol;
+        float[] startVolumes = new float[sourcesToFadeOut];
 
+        // Store the start volumes of each source
+        for (int i = 0; i < sourcesToFadeOut; i++)
+        {
+            if (musicNames[i] != "none" && playingSources[i] != null)
+            {
+                startVolumes[i] = playingSources[i].volume;
+            }
+        }
 
-        startVol = activeSource.volume;
-        targetVolume = 0;
-
-        Debug.Log("Current source fadeout: " + activeSource);
+        // Fade out all music sources together
         while (time < duration)
         {
             time += Time.deltaTime;
-            // Fade from the start volume to the target volume
-            activeSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
+
+            for (int i = 0; i < sourcesToFadeOut; i++)
+            {
+                if (musicNames[i] != "none" && playingSources[i] != null)
+                {
+                    // Update volume for each source
+                    playingSources[i].volume = Mathf.Lerp(startVolumes[i], targetVolume, time / duration);
+                }
+            }
+
             yield return null;
         }
-        yield break;
     }
-
-    public IEnumerator FadeTwo(bool fadeIn, string musicName, string layerName, float duration, float targetVolume)
-    {
-        Sound s1 = Array.Find(layer, x => x.soundName == layerName);
-        Sound s2 = Array.Find(music, x => x.soundName == musicName);
-        //layerSource.clip = s1.clip;
-        musicSource.clip = s2.clip;
-        // If fading out, calculate the duration based on the length of the audio clip
-        if (!fadeIn)
-        {
-            double lengthOfSource1 = (double)musicSource.clip.samples / musicSource.clip.frequency; // Calculate clip's length
-            yield return new WaitForSecondsRealtime((float)(lengthOfSource1 - duration));
-        }
-        float time = 0f;
-        //float startVol1 = layerSource.volume;
-        float startVol2 = musicSource.volume;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            // Fade from the start volume to the target volume
-            musicSource.Play();
-            //layerSource.Play();
-            //layerSource.volume = Mathf.Lerp(startVol1, targetVolume, time / duration);
-            musicSource.volume = Mathf.Lerp(startVol2, targetVolume, time / duration);
-            yield return null;
-        }
-        yield break;
-    }
-
 
     public void PlaySFX(string name,float volume,float pan)
     {
@@ -171,5 +176,22 @@ public class AudioManager : MonoBehaviour
             sfxSource.panStereo = pan;
             sfxSource.PlayOneShot(s.clip,volume); // Play sfx once
         }
+    }
+
+    public void MusicVolume(float volume)
+    {
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        for (int i = 0; i < musicSources.Length; i++)
+        {
+            // If the music source is currently playing
+            if (musicSources[i].volume > 0)
+            {
+                musicSources[i].volume = volume;
+            }
+        }
+    }
+    public void SFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
     }
 }
