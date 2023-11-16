@@ -88,6 +88,7 @@ public class AudioManager : MonoBehaviour
         while (time < duration)
         {
             time += Time.deltaTime;
+            Debug.Log("vol: " + musicSource.volume);
             // Fade from the start volume to the target volume
             activeSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
             yield return null;

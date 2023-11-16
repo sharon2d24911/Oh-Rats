@@ -18,6 +18,7 @@ public class WaveSpawning : MonoBehaviour
         public int wave;
         public string[] enemyTypes;
         public string showcaseEnemy;
+        public int ratsAtATime;
         public float duration;
         public int difficulty;
         public float warmUp;
@@ -47,6 +48,7 @@ public class WaveSpawning : MonoBehaviour
     private float warmupTimer = 0f;
     private float currentWaveTimeMax = 0f;
     private int previousLane;
+    private int previousLane2;
     private string spawnSound;
     private Waves wavesInFile;
     public EnemyObjects[] enemyPrefabs;
@@ -62,6 +64,7 @@ public class WaveSpawning : MonoBehaviour
     private float waveDuration;
     private int waveDifficulty;
     private float warmUpDuration;
+    private int waveRatsAtATime;
     private string waveTrack;
     private int waveTrackFadeTime;
     private int waveTrackFinalVolume;
@@ -108,6 +111,7 @@ public class WaveSpawning : MonoBehaviour
         waveTimerMax = wavesInFile.waves[0].maxSpawnInterval;
         waveTimerMin = wavesInFile.waves[0].minSpawnInterval;
         waveDifficulty = wavesInFile.waves[0].difficulty;
+        waveRatsAtATime = wavesInFile.waves[0].ratsAtATime;
         waveDuration = wavesInFile.waves[0].duration;
         waveTrack = wavesInFile.waves[0].track;
         waveTrackFadeTime = wavesInFile.waves[0].trackFadeTime;
@@ -141,16 +145,22 @@ public class WaveSpawning : MonoBehaviour
 
             if (waveTimer > currentWaveTimeMax)
             {
-                Vector3 enemyPos = selectLane();
 
                 //StartCoroutine(Camera.main.GetComponent<AudioManager>().FadeTwo(true, "BassyMain", "BassyEvent", 0.1f, 1f)); // Fade in two music
                 ///this line of code was implemented when the bossWave came about
                 ///the new version of the waves system doesn't have this included, so a music event like this might have to be handled differently
                 ///maybe depending of the enemy type(s) in the wave? or the wave number? a music attribute can also be added to the JSON, although this would likely be limited
 
-
-                Spawn(enemyPos); //handles which enemy spawns internally
-
+                for(int i = 0; i < waveRatsAtATime; i++)
+                {
+                    if (waveShowcaseEnemy != "none" && !waveShowcased)
+                    {
+                        i = waveRatsAtATime;
+                    }
+                    Vector3 enemyPos = selectLane();
+                    Spawn(enemyPos); //handles which enemy spawns internally
+                }
+                
                 waveTimer = 0f;
                 currentWaveTimeMax = Random.Range(waveTimerMin, waveTimerMax); //changes time it should take between spawns
             }
@@ -174,6 +184,7 @@ public class WaveSpawning : MonoBehaviour
                     waveTimerMin = wavesInFile.waves[currentWave].minSpawnInterval;
                     waveDuration = wavesInFile.waves[currentWave].duration;
                     waveDifficulty = wavesInFile.waves[currentWave].difficulty;
+                    waveRatsAtATime = wavesInFile.waves[currentWave].ratsAtATime;
                     warmUpDuration = wavesInFile.waves[currentWave].warmUp;
                     waveShowcaseEnemy = wavesInFile.waves[currentWave].showcaseEnemy;
                     waveShowcased = false;
@@ -228,7 +239,7 @@ public class WaveSpawning : MonoBehaviour
         for(int i =0; i < gridPositions.Count; i++)
         {
             Vector3 currentPos = gridPositions[i];
-            if (unitPositions.ContainsKey(currentPos))
+            if (unitPositions.ContainsKey(currentPos) && unitPositions[currentPos].tag == "Unit")
             {
                 GameObject unit = unitPositions[currentPos];
                 UnitBehaviour unitScript = unit.GetComponent<UnitBehaviour>();
@@ -261,7 +272,6 @@ public class WaveSpawning : MonoBehaviour
         }
     }
 
-
     Vector3 selectLane()
     {
         int rows = gridScript.rows;
@@ -269,12 +279,13 @@ public class WaveSpawning : MonoBehaviour
         //Debug.Log("range" + (rows - 1));
         int randInd = (Random.Range(0, (rows))) * cols;
         //Debug.Log("randInd" + randInd);
-        while (randInd == previousLane)
+        while (randInd == previousLane || randInd == previousLane2)
         {
             randInd = (Random.Range(0, (rows ))) * cols; ;  //stops two rats from spawning in same lane one after another
         }
         //Debug.Log("randInd" + randInd);
         //Debug.Log("previousLane" + previousLane);
+        previousLane2 = previousLane;
         previousLane = randInd;
         //Debug.Log("previousLane" + previousLane);
         Vector3 selectedPos = new Vector3(GameHandler.EnemyStartXPosition, gridPositions[randInd].y + enemyPosHeightAdjust, (randInd/cols) + 1.5f);
@@ -289,14 +300,19 @@ public class WaveSpawning : MonoBehaviour
         {
             enemyName = waveShowcaseEnemy;
             waveShowcased = true;
+            if (enemyName == "BossRat")
+            {
+                position = new Vector3(GameHandler.BossStartXPosition, GameHandler.BossStartYPosition, position.z);
+            }
         }
         else
         {
             float probability = Random.Range(0f, 1f);
             Debug.Log("probability " + probability);
-            float goalPost = 0.5f / (1f - (waveDifficulty * 0.125f)); //waveDifficulty determines what the probability must equal to spawn a non-basic enemy type
-            int randInd = (int)Mathf.Round((goalPost * probability) * (waveEnemiesNum - 1)); //selects random index between range of enemy types
-            enemyName = waveEnemyTypes[randInd];
+            float goalPost = 0.5f / (1f - (waveDifficulty * 0.1875f)); //waveDifficulty determines what the probability must equal to spawn a non-basic enemy type
+            int randInd = (int)Mathf.Clamp(Mathf.Round((goalPost * probability)),0f,1f) * (int)(waveEnemiesNum - Random.Range(1,waveEnemiesNum)); //selects random index between range of enemy types
+            Debug.Log("randInd " + randInd);
+           enemyName = waveEnemyTypes[randInd];
             Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum " + waveEnemiesNum);
         }
         GameObject enemy = getEnemyObj(enemyName);

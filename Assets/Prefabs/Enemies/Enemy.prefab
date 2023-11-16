@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51810946609257790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.19, y: 0.16, z: -6}
+  m_LocalPosition: {x: -0.19, y: 0.16, z: 3}
   m_LocalScale: {x: 0.894733, y: 0.81276274, z: 0}
   m_Children: []
   m_Father: {fileID: 8389707924955351754}
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 558721739
   m_SortingLayer: 1
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 3976922612645355611, guid: 947f4083d06f684458a46d369ede05c4,
+  m_SortingOrder: 8
+  m_Sprite: {fileID: -6238584742264081290, guid: 75c6bf22c32468b459d9afcbd399847f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -188,19 +188,29 @@ MonoBehaviour:
   lane: 0
   damage: 10
   speed: 0.15
-  difficultyIndex: 1
   isBoss: 0
+  projectile: {fileID: 0}
+  ProjectileOrigin: {fileID: 0}
+  isProjectileShooter: 0
+  cooldown: 0
+  canShoot: 1
+  isThrower: 0
+  puddle: {fileID: 0}
   frameRate: 4
   animTimeMax: 0.8
   animations:
   - animation: Walk
     BaseAnimation:
-    - {fileID: -2998919628560728469, guid: f600a9b0760e27d47854bf6354173c18, type: 3}
-    - {fileID: -7921009845139004823, guid: f600a9b0760e27d47854bf6354173c18, type: 3}
-    - {fileID: -6567565379305296841, guid: f600a9b0760e27d47854bf6354173c18, type: 3}
-    - {fileID: -753735171041469523, guid: f600a9b0760e27d47854bf6354173c18, type: 3}
+    - {fileID: -3836663547234260541, guid: a49c8dd5efb58ee44aaf874db7f53825, type: 3}
+    - {fileID: -8984884523235141319, guid: a49c8dd5efb58ee44aaf874db7f53825, type: 3}
+    - {fileID: 4058457241128768837, guid: a49c8dd5efb58ee44aaf874db7f53825, type: 3}
+    - {fileID: -2621703134770965397, guid: a49c8dd5efb58ee44aaf874db7f53825, type: 3}
     AccessoryAnimation: []
-    BandageAnimation: []
+    BandageAnimation:
+    - {fileID: -6238584742264081290, guid: 75c6bf22c32468b459d9afcbd399847f, type: 3}
+    - {fileID: 4822954648246525454, guid: 75c6bf22c32468b459d9afcbd399847f, type: 3}
+    - {fileID: -4290599573675879435, guid: 75c6bf22c32468b459d9afcbd399847f, type: 3}
+    - {fileID: -4156425449835770655, guid: 75c6bf22c32468b459d9afcbd399847f, type: 3}
   - animation: Attack
     BaseAnimation:
     - {fileID: -3191425875401637537, guid: ba26fb57dcc19624883febdebe1b360d, type: 3}
@@ -222,7 +232,11 @@ MonoBehaviour:
     - {fileID: -3147261269107466100, guid: fb6878b8364d2b44ba264fc731db3c18, type: 3}
     - {fileID: -1689889747878119664, guid: fb6878b8364d2b44ba264fc731db3c18, type: 3}
     AccessoryAnimation: []
-    BandageAnimation: []
+    BandageAnimation:
+    - {fileID: 3548852367088040192, guid: 59e5f14a095d92945abe2f0d03a9280d, type: 3}
+    - {fileID: 2088561401496453119, guid: 59e5f14a095d92945abe2f0d03a9280d, type: 3}
+    - {fileID: -3210090032057113543, guid: 59e5f14a095d92945abe2f0d03a9280d, type: 3}
+    - {fileID: -8956900481259588027, guid: 59e5f14a095d92945abe2f0d03a9280d, type: 3}
   healthBoost: 0
   speedBoost: 0
   attackBoost: 0

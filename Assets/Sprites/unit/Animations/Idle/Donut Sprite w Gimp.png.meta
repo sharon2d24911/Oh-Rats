@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: cd3fd8e64cdb16f44855ae5a33f83034
+guid: e768c05d4cc11594c8fd5bebe74c16f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1803674546448181814
-    second: Mixing_Sprite_Sheet_0
+      213: -7671975098089465125
+    second: Donut Sprite w Gimp_0
   - first:
-      213: -3147219776244755523
-    second: Mixing_Sprite_Sheet_1
+      213: 8690197440251965256
+    second: Donut Sprite w Gimp_3
   - first:
-      213: 6527756298342610281
-    second: Mixing_Sprite_Sheet_2
+      213: -5935541457452117417
+    second: Donut Sprite w Gimp_6
   - first:
-      213: -5939245590430032672
-    second: Mixing_Sprite_Sheet_3
+      213: 2990552451723667001
+    second: Donut Sprite w Gimp_7
   - first:
-      213: 998969257302430236
-    second: Mixing_Sprite_Sheet_4
+      213: -2585100861444639452
+    second: Donut Sprite w Gimp_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 37.5
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -114,85 +114,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mixing_Sprite_Sheet_0
+      name: Donut Sprite w Gimp_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 20
-        width: 127
-        height: 113
+        x: 140
+        y: 730
+        width: 202
+        height: 370
       alignment: 9
-      pivot: {x: 0.61, y: 0.34}
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63a25779170f70910800000000000000
-      internalID: 1803674546448181814
+      spriteID: bda1cb0db4ba78590800000000000000
+      internalID: -7671975098089465125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mixing_Sprite_Sheet_1
+      name: Donut Sprite w Gimp_3
       rect:
         serializedVersion: 2
-        x: 156
-        y: 20
-        width: 129
-        height: 113
+        x: 608
+        y: 731
+        width: 260
+        height: 370
       alignment: 9
-      pivot: {x: 0.597062, y: 0.3429541}
+      pivot: {x: 0.45507133, y: 0.1039465}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db3d8d6c944d254d0800000000000000
-      internalID: -3147219776244755523
+      spriteID: 84f2a3e7788c99870800000000000000
+      internalID: 8690197440251965256
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mixing_Sprite_Sheet_2
+      name: Donut Sprite w Gimp_6
       rect:
         serializedVersion: 2
-        x: 298
-        y: 20
-        width: 124
-        height: 113
+        x: 141
+        y: 90
+        width: 202
+        height: 370
       alignment: 9
-      pivot: {x: 0.61, y: 0.34}
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 965b70f84cf379a50800000000000000
-      internalID: 6527756298342610281
+      spriteID: 75256f60e78b0ada0800000000000000
+      internalID: -5935541457452117417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mixing_Sprite_Sheet_3
+      name: Donut Sprite w Gimp_7
       rect:
         serializedVersion: 2
-        x: 442
-        y: 20
-        width: 118
-        height: 114
+        x: 571
+        y: 89
+        width: 260
+        height: 370
       alignment: 9
-      pivot: {x: 0.61, y: 0.34}
+      pivot: {x: 0.61232203, y: 0.111839294}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ecdc9c5a9f839da0800000000000000
-      internalID: -5939245590430032672
+      spriteID: 936a9273c93908920800000000000000
+      internalID: 2990552451723667001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Donut Sprite w Gimp_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 4
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42539058670ef1cd0800000000000000
+      internalID: -2585100861444639452
       vertices: []
       indices: 
       edges: []

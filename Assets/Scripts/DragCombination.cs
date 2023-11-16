@@ -210,19 +210,10 @@ public class DragCombination : MonoBehaviour
             if (newDistance < nearestDistance)
             {
                 nearestDistance = newDistance;
-
-                if (!filledPositions.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
-                {
-                    Debug.Log("spot empty");
-                    Debug.Log("i " + i);
-                    gridDepth = (i / gridScript.columns);
-                    Debug.Log("gridDepth " + gridDepth);
-                    nearestPos = p;
-                }
-                else //position is occupied in the dictionary, not free on the grid
-                {
-                    Debug.Log("spot filled");
-                }
+                Debug.Log("i " + i);
+                gridDepth = (i / gridScript.columns);
+                Debug.Log("gridDepth " + gridDepth);
+                nearestPos = p;
             }
         }
 
@@ -275,7 +266,7 @@ public class DragCombination : MonoBehaviour
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
-        else if (nearestDistance > sensitivity || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
+        else if (nearestDistance > (0.5 * sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {
             // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
