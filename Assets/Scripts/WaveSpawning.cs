@@ -43,8 +43,8 @@ public class WaveSpawning : MonoBehaviour
     private GridCreate gridScript;
     private List<Vector3> gridPositions;
     private Dictionary<Vector2, GameObject> unitPositions;
-    private float waveTimer = 0f;
-    private float waveDurationTimer = 0f;
+    [HideInInspector] public float waveTimer = 0f;
+    [HideInInspector] public float waveDurationTimer = 0f;
     private float warmupTimer = 0f;
     private float currentWaveTimeMax = 0f;
     private int previousLane;
@@ -61,7 +61,7 @@ public class WaveSpawning : MonoBehaviour
     private bool waveShowcased = false;
     private float waveTimerMax;
     private float waveTimerMin;
-    private float waveDuration;
+    [HideInInspector] public float waveDuration;
     private int waveDifficulty;
     private float warmUpDuration;
     private int waveRatsAtATime;
@@ -132,14 +132,13 @@ public class WaveSpawning : MonoBehaviour
         if (warmupTimer < warmUpDuration)
         {
             warmupTimer += Time.deltaTime;
-            toggleActive(false);
+            //toggleActive(false);
         }
 
         //once warmup has expired, start wave
         else if (waveDurationTimer < waveDuration)
         {
             
-            toggleActive(true);
             waveDurationTimer += Time.deltaTime;
             waveTimer += Time.deltaTime;
 
@@ -169,7 +168,6 @@ public class WaveSpawning : MonoBehaviour
         //once wave has finished, start cooldown when last unit has been killed
         else
         {
-            toggleActive(true);
             GameObject[] leftOvers = GameObject.FindGameObjectsWithTag("Enemy");
             if (leftOvers.Length == 0) //checks if there are no object with enemy tag currently in the scene
             {
@@ -234,9 +232,13 @@ public class WaveSpawning : MonoBehaviour
     }
 
 
-    void toggleActive(bool state)
+    public void toggleActive(bool state, int lane)
     {
-        for(int i =0; i < gridPositions.Count; i++)
+        int rows = gridScript.rows;
+        int cols = gridScript.columns;
+        int lowerBound = lane * cols, upperBound = lowerBound + (cols - 1);
+        Debug.Log("lowerBound " + lowerBound + "upperBound " + upperBound);
+        for(int i =lowerBound; i < upperBound; i++)
         {
             Vector3 currentPos = gridPositions[i];
             if (unitPositions.ContainsKey(currentPos) && unitPositions[currentPos].tag == "Unit")
@@ -296,34 +298,38 @@ public class WaveSpawning : MonoBehaviour
     void Spawn(Vector3 position)
     {
         string enemyName;
-        if (waveShowcaseEnemy != "none" && !waveShowcased)
+        if(waveEnemyTypes[0] != "none")
         {
-            enemyName = waveShowcaseEnemy;
-            waveShowcased = true;
-            if (enemyName == "BossRat")
+            if (waveShowcaseEnemy != "none" && !waveShowcased)
             {
-                position = new Vector3(GameHandler.BossStartXPosition, GameHandler.BossStartYPosition, position.z);
+                enemyName = waveShowcaseEnemy;
+                waveShowcased = true;
+                if (enemyName == "BossRat")
+                {
+                    position = new Vector3(GameHandler.BossStartXPosition, GameHandler.BossStartYPosition, 2 + 1.5f);
+                }
             }
-        }
-        else
-        {
-            float probability = Random.Range(0f, 1f);
-            Debug.Log("probability " + probability);
-            float goalPost = 0.5f / (1f - (waveDifficulty * 0.1875f)); //waveDifficulty determines what the probability must equal to spawn a non-basic enemy type
-            int randInd = (int)Mathf.Clamp(Mathf.Round((goalPost * probability)),0f,1f) * (int)(waveEnemiesNum - Random.Range(1,waveEnemiesNum)); //selects random index between range of enemy types
-            Debug.Log("randInd " + randInd);
-           enemyName = waveEnemyTypes[randInd];
-            Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum " + waveEnemiesNum);
-        }
-        GameObject enemy = getEnemyObj(enemyName);
-        GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
-        Debug.Log("pos z" + position.z);
-        Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
-        spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5);
-        spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
-        Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
-        string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
-        this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
-        AudioManager.Instance.PlaySFX(this.spawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][1]);
+            else
+            {
+                float probability = Random.Range(0f, 1f);
+                Debug.Log("probability " + probability);
+                float goalPost = 0.5f / (1f - (waveDifficulty * 0.1875f)); //waveDifficulty determines what the probability must equal to spawn a non-basic enemy type
+                int randInd = (int)Mathf.Clamp(Mathf.Round((goalPost * probability)), 0f, 1f) * (int)(waveEnemiesNum - Random.Range(1, waveEnemiesNum)); //selects random index between range of enemy types
+                Debug.Log("randInd " + randInd);
+                enemyName = waveEnemyTypes[randInd];
+                Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum " + waveEnemiesNum);
+            }
+            GameObject enemy = getEnemyObj(enemyName);
+            GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
+            Debug.Log("pos z" + position.z);
+            Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
+            spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5);
+            spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
+            Debug.Log("rat lane: " + spawnedEnemy.GetComponent<EnemyBehaviour>().lane);
+            Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
+            string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
+            this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
+            AudioManager.Instance.PlaySFX(this.spawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][1]);
+        }  
     }
 }

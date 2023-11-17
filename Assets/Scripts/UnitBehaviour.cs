@@ -89,6 +89,11 @@ public class UnitBehaviour : MonoBehaviour
                 StartCoroutine(Shoot());
             }
         }
+        if (health <= 0)
+        {
+            unitPositions.Remove(unit.transform.position);
+            Destroy(unit); //kills the unit
+        }
         Animate();
     }
 
@@ -146,7 +151,7 @@ public class UnitBehaviour : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Projectile" && collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile)
+        if (collision.gameObject.tag == "Projectile" && collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile && placed)
         {
             Debug.Log("unit projectile hit");
             string[] hitsSound = { "ProjectileHit1", "ProjectileHit2", "ProjectileHit3" };
@@ -160,9 +165,18 @@ public class UnitBehaviour : MonoBehaviour
     {
         ProjectileScript projectileScript = projectile.GetComponent<ProjectileScript>();
         float dmgAmount = projectileScript.attack;
+        if (projectileScript.bossProjectile)
+        {
+            dmgAmount = health; //instakill
+        }
         if (health > 0)
         {
             StartCoroutine(takeDamage(dmgAmount));
+            if (projectileScript.bossProjectile)
+            {
+                GameObject puddle = Instantiate(projectileScript.puddle, unit.transform.position, unit.transform.rotation);
+                puddle.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder;
+            }
             Destroy(projectile, projectileScript.collideTime);
         }
     }

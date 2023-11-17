@@ -80,8 +80,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
         type: 3}
+      propertyPath: puddle
+      value: 
+      objectReference: {fileID: 8035038915916948980, guid: 814bbc69bc74b5d48aa55e2c10c4be47,
+        type: 3}
+    - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
       propertyPath: screenEdge
       value: -4.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: bossProjectile
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
         type: 3}

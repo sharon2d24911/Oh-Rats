@@ -21,8 +21,10 @@ public class EnemyBehaviour : MonoBehaviour
     private float step = 4.0f;
     private GameObject GH;
     private GameHandler GameHandler;
+    private WaveSpawning WS;
     private GameObject Damage1;
     private GameObject Damage2;
+    private GameObject Bubble;
     public float stunTime = 0.5f;
     public float attackTime = 1.5f;
     public float deathTime = 2.0f;
@@ -34,7 +36,11 @@ public class EnemyBehaviour : MonoBehaviour
     private float gridWidth;
     public float damage;
     public float speed;
+   
+
+    [Header("Boss")]
     public bool isBoss; //only should be set true for enemies that are bosses, duh
+    public GameObject phase2;
 
     [Header("Projectiles")]
     public GameObject projectile;
@@ -243,6 +249,7 @@ public class EnemyBehaviour : MonoBehaviour
         rb2d = enemy.GetComponent<Rigidbody2D>();
         GH = GameObject.Find("GameHandler");
         GameHandler = GH.GetComponent<GameHandler>();
+        WS = GH.GetComponent<WaveSpawning>();
         Damage1 = enemy.transform.GetChild(0).gameObject;
 
         if (enemy.transform.childCount > 1 && !isProjectileShooter) //temp fix, change this later
@@ -321,25 +328,60 @@ public class EnemyBehaviour : MonoBehaviour
             if (!isDead)
             {
                 isDead = true;
-                string[] defeatSound = { "RatDefeat1", "RatDefeat2" };
-                this.defeatSound = defeatSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                AudioManager.Instance.PlaySFX(this.defeatSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.defeatSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.defeatSound][1]);
+                if (isBoss)
+                {
+                    //kills all units/enemies ==> DEATH HOWL
+                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                    GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
+                    foreach (GameObject enemy in enemies){
+                        enemy.GetComponent<EnemyBehaviour>().health = 0;
+                    }
+                    foreach(GameObject unit in units){
+                        unit.GetComponent<UnitBehaviour>().health = 0;
+                    }
+                    //finishes current wave
+                    WS.waveTimer = 0;
+                    WS.waveDurationTimer = WS.waveDuration;
+
+                    //spawns in phase2 decoy if current enemy is the "real" boss
+                    if (phase2 != null)
+                    {
+                        GameObject PII = Instantiate(phase2, enemy.transform.position, enemy.transform.rotation);
+                        PII.GetComponent<EnemyBehaviour>().lane = lane;
+                    }
+                    else {
+
+                        Debug.Log("decoy died");
+                        GameHandler.PlayerWin();
+                    }
+                    
+                }
+                else {
+                    WS.toggleActive(false, lane);
+                    string[] defeatSound = { "RatDefeat1", "RatDefeat2" };
+                    this.defeatSound = defeatSound[Mathf.FloorToInt(Random.Range(0, 2))];
+                    AudioManager.Instance.PlaySFX(this.defeatSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.defeatSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.defeatSound][1]);
+                }             
                 animIndex = 0;
                 animTimer = 0;
+                Destroy(enemy, deathTime); //kills the enemy
             }
             currentAnim = "Death";
             Animate();
-            if (isBoss)
-            {
-                Debug.Log("boss health" + health);
-                GameHandler.PlayerWin();
-            }
-
-            Destroy(enemy, deathTime); //kills the enemy
         }else if(health > 0)
         {
             Move();
             CheckLoss();
+            if (isBoss)
+            {
+                Debug.Log("lane " + lane);
+                WS.toggleActive(true, lane - 1);
+                WS.toggleActive(true, lane);
+            }
+            else
+            {
+                WS.toggleActive(true, lane);
+            }  
             if (canShoot && isProjectileShooter)
             {
                 StartCoroutine(Shoot());

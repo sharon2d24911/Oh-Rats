@@ -9,6 +9,11 @@ public class ProjectileScript : MonoBehaviour
     public float collideTime = 0.5f;
     public float screenEdge = 13.3f;
     public bool enemyProjectile = false;
+
+    [Header("Boss Projectiles")]
+    public bool bossProjectile = false;
+    public GameObject puddle;
+
     private void Update()
     {
         bool pastEdge = (enemyProjectile ? transform.position.x < screenEdge : transform.position.x > screenEdge);
