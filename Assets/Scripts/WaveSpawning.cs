@@ -52,7 +52,9 @@ public class WaveSpawning : MonoBehaviour
     private float currentWaveTimeMax = 0f;
     private int previousLane;
     private int previousLane2;
-    private string spawnSound;
+    private string coffeeSpawnSound;
+    private string rocketSpawnSound;
+    private string ratSpawnSound;
     private Waves wavesInFile;
     public EnemyObjects[] enemyPrefabs;
     public TextAsset wavesFile;
@@ -339,9 +341,26 @@ public class WaveSpawning : MonoBehaviour
             spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
             Debug.Log("rat lane: " + spawnedEnemy.GetComponent<EnemyBehaviour>().lane);
             Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
-            string[] spawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
-            this.spawnSound = spawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
-            AudioManager.Instance.PlaySFX(this.spawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.spawnSound][1]);
+            // Play spawn sfx
+            if (enemyName == "RangedRat")
+            {
+                string[] coffeeSpawnSound = { "CoffeeSpawn1", "CoffeeSpawn2", "CoffeeSpawn3", "CoffeeSpawn4" };
+                this.coffeeSpawnSound = coffeeSpawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
+                AudioManager.Instance.PlaySFX(this.coffeeSpawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.coffeeSpawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.coffeeSpawnSound][1]);
+            }
+            else if (enemyName == "RocketRat")
+            {
+                string[] rocketSpawnSound = { "RocketSpawn1", "RocketSpawn2", "RocketSpawn3", "RocketSpawn4" };
+                this.rocketSpawnSound = rocketSpawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
+                AudioManager.Instance.PlaySFX(this.rocketSpawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.rocketSpawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.rocketSpawnSound][1]);
+            }
+            else if (enemyName == "BasicRat" || enemyName == "HealthRat")
+            {
+                string[] ratSpawnSound = { "RatSpawn1", "RatSpawn2", "RatSpawn3", "RatSpawn4" };
+                this.ratSpawnSound = ratSpawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
+                AudioManager.Instance.PlaySFX(this.ratSpawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.ratSpawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.ratSpawnSound][1]);
+            }
+
         }  
     }
 }

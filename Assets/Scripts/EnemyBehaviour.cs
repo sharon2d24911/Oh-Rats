@@ -54,7 +54,7 @@ public class EnemyBehaviour : MonoBehaviour
     private string biteSound;
     private string hurtSound;
     private string defeatSound;
-    private string capHurtSound;
+    private string capBreakSound;
 
     [Header("Close Range Projectile")]
     public bool isThrower = false;
@@ -194,7 +194,6 @@ public class EnemyBehaviour : MonoBehaviour
         while (unitScript.health > 0 && health > 0)
         {
             speed = 0f;
-            //AudioManager.Instance.PlaySFX("Bite1");
             if (isThrower) {
                 damage = unitScript.health;
                 //insta-kill
@@ -280,9 +279,9 @@ public class EnemyBehaviour : MonoBehaviour
             UnitBehaviour unitScript = collision.gameObject.GetComponent<UnitBehaviour>();
             if (unitScript.placed)  //only damage placed units
             {
-                string[] biteSound = { "Bite1", "Bite2", "Bite3" };
-                this.biteSound = biteSound[Mathf.FloorToInt(Random.Range(0, 3))];
-                AudioManager.Instance.PlaySFX(this.biteSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.biteSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.biteSound][1]);
+                //string[] biteSound = { "Bite1", "Bite2", "Bite3" };
+                //this.biteSound = biteSound[Mathf.FloorToInt(Random.Range(0, 3))];
+                //AudioManager.Instance.PlaySFX(this.biteSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.biteSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.biteSound][1]);
                 Debug.Log("enemy hit unit");
                 StartCoroutine(UnitDamage(unitScript, collision.gameObject.transform));
             }
@@ -399,9 +398,9 @@ public class EnemyBehaviour : MonoBehaviour
             Damage2.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder + 1;
             if (health > 0 && health <= 0.50 * initialHealth && !isProjectileShooter) //only destroy if this isnt a projectile shooter
             {
-                string[] capHurtSound = { "BottleCapHurt1", "BottleCapHurt2" };
-                this.capHurtSound = capHurtSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                AudioManager.Instance.PlaySFX(this.capHurtSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capHurtSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capHurtSound][1]);
+                string[] capBreakSound = { "BottleCapBreak1", "BottleCapBreak2" };
+                this.capBreakSound = capBreakSound[Mathf.FloorToInt(Random.Range(0, 2))];
+                AudioManager.Instance.PlaySFX(this.capBreakSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capBreakSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capBreakSound][1]);
                 Destroy(Damage2);
             } else if (health > 0 && health <= 0.25 * initialHealth) {
                 Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);

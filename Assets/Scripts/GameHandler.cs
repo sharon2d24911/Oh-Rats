@@ -63,8 +63,7 @@ public class GameHandler : MonoBehaviour
         playerLivesMaxInd -= 1;
         if (numOfRats == maxRats)
         {
-            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain");
-            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyEvent");
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "none");
             AudioManager.Instance.PlaySFX("GameOver", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][1]);
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");

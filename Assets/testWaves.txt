@@ -10,7 +10,10 @@
 		"minSpawnInterval": 10,
 		"maxSpawnInterval": 15,
 		"difficulty" : 1,
-		"track" : "BassyMain",
+		"track1" : "BassyMain",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
 		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1,
 		"trackSpeed" : 1
@@ -26,7 +29,10 @@
 		"minSpawnInterval": 17,
 		"maxSpawnInterval": 17,
 		"difficulty" : 1,
-		"track" : "none",
+		"track1" : "none",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
 		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1,
 		"trackSpeed" : 1

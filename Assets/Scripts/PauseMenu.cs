@@ -28,8 +28,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         // StartCoroutine(Camera.main.GetComponent<AudioManager>().FadeTwo(false, "BassyMain", "BassyEvent", 0f, 0f)); // Fade out two music
         SceneManager.LoadScene("TitleScene");
-        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain");
-        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyEvent");
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "none");
     }
 
 }

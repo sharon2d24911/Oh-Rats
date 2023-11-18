@@ -37,17 +37,36 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StopMusic(string name)
+    public void StopMusic(string musicName1, string musicName2, string musicName3, string musicName4)
     {
-        Sound s = Array.Find(music, x => x.soundName == name);
-        if (s == null)
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
+
+        AudioSource[] playingSources = new AudioSource[4];
+        int index = 0;
+
+        // Check which musicSources are currently playing
+        for (int i = 0; i < musicSources.Length; i++)
         {
-            Debug.Log("Sound Not Found");
+            if (musicSources[i].volume > 0)
+            {
+                playingSources[index] = musicSources[i];
+                index++;
+            }
         }
-        else
+
+        // Adjusting the number of iterations to the number of sources actually playing
+        int sourcesToFadeOut = Math.Min(index, musicNames.Length);
+        for (int i = 0; i < sourcesToFadeOut; i++)
         {
-            musicSource.clip = s.clip;
-            musicSource.Stop();
+            if (musicNames[i] != "none" && playingSources[i] != null)
+            {
+                playingSources[i].clip = Array.Find(music, x => x.soundName == musicNames[i]).clip;
+            }
+        }
+        for (int i = 0; i < playingSources.Length; i++)
+        {
+            playingSources[i].Stop();
         }
     }
 
