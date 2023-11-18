@@ -154,9 +154,9 @@ public class UnitBehaviour : MonoBehaviour
         if (collision.gameObject.tag == "Projectile" && collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile && placed)
         {
             Debug.Log("unit projectile hit");
-            string[] hitsSound = { "ProjectileHit1", "ProjectileHit2", "ProjectileHit3" };
-            this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
             ProjectileCollide(collision.gameObject);
+            string[] hitsSound = { "CoffeeHit1", "CoffeeHit2", "CoffeeHit3" }; 
+            this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
             AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
         }
     }

@@ -207,6 +207,7 @@ public class EnemyBehaviour : MonoBehaviour
         float prevSpeed = speed;
         while (unitScript.health > 0 && health > 0)
         {
+            canShoot = false;
             speed = 0f;
             if (isThrower) {
                 damage = unitScript.health;
@@ -283,10 +284,11 @@ public class EnemyBehaviour : MonoBehaviour
         if (collision.gameObject.tag == "Projectile" && !collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile)
         {
             Debug.Log("projectile hit");
-            string[] hitsSound = { "CoffeeHit1", "CoffeeHit2", "CoffeeHit3" };
+            ProjectileCollide(collision.gameObject);
+            string[] hitsSound = { "ProjectileHit1", "ProjectileHit2", "ProjectileHit3" };
             this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
             AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
-            ProjectileCollide(collision.gameObject);
+            
         }else if (collision.gameObject.tag == "Unit")
         {
             Debug.Log("enemy hit unit");
