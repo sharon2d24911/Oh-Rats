@@ -182,6 +182,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
+      propertyPath: enemyType
+      value: BottleCap
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
       propertyPath: difficultyIndex
       value: 2
       objectReference: {fileID: 0}
