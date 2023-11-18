@@ -188,7 +188,7 @@ public class DragCombination : MonoBehaviour
         GridCreate gridScript = grid.GetComponent<GridCreate>();
         Vector2 nearestPos = startingPosition;
         float nearestDistance = Vector2.Distance(grid.transform.position, selectedV2);
-        int gridDepth = 0, i = 0;
+        int gridDepth = 0;
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
@@ -205,13 +205,11 @@ public class DragCombination : MonoBehaviour
 
         foreach (Vector2 p in gridPositions)
         {
-            i++;
             float newDistance = Vector2.Distance(p, selectedV2);
             if (newDistance < nearestDistance)
             {
                 nearestDistance = newDistance;
-                Debug.Log("i " + i);
-                gridDepth = (i / gridScript.columns);
+                gridDepth = (gridPositions.IndexOf(p) / gridScript.columns);
                 Debug.Log("gridDepth " + gridDepth);
                 nearestPos = p;
             }

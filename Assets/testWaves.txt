@@ -2,8 +2,8 @@
  [
 	{
 		"wave": 1,
-		"enemyTypes": ["BasicRat","HealthRat","RangedRat","SpeedRat"],
-		"showcaseEnemy": "BossRat",
+		"enemyTypes": ["RangedRat"],
+		"showcaseEnemy": "none",
 		"ratsAtATime" : 1,
 		"duration": 5,
 		"warmUp": 5,

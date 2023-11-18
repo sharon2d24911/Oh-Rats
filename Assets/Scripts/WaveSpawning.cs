@@ -323,7 +323,7 @@ public class WaveSpawning : MonoBehaviour
             GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
             Debug.Log("pos z" + position.z);
             Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
-            spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5);
+            spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 3);
             spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
             Debug.Log("rat lane: " + spawnedEnemy.GetComponent<EnemyBehaviour>().lane);
             Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));

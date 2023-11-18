@@ -252,7 +252,7 @@ public class EnemyBehaviour : MonoBehaviour
         WS = GH.GetComponent<WaveSpawning>();
         Damage1 = enemy.transform.GetChild(0).gameObject;
 
-        if (enemy.transform.childCount > 1 && !isProjectileShooter) //temp fix, change this later
+        if (enemy.transform.childCount > 1 && !isBoss)
         {
             Damage2 = enemy.transform.GetChild(1).gameObject;
         }
@@ -311,9 +311,8 @@ public class EnemyBehaviour : MonoBehaviour
         canShoot = true;
         if (isBoss)
         {
-            Debug.Log(-1f * ProjectileOrigin.position.y);
+            ProjectileOrigin.localPosition = new Vector3(ProjectileOrigin.localPosition.x, -1f * ProjectileOrigin.localPosition.y, ProjectileOrigin.localPosition.z);
         }
-        ProjectileOrigin.localPosition = new Vector3(ProjectileOrigin.localPosition.x, -1f * ProjectileOrigin.localPosition.y, ProjectileOrigin.localPosition.z);
     }
 
 
@@ -398,7 +397,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (Damage2 != null)
         {
             Damage2.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder + 1;
-            if (health > 0 && health <= 0.50 * initialHealth)
+            if (health > 0 && health <= 0.50 * initialHealth && !isProjectileShooter) //only destroy if this isnt a projectile shooter
             {
                 string[] capHurtSound = { "BottleCapHurt1", "BottleCapHurt2" };
                 this.capHurtSound = capHurtSound[Mathf.FloorToInt(Random.Range(0, 2))];
@@ -409,7 +408,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
         } 
         //shows bandage if no bottle cap
-        else if(Damage2 == null && Damage1 != null && health > 0 && health <= 0.50 * initialHealth)
+        else if( (Damage2 == null || isProjectileShooter) && Damage1 != null && health > 0 && health <= 0.50 * initialHealth)
         {
             Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
         }
