@@ -1642,7 +1642,7 @@ MonoBehaviour:
   - soundName: UnitDefeat
     clip: {fileID: 8300000, guid: 90c415edc2c15bf48b25e845d0f4574d, type: 3}
   - soundName: UnitDiscard
-    clip: {fileID: 8300000, guid: dd1e58f4b39503d40ac3cf3d66df5602, type: 3}
+    clip: {fileID: 8300000, guid: cc19e11a8da90ba44b672e5c1a3ecf76, type: 3}
   - soundName: BottleCapBreak1
     clip: {fileID: 8300000, guid: b318a9b29b6603e449a13cb3b18f0614, type: 3}
   - soundName: BottleCapBreak2
