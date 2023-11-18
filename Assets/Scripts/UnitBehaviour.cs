@@ -33,6 +33,7 @@ public class UnitBehaviour : MonoBehaviour
     private GameObject target;
     private GameObject unit;
     private string fireSound;
+    private string hitsSound;
 
     //======Animation Stuff=========
     public float frameRate = 4f;
@@ -88,12 +89,12 @@ public class UnitBehaviour : MonoBehaviour
                 StartCoroutine(Shoot());
             }
         }
-        Animate();
         if (health <= 0)
         {
             unitPositions.Remove(unit.transform.position);
             Destroy(unit); //kills the unit
         }
+        Animate();
     }
 
 
@@ -148,6 +149,37 @@ public class UnitBehaviour : MonoBehaviour
         canShoot = true;
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile" && collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile && placed)
+        {
+            Debug.Log("unit projectile hit");
+            string[] hitsSound = { "ProjectileHit1", "ProjectileHit2", "ProjectileHit3" };
+            this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
+            ProjectileCollide(collision.gameObject);
+            AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
+        }
+    }
+
+    void ProjectileCollide(GameObject projectile)
+    {
+        ProjectileScript projectileScript = projectile.GetComponent<ProjectileScript>();
+        float dmgAmount = projectileScript.attack;
+        if (projectileScript.bossProjectile)
+        {
+            dmgAmount = health; //instakill
+        }
+        if (health > 0)
+        {
+            StartCoroutine(takeDamage(dmgAmount));
+            if (projectileScript.bossProjectile)
+            {
+                GameObject puddle = Instantiate(projectileScript.puddle, unit.transform.position, unit.transform.rotation);
+                puddle.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder;
+            }
+            Destroy(projectile, projectileScript.collideTime);
+        }
+    }
 
     public IEnumerator takeDamage(float dmgAmount)
     {
@@ -155,6 +187,11 @@ public class UnitBehaviour : MonoBehaviour
         health -= dmgAmount;
         sprite.color = Color.red;
         Debug.Log("DAMAGE UNIT");
+        if (health <= 0)
+        {
+            unitPositions.Remove(unit.transform.position);
+            Destroy(unit); //kills the unit
+        }
         yield return new WaitForSeconds(damageTime / 5);
         if (unit != null && sprite != null)
         {

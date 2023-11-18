@@ -188,7 +188,7 @@ public class DragCombination : MonoBehaviour
         GridCreate gridScript = grid.GetComponent<GridCreate>();
         Vector2 nearestPos = startingPosition;
         float nearestDistance = Vector2.Distance(grid.transform.position, selectedV2);
-        int gridDepth = 0, i = 0;
+        int gridDepth = 0;
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
@@ -205,24 +205,13 @@ public class DragCombination : MonoBehaviour
 
         foreach (Vector2 p in gridPositions)
         {
-            i++;
             float newDistance = Vector2.Distance(p, selectedV2);
             if (newDistance < nearestDistance)
             {
                 nearestDistance = newDistance;
-
-                if (!filledPositions.ContainsKey(p))  //position isn't occupied in the dictionary, and so is free on the grid
-                {
-                    Debug.Log("spot empty");
-                    Debug.Log("i " + i);
-                    gridDepth = (i / gridScript.columns);
-                    Debug.Log("gridDepth " + gridDepth);
-                    nearestPos = p;
-                }
-                else //position is occupied in the dictionary, not free on the grid
-                {
-                    Debug.Log("spot filled");
-                }
+                gridDepth = (gridPositions.IndexOf(p) / gridScript.columns);
+                Debug.Log("gridDepth " + gridDepth);
+                nearestPos = p;
             }
         }
 
@@ -275,7 +264,7 @@ public class DragCombination : MonoBehaviour
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
-        else if (nearestDistance > sensitivity || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
+        else if (nearestDistance > (0.5 * sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {
             // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
