@@ -55,6 +55,7 @@ public class Shipment : MonoBehaviour
         }
     }
 
+    // When Ingredient delivery button is pressed
     public void ShipIngredients()
     {
         shipping = true;

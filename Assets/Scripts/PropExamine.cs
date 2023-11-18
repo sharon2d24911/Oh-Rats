@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PropExamine : MonoBehaviour
 {
@@ -8,37 +10,42 @@ public class PropExamine : MonoBehaviour
     public Sprite small;
     public Sprite big;
     public Vector3 smallPos;
-    public Vector3 smallRot;
     public Vector3 smallScale;
     public Vector2 smallBC;
     [Header("Expanded size")]
     public Vector3 bigPos;
-    public Vector3 bigRot;
     public Vector3 bigScale;
     public Vector2 bigBC;
-    [Header("Cursor")]
-    public Texture2D interactCursor;
-    public Texture2D defaultCursor;
-    //private float speed = 6f;
+    public GameObject caption;
+    public List<Sprite> flipthrough;
+
+    private Texture2D interactCursor;
+    private Texture2D defaultCursor;
+    private GameObject background;
 
     private Vector3 targetPos;
-    private Vector3 targetRot;
     private Vector3 targetScale;
     private Sprite targetImage;
     private Vector2 targetBCSize;
     private bool isBig;
 
+    private GameObject props;
     private GameObject gameHandler;
 
     private void Start()
     {
         transform.localPosition = smallPos;
-        transform.eulerAngles = smallRot;
         transform.localScale = smallScale;
         targetScale = transform.localScale;
         GetComponent<SpriteRenderer>().sprite = small;
         isBig = false;
+        props = FindObjectOfType<Prop>().gameObject;
+        interactCursor = props.GetComponent<Prop>().interactCursor;
+        defaultCursor = props.GetComponent<Prop>().defaultCursor;
+        background = props.GetComponent<Prop>().background;
         gameHandler = FindObjectOfType<GameHandler>().gameObject;
+        if (caption != null)
+            caption.SetActive(false);
     }
 
     private void Update()
@@ -54,12 +61,39 @@ public class PropExamine : MonoBehaviour
 
         if (transform.localScale != targetScale)
         {
-            // Transform to the new position/scale over a certain time, set rotation (Lerp causes it to spin weirdly)
-            transform.position = targetPos; //Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
-            transform.eulerAngles = targetRot;
-            transform.localScale = targetScale; //Vector3.Lerp(transform.localScale, targetScale, speed * Time.deltaTime);
+            // Transform to the new position/rotation/scale based on isBig bool
+            transform.position = targetPos;
+            transform.localScale = targetScale;
             GetComponent<SpriteRenderer>().sprite = targetImage;
             boxCollider.size = targetBCSize;
+
+            // Set layering, visibility for background, and prop captions (also flip buttons if newspaper prop specifically)
+            if (isBig)
+            {
+                props.GetComponent<Prop>().inspecting = true;
+                GetComponent<SpriteRenderer>().sortingOrder = 50;
+                background.GetComponent<SpriteRenderer>().sortingOrder = 49;
+                background.SetActive(true);
+                if (caption != null)
+                {
+                    caption.transform.position = new Vector3(transform.position.x, (transform.position.y - 8f), 1f);
+                    caption.SetActive(true);
+                }
+                if (flipthrough.Count > 0)
+                {
+                    props.GetComponent<Prop>().SetButtonsActive(flipthrough, this.gameObject);
+                }
+            }
+            else
+            {
+                if (caption != null)
+                    caption.SetActive(false);
+                GetComponent<SpriteRenderer>().sortingOrder = 0;
+                background.GetComponent<SpriteRenderer>().sortingOrder = 0;
+                background.SetActive(false);
+                if (flipthrough.Count > 0)  
+                    props.GetComponent<Prop>().SetButtonsInactive();
+            }
         }
     }
 
@@ -79,15 +113,13 @@ public class PropExamine : MonoBehaviour
     {
         // Toggle the "isBig" bool
         isBig = !isBig;
-        // If isBig, first condition (big pos/rot/scale), if !isBig, second condition (small pos/rot/scale)
+        // If isBig, first condition (big pos/scale), if !isBig, second condition (small pos/scale)
         Vector3 position = isBig ? bigPos : smallPos;
-        Vector3 rotation = isBig ? bigRot : smallRot;
         Vector3 scale = isBig ? bigScale : smallScale;
         Sprite image = isBig ? big : small;
         Vector2 BC = isBig ? bigBC : smallBC;
         // Set the target for next click
         targetPos = position;
-        targetRot = rotation;
         targetScale = scale;
         targetImage = image;
         targetBCSize = BC;
@@ -113,4 +145,5 @@ public class PropExamine : MonoBehaviour
             AudioManager.Instance.PlaySFX("PaperOff");
         }
     }
+    
 }

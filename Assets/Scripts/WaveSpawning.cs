@@ -26,6 +26,7 @@ public class WaveSpawning : MonoBehaviour
         public string track;
         public int trackFadeTime;
         public int trackFinalVolume;
+        public int propScene;
     }
 
     [System.Serializable]
@@ -51,6 +52,8 @@ public class WaveSpawning : MonoBehaviour
     public EnemyObjects[] enemyPrefabs;
     public TextAsset wavesFile;
     public float enemyPosHeightAdjust = 0.5f; //make enemies be at the correct Y coord to allow projectiles to hit them
+    public GameObject[] propScenesArr;
+    private Prop prop;
 
     //variables that change depending on current wave in the JSON
     private int currentWave = 0;
@@ -67,6 +70,7 @@ public class WaveSpawning : MonoBehaviour
     private string waveShowcaseEnemy;
     private string[] waveEnemyTypes;
     private int waveEnemiesNum;
+    private int wavePropScene;
 
     //public float waveTimerMax = 5f; //longest time between enemy spawns
     //public float waveTimerMin = 3f; //shortest time between enemy spawns
@@ -115,6 +119,16 @@ public class WaveSpawning : MonoBehaviour
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
         playTrack(waveTrack); //fade in of new track
+        wavePropScene = wavesInFile.waves[0].propScene;
+        // Set all prop scenes to inactive except the first scene
+        foreach (GameObject scene in propScenesArr)
+        {
+            if (scene.name == "Scene " + wavePropScene.ToString())
+                scene.SetActive(true);
+            else
+                scene.SetActive(false);
+        }
+        prop = GameObject.Find("Props").GetComponent<Prop>();
 
     }
 
@@ -176,7 +190,7 @@ public class WaveSpawning : MonoBehaviour
                     waveShowcased = false;
                     waveEnemyTypes = wavesInFile.waves[currentWave].enemyTypes;
                     waveEnemiesNum = waveEnemyTypes.Length;
-
+                    wavePropScene = wavesInFile.waves[currentWave].propScene;
 
                     //Music transition
                     if (wavesInFile.waves[currentWave].track != "none")  //only change tracks if a transition was mentioned
@@ -188,6 +202,19 @@ public class WaveSpawning : MonoBehaviour
                         playTrack(waveTrack); //fade in of new track
                     }
 
+                    // Prop transition
+                    if (wavesInFile.waves[currentWave].propScene != 0) // Scene to fade to from what's currently up, 0 to indicate no change
+                    {
+                        string sceneName = "Scene " + wavesInFile.waves[currentWave].propScene.ToString();
+                        string sceneToFade = "Scene " + (wavesInFile.waves[currentWave].propScene - 1).ToString();
+                        for (int i = 0; i < propScenesArr.Length; i++)
+                        {
+                            if (propScenesArr[i].name == sceneName && propScenesArr[i - 1].name == sceneToFade)
+                            {
+                                prop.TransitionScenes(propScenesArr[i-1], propScenesArr[i]);
+                            }
+                        }
+                    }
 
                 }
                 else
