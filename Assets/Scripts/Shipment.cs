@@ -43,8 +43,8 @@ public class Shipment : MonoBehaviour
                 for (int i = 0; i < ingredients.Count; i++)
                 {
                     // Adds one of each ingredient
-                    AudioManager.Instance.PlaySFX("delivery");
-                    ingredients[i].GetComponent<Ingredient>().AddIngredient();
+                    AudioManager.Instance.PlaySFX("delivery", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][1]);
+                ingredients[i].GetComponent<Ingredient>().AddIngredient();
                 }
                 shipmentTimer = 0;
                 transform.position = startPosition;

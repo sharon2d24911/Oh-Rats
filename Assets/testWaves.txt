@@ -1,0 +1,41 @@
+{"waves":
+ [
+	{
+		"wave": 1,
+		"enemyTypes": ["RangedRat"],
+		"showcaseEnemy": "none",
+		"ratsAtATime" : 1,
+		"duration": 5,
+		"warmUp": 5,
+		"minSpawnInterval": 10,
+		"maxSpawnInterval": 15,
+		"difficulty" : 1,
+		"track1" : "BassyMain",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
+		"trackFadeTime" : 1,
+		"trackFinalVolume" : 1,
+		"trackSpeed" : 1
+	},
+
+	{
+		"wave": 2,
+		"enemyTypes": ["none"],
+		"showcaseEnemy": "none",
+		"ratsAtATime" : 1,
+		"duration": 35,
+		"warmUp": 5,
+		"minSpawnInterval": 17,
+		"maxSpawnInterval": 17,
+		"difficulty" : 1,
+		"track1" : "none",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
+		"trackFadeTime" : 1,
+		"trackFinalVolume" : 1,
+		"trackSpeed" : 1
+	}
+ ]	
+}

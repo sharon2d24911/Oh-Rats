@@ -27,6 +27,7 @@ public class Tutorial : MonoBehaviour
         {
             tutorial.SetActive(false);
         }
+        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn("BassyMain","none", "none", "none", 2, 1, 1)); // Fade in music
     }
 
     void Update()
@@ -110,6 +111,7 @@ public class Tutorial : MonoBehaviour
             // Say bye, press space to continue
             if (Input.GetKeyDown(KeyCode.Space))
                 TransitionCanvas.GetComponent<Menu>().FadeToScene("Game");
+                StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("BassyMain","none", "none", "none", 2, 0)); // Fade out music
         }
     }
 }

@@ -6,9 +6,9 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-
-    public Sound[] music, sfx, layer;
-    public AudioSource musicSource, sfxSource, layerSource;
+    public Sound[] music, sfx;
+    public AudioSource musicSource, sfxSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8;
+    //private bool fadingOut1 = false;
 
     private void Awake()
     {
@@ -23,13 +23,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        // Background music play when game starts
-        //StartCoroutine(Fade(true,"BassyMain",1f,1f)); // Fade in
-        //StartCoroutine(Fade(false, "BassyMain", 2f, 0f)); // Fade out
-    }
-
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(music, x => x.soundName == name);
@@ -41,89 +34,156 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = s.clip;
             musicSource.Play();
-            layerSource.Play();
         }
     }
 
-    public void StopMusic(string name)
+    public void StopMusic(string musicName1, string musicName2, string musicName3, string musicName4)
     {
-        Sound s = Array.Find(music, x => x.soundName == name);
-        if (s == null)
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
+
+        AudioSource[] playingSources = new AudioSource[4];
+        int index = 0;
+
+        // Check which musicSources are currently playing
+        for (int i = 0; i < musicSources.Length; i++)
         {
-            Debug.Log("Sound Not Found");
+            if (musicSources[i].volume > 0)
+            {
+                playingSources[index] = musicSources[i];
+                index++;
+            }
         }
-        else
+
+        // Adjusting the number of iterations to the number of sources actually playing
+        int sourcesToFadeOut = Math.Min(index, musicNames.Length);
+        for (int i = 0; i < sourcesToFadeOut; i++)
         {
-            musicSource.clip = s.clip;
-            musicSource.Stop();
-            layerSource.Stop();
+            if (musicNames[i] != "none" && playingSources[i] != null)
+            {
+                playingSources[i].clip = Array.Find(music, x => x.soundName == musicNames[i]).clip;
+            }
+        }
+        for (int i = 0; i < playingSources.Length; i++)
+        {
+            playingSources[i].Stop();
         }
     }
 
-    // Fade out function for future use
-    public IEnumerator Fade(bool fadeIn, string musicName, float duration, float targetVolume)
+    public IEnumerator FadeIn(string musicName1, string musicName2, string musicName3, string musicName4, float duration, float targetVolume, float speed)
     {
-        Sound s = Array.Find(music, x => x.soundName == musicName);
-        musicSource.clip = s.clip;
-        // If fading out, calculate the duration based on the length of the audio clip
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
+
+        AudioSource[] availableSources = new AudioSource[8];
+        int index = 0;
+
+        // Check to see which musicSources are available to use
+        for (int i = 0; i < musicSources.Length; i++)
+        {
+            if (musicSources[i].volume == 0)
+            {
+                availableSources[index] = musicSources[i];
+                index++;
+            }
+        }
+
+        // Initialize the sources with the clips
+        int sourcesToInitialize = Math.Min(index, musicNames.Length);
+        for (int i = 0; i < sourcesToInitialize; i++)
+        {
+            if (musicNames[i] != "none")
+            {
+                Sound s = Array.Find(music, x => x.soundName == musicNames[i]);
+                if (s != null)
+                {
+                    availableSources[i].clip = s.clip;
+                    availableSources[i].pitch = speed;
+                    availableSources[i].Play();
+                }
+            }
+        }
 
         float time = 0f;
-        float startVol;
-        if (fadeIn)
-        {
-           startVol = 0;
-           musicSource.Play();
-        }
-        else
-        {
-            startVol = musicSource.volume;
-            targetVolume = 0;
-        }
-        
-        Debug.Log("Start Volume: " + startVol);
-        Debug.Log("Target Volume: " + targetVolume);
-        Debug.Log("Time: " + time);
-        Debug.Log("Duration: " + duration);
+
+        // Fade in all music sources together
         while (time < duration)
         {
             time += Time.deltaTime;
-            // Fade from the start volume to the target volume
-            musicSource.volume = Mathf.Lerp(startVol, targetVolume, time / duration);
+
+            for (int i = 0; i < sourcesToInitialize; i++)
+            {
+                if (musicNames[i] != "none")
+                {
+                    // Update volume for each source
+                    availableSources[i].volume = Mathf.Lerp(0, targetVolume, time / duration);
+                }
+            }
+
             yield return null;
         }
-        yield break;
     }
 
-    public IEnumerator FadeTwo(bool fadeIn, string musicName, string layerName, float duration, float targetVolume)
+
+    public IEnumerator FadeOut(string musicName1, string musicName2, string musicName3, string musicName4, float duration, float targetVolume)
     {
-        Sound s1 = Array.Find(layer, x => x.soundName == layerName);
-        Sound s2 = Array.Find(music, x => x.soundName == musicName);
-        layerSource.clip = s1.clip;
-        musicSource.clip = s2.clip;
-        // If fading out, calculate the duration based on the length of the audio clip
-        if (!fadeIn)
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
+
+        AudioSource[] playingSources = new AudioSource[4];
+        int index = 0;
+
+        // Check which musicSources are currently playing
+        for (int i = 0; i < musicSources.Length; i++)
         {
-            double lengthOfSource1 = (double)musicSource.clip.samples / musicSource.clip.frequency; // Calculate clip's length
-            yield return new WaitForSecondsRealtime((float)(lengthOfSource1 - duration));
+            if (musicSources[i].volume > 0)
+            {
+                playingSources[index] = musicSources[i];
+                index++;
+            }
         }
+
+        // Adjusting the number of iterations to the number of sources actually playing
+        int sourcesToFadeOut = Math.Min(index, musicNames.Length);
+        for (int i = 0; i < sourcesToFadeOut; i++)
+        {
+            if (musicNames[i] != "none" && playingSources[i] != null)
+            {
+                playingSources[i].clip = Array.Find(music, x => x.soundName == musicNames[i]).clip;
+            }
+        }
+
         float time = 0f;
-        float startVol1 = layerSource.volume;
-        float startVol2 = musicSource.volume;
+        float[] startVolumes = new float[sourcesToFadeOut];
+
+        // Store the start volumes of each source
+        for (int i = 0; i < sourcesToFadeOut; i++)
+        {
+            if (musicNames[i] != "none" && playingSources[i] != null)
+            {
+                startVolumes[i] = playingSources[i].volume;
+            }
+        }
+
+        // Fade out all music sources together
         while (time < duration)
         {
             time += Time.deltaTime;
-            // Fade from the start volume to the target volume
-            musicSource.Play();
-            layerSource.Play();
-            layerSource.volume = Mathf.Lerp(startVol1, targetVolume, time / duration);
-            musicSource.volume = Mathf.Lerp(startVol2, targetVolume, time / duration);
+
+            for (int i = 0; i < sourcesToFadeOut; i++)
+            {
+                if (musicNames[i] != "none" && playingSources[i] != null)
+                {
+                    // Update volume for each source
+                    playingSources[i].volume = Mathf.Lerp(startVolumes[i], targetVolume, time / duration);
+                }
+            }
+
             yield return null;
         }
-        yield break;
     }
 
-
-    public void PlaySFX(string name)
+    public void PlaySFX(string name,float volume,float pan)
     {
         Sound s = Array.Find(sfx, x => x.soundName == name);
         if (s == null)
@@ -132,7 +192,25 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            sfxSource.PlayOneShot(s.clip); // Play sfx once
+            sfxSource.panStereo = pan;
+            sfxSource.PlayOneShot(s.clip,volume); // Play sfx once
         }
+    }
+
+    public void MusicVolume(float volume)
+    {
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        for (int i = 0; i < musicSources.Length; i++)
+        {
+            // If the music source is currently playing
+            if (musicSources[i].volume > 0)
+            {
+                musicSources[i].volume = volume;
+            }
+        }
+    }
+    public void SFXVolume(float volume)
+    {
+        sfxSource.volume = volume;
     }
 }

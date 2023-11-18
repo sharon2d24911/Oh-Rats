@@ -9,9 +9,13 @@
 		"minSpawnInterval": 10,
 		"maxSpawnInterval": 15,
 		"difficulty" : 1,
-		"track" : "BassyMain",
+		"track1" : "BassyMain",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
 		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1,
+		"trackSpeed" : 1,
 		"propScene" : 1
 	},
 
@@ -24,9 +28,13 @@
 		"minSpawnInterval": 17,
 		"maxSpawnInterval": 17,
 		"difficulty" : 1,
-		"track" : "none",
-		"trackFadeTime" : 1,
+		"track1" : "none",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
+		"trackFadeTime" : 2,
 		"trackFinalVolume" : 1,
+		"trackSpeed" : 1,
 		"propScene" : 0
 	},
 	{
@@ -38,9 +46,13 @@
 		"minSpawnInterval": 9,
 		"maxSpawnInterval": 10,
 		"difficulty" : 1,
-		"track" : "BassyEvent",
+		"track1" : "BassyEvent",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
 		"trackFadeTime" : 2,
 		"trackFinalVolume" : 1,
+		"trackSpeed" : 1,
 		"propScene" : 0
 	},
 	{
@@ -52,10 +64,14 @@
 		"minSpawnInterval": 9,
 		"maxSpawnInterval": 10,
 		"difficulty" : 2,
-		"track" : "none",
+		"track1" : "none",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
 		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1,
-		"propScene" : 3
+		"trackSpeed" : 1,
+		"propScene" : 0
 	},
 	{
 		"wave": 5,
@@ -66,24 +82,14 @@
 		"minSpawnInterval": 5,
 		"maxSpawnInterval": 6,
 		"difficulty" : 3,
-		"track" : "BassyDrums",
+		"track1" : "BassyDrums",
+		"track2" : "none",
+		"track3" : "none",
+		"track4" : "none",
 		"trackFadeTime" : 9,
 		"trackFinalVolume" : 1,
+		"trackSpeed" : 1,
 		"propScene" : 0
-	},
-	{
-		"wave": 6,
-		"enemyTypes": ["BasicRat", "HealthRat"],
-		"showcaseEnemy": "none",
-		"duration": 60,
-		"warmUp": 8,
-		"minSpawnInterval": 5,
-		"maxSpawnInterval": 6,
-		"difficulty" : 3,
-		"track" : "BassyDrums",
-		"trackFadeTime" : 9,
-		"trackFinalVolume" : 1,
-		"propScene" : 2
 	}
  ]	
 }

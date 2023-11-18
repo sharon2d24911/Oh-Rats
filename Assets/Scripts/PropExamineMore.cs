@@ -122,25 +122,5 @@ public class PropExamineMore : MonoBehaviour
         targetScale = scale;
         targetImage = image;
         targetBCSize = BC;
-        Sound(); // play sfx
-    }
-    private void Sound()
-    {
-        if (isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S1 - Framed bakery" || this.name == "S1 - Framed photo"))
-        {
-            AudioManager.Instance.PlaySFX("FrameOn");
-        }
-        else if (!isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S1 - Framed bakery" || this.name == "S1 - Framed photo"))
-        {
-            AudioManager.Instance.PlaySFX("FrameOff");
-        }
-        else if (isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule"))
-        {
-            AudioManager.Instance.PlaySFX("PaperOn");
-        }
-        else if (!isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule"))
-        {
-            AudioManager.Instance.PlaySFX("PaperOff");
-        }
     }
 }
