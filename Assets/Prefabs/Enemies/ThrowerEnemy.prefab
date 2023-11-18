@@ -121,6 +121,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
+      propertyPath: enemyType
+      value: ThrowingRat
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
       propertyPath: isThrower
       value: 1
       objectReference: {fileID: 0}

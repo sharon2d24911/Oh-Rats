@@ -36,6 +36,7 @@ public class EnemyBehaviour : MonoBehaviour
     private float gridWidth;
     public float damage;
     public float speed;
+    public string enemyType;
    
 
     [Header("Boss")]
