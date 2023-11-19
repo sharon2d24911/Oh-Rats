@@ -44,7 +44,7 @@ public class GameHandler : MonoBehaviour
                 life.transform.parent = BGCanvasGO.transform.GetChild(5);
                 playerLives.Add(life);
                 life.transform.position += new Vector3(i * ratLifeAdjust, 0f,0f);
-                life.transform.position = new Vector3(life.transform.position.x, -9.336f, 4f);
+                life.transform.position = new Vector3(life.transform.position.x, -9.1f, 4f);
             }
         }
     }
@@ -60,9 +60,6 @@ public class GameHandler : MonoBehaviour
     public void PlayerLoss()
     {
         numOfRats += 1;
-        AudioManager.Instance.PlaySFX("PlayerLifeLost", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][1]);
-        Destroy(playerLives[playerLivesMaxInd]);
-        playerLivesMaxInd -= 1;
         if (numOfRats == maxRats)
         {
             GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "none");
@@ -70,6 +67,9 @@ public class GameHandler : MonoBehaviour
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");
         }
+        AudioManager.Instance.PlaySFX("PlayerLifeLost", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][1]);
+        Destroy(playerLives[playerLivesMaxInd]);
+        playerLivesMaxInd -= 1;
 
     }
 }

@@ -12,6 +12,8 @@ public class Shipment : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 startPosition;
     public Image progressBar;
+    public Button deliveryButton;
+    private bool shipping;
 
     // Start is called before the first frame update
     void Start()
@@ -19,36 +21,44 @@ public class Shipment : MonoBehaviour
         startPosition = transform.position;
         shipmentTimer = 0;
         targetPosition = target.transform.position;
+        shipping = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        shipmentTimer += Time.deltaTime;
-
-        //Debug.Log("Shipment arriving in: " + (shipmentTimerMax - shipmentTimer) + " seconds");
-
-        // Moves box towards ingredients area over the number of seconds it takes for the new shipment to show up
-        transform.position = Vector3.Lerp(startPosition, targetPosition, shipmentTimer / shipmentTimerMax);
-        if (shipmentTimer < shipmentTimerMax)
+        if (shipping)
         {
-            progressBar.fillAmount = shipmentTimer / shipmentTimerMax;
-        }
-        if (shipmentTimer >= shipmentTimerMax && ingredients.Count > 0)
-        {
-            for (int i = 0; i < ingredients.Count; i++)
+            shipmentTimer += Time.deltaTime;
+
+            //Debug.Log("Shipment arriving in: " + (shipmentTimerMax - shipmentTimer) + " seconds");
+            // Moves delivery towards ingredients area over the number of seconds it takes for the new shipment to show up
+            transform.position = Vector3.Lerp(startPosition, targetPosition, shipmentTimer / shipmentTimerMax);
+            if (shipmentTimer < shipmentTimerMax)
             {
-                // Adds one of each ingredient
-                AudioManager.Instance.PlaySFX("delivery", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][1]);
-                ingredients[i].GetComponent<Ingredient>().AddIngredient();
-                Debug.Log(ingredients[i].name + " remaining: " + ingredients[i].remaining);
+                progressBar.fillAmount = shipmentTimer / shipmentTimerMax;
             }
-            shipmentTimer = 0;
-            transform.position = startPosition;
-            progressBar.fillAmount = 0;
+            if (shipmentTimer >= shipmentTimerMax && ingredients.Count > 0)
+            {
+                for (int i = 0; i < ingredients.Count; i++)
+                {
+                    // Adds one of each ingredient
+                    AudioManager.Instance.PlaySFX("delivery", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][1]);
+                ingredients[i].GetComponent<Ingredient>().AddIngredient();
+                }
+                shipmentTimer = 0;
+                transform.position = startPosition;
+                progressBar.fillAmount = 0;
+                shipping = false;
+                deliveryButton.interactable = true;
+            }
         }
-
     }
 
-
+    // When Ingredient delivery button is pressed
+    public void ShipIngredients()
+    {
+        shipping = true;
+        deliveryButton.interactable = false;
+    }
 }

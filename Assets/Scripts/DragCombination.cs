@@ -18,6 +18,7 @@ public class DragCombination : MonoBehaviour
     public GameObject unit;
     public Button mixButton;
     public Texture2D garbageCursor;
+    public Texture2D defaultCursor;
     private GameObject newUnit;
     private string sugarDropSound;
     private string flourDropSound;
@@ -33,6 +34,7 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public bool tutorialMode;
     [HideInInspector] public Vector2 topLeft;
     [HideInInspector] public bool trashMode;
+    private bool bowlFull = false;
 
     //=====Animation stuff=======
     public float frameRate = 4f;
@@ -164,7 +166,7 @@ public class DragCombination : MonoBehaviour
                 AudioManager.Instance.PlaySFX("UnitDiscard", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UnitDiscard"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UnitDiscard"][1]);
                 Destroy(selectedObject);
                 trashMode = false;
-                Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+                Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
             } else // Nothing else can be dragged, but add condition for trash if needed
                 selectedObject = null;
 
@@ -224,7 +226,7 @@ public class DragCombination : MonoBehaviour
             Vector2 combV2 = combinationZone.transform.position;
 
             // Checks if the selected object is close enough or on the object that's been designated as the combination area
-            if (Vector2.Distance(selectedV2, combV2) < sensitivity)
+            if (Vector2.Distance(selectedV2, combV2) < sensitivity && !bowlFull)
             {
                 // Check if there are >3 of the ingredient in the combining list
                 if (selectedObject.transform.parent.transform.childCount > 3)
@@ -235,7 +237,8 @@ public class DragCombination : MonoBehaviour
                 }
 
                 // Snaps object into the same position
-                selectedObject.transform.position = combinationZone.transform.position;
+                Vector3 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-.2f, .7f));
+                selectedObject.transform.position = combinationZone.transform.position + offset;
                 dragged.Add(selectedObject);
 
                 // Sfx for ingredient drop
@@ -336,6 +339,7 @@ public class DragCombination : MonoBehaviour
             filledPositions.Add(nearestPos, selectedObject); //puts unit in dictionary, position will no longer be free on the grid
             dragged.Add(selectedObject);
             AudioManager.Instance.PlaySFX("DonutPlace", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutPlace"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutPlace"][1]);
+            bowlFull = false;
         }
 
         selectedObject = null;
@@ -415,6 +419,7 @@ public class DragCombination : MonoBehaviour
         newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / 0.2) - 1;
         newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / 25) - 1;
         newUnit.tag = "Unit";
+        bowlFull = true;
     }
 
     // Unit removal
@@ -436,7 +441,7 @@ public class DragCombination : MonoBehaviour
 
 
     // OPTION if player wants to clear combination before mixing, delete if we don't use
-    void ClearBowl()
+    public void ClearBowl()
     {
         // Empty any objects on the combination zone
         if (combining.Count > 0)
