@@ -2,13 +2,13 @@
  [
 	{
 		"wave": 1,
-		"enemyTypes": ["BasicRat"],
+		"enemyTypes": ["RangedRat"],
 		"showcaseEnemy": "BossRat",
 		"ratsAtATime" : 1,
-		"duration": 50,
+		"duration": 5,
 		"warmUp": 5,
-		"minSpawnInterval": 1,
-		"maxSpawnInterval": 5,
+		"minSpawnInterval": 6,
+		"maxSpawnInterval": 7,
 		"difficulty" : 1,
 		"track1" : "BassyMain",
 		"track2" : "none",
