@@ -24,10 +24,10 @@ public class Menu : MonoBehaviour
             GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("StartButton", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["StartButton"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["StartButton"][1]);
             StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("TitleWop", "none", "none", "none", 1, 0));
         }
-        else if (SceneManager.GetActiveScene().name == "Game")
-        {
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn("TitleWop", "none", "none", "none", 1, 1, 1));
-        }
+        //else if (SceneManager.GetActiveScene().name == "Game")
+        //{
+        //    StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn("TitleWop", "none", "none", "none", 1, 1, 1));
+        //}
         else
         {
             StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("BassyMain", "none", "none", "none", 1, 0)); // Fade out music

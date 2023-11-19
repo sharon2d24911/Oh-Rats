@@ -27,7 +27,8 @@ public class Tutorial : MonoBehaviour
         {
             tutorial.SetActive(false);
         }
-        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn("ChewTorial", "none", "none", "none", 1, 1, 1)); // Fade in music
+        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("TitleWop", "none", "none", "none", 1, 0));
+        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn("ChewTorial", "none", "none", "none", 3, 1, 1)); // Fade in music
     }
 
     void Update()

@@ -939,6 +939,7 @@ GameObject:
   m_Component:
   - component: {fileID: 837515534}
   - component: {fileID: 837515533}
+  - component: {fileID: 837515535}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: GameHandler
@@ -973,6 +974,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &837515535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837515532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8b9b297687c03841a0a3f364eea4a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1094280198
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,7 +3111,6 @@ GameObject:
   - component: {fileID: 1939725044}
   - component: {fileID: 1939725043}
   - component: {fileID: 1939725042}
-  - component: {fileID: 1939725045}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: AudioManager
@@ -3136,15 +3148,15 @@ MonoBehaviour:
   - soundName: ChewTorial
     clip: {fileID: 8300000, guid: 9e9f6bc979f5fb14ead5050ca308fba4, type: 3}
   - soundName: PercussiveOverWop
-    clip: {fileID: 8300000, guid: 98d9f5b03f6ac4047b380c0cc2822105, type: 3}
+    clip: {fileID: 8300000, guid: 75c5a9484ce8bd643ac07e359797e2d7, type: 3}
   - soundName: HotWopLeads
-    clip: {fileID: 8300000, guid: 7ccd4a878638e10468efaad15d91aa71, type: 3}
+    clip: {fileID: 8300000, guid: 681d48967ef5f384eb1d0c71c67b79c9, type: 3}
   - soundName: TwoWop
-    clip: {fileID: 8300000, guid: 917e55b9ee4b3d040a29f75607765348, type: 3}
+    clip: {fileID: 8300000, guid: 23dc1c1b1c0bfa944b7b394bf168c496, type: 3}
   - soundName: TitleWop
     clip: {fileID: 8300000, guid: e4195305acef6e04c8f9add74d258fcf, type: 3}
   - soundName: EasyWop
-    clip: {fileID: 8300000, guid: bb3291ce56ab17547924db3f24f45672, type: 3}
+    clip: {fileID: 8300000, guid: 108070447d71fcd4e94bf844addca119, type: 3}
   sfx:
   - soundName: BottleCapHurt1
     clip: {fileID: 8300000, guid: c1be1a321bc09aa48895756181777954, type: 3}
@@ -3402,18 +3414,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1939725045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939725041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b9b297687c03841a0a3f364eea4a44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2044589404
 GameObject:
   m_ObjectHideFlags: 0

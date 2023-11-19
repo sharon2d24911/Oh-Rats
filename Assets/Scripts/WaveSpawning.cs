@@ -390,6 +390,10 @@ public class WaveSpawning : MonoBehaviour
                 this.coffeeSpawnSound = coffeeSpawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
                 AudioManager.Instance.PlaySFX(this.coffeeSpawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.coffeeSpawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.coffeeSpawnSound][1]);
             }
+            else if (enemyName == "Boss")
+            {
+                AudioManager.Instance.PlaySFX("RatKingSpawnFinal", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingSpawnFinal"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingSpawnFinal"][1]);
+            }
             else if (enemyName == "SpeedRat")
             {
                 string[] rocketSpawnSound = { "RocketSpawn1", "RocketSpawn2", "RocketSpawn3", "RocketSpawn4" };

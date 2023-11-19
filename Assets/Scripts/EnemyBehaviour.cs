@@ -63,6 +63,7 @@ public class EnemyBehaviour : MonoBehaviour
     private string biteSound;
     private string kingSummonSound;
     private string kingMeleeSound;
+    private string potionThrowSound;
 
     [Header("Close Range Projectile")]
     public bool isThrower = false;
@@ -347,10 +348,6 @@ public class EnemyBehaviour : MonoBehaviour
         yield return new WaitForSeconds(animTimeMax * frameRate);
         Invoke("ResetCooldown", (cooldown - animTimeMax * frameRate));
 
-        // Sfx for projectile fire
-        string[] fireSound = { "CoffeeFire1", "CoffeeFire2"};
-        this.fireSound = fireSound[Mathf.FloorToInt(Random.Range(0, 2))];
-        AudioManager.Instance.PlaySFX(this.fireSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.fireSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.fireSound][1]);
         myProjectile = Instantiate(projectile, ProjectileOrigin.position, Quaternion.identity);
         myProjectile.GetComponent<SpriteRenderer>().sortingOrder = enemy.GetComponent<SpriteRenderer>().sortingOrder + 1;
         myProjectile.GetComponent<ProjectileScript>().screenEdge = GameHandler.GameOverXPosition + (GameObject.Find("Grid").gameObject.GetComponent<GridCreate>().rows - lane) - 1;
@@ -358,6 +355,16 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.Log("swap");
             ProjectileOrigin.localPosition = new Vector3(ProjectileOrigin.localPosition.x, -1f * ProjectileOrigin.localPosition.y, ProjectileOrigin.localPosition.z);
+            string[] potionThrowSound = { "PotionThrow1", "PotionThrow2", "PotionThrow3", "PotionThrow4" };
+            this.potionThrowSound = potionThrowSound[Mathf.FloorToInt(Random.Range(0, 2))];
+            AudioManager.Instance.PlaySFX(this.potionThrowSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionThrowSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionThrowSound][1]);
+        }
+        else
+        {
+            // Sfx for projectile fire
+            string[] fireSound = { "CoffeeFire1", "CoffeeFire2" };
+            this.fireSound = fireSound[Mathf.FloorToInt(Random.Range(0, 2))];
+            AudioManager.Instance.PlaySFX(this.fireSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.fireSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.fireSound][1]);
         }
     }
 

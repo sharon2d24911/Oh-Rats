@@ -128,21 +128,33 @@ public class PropExamine : MonoBehaviour
     
     private void Sound()
     {
-        if (isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S1 - Framed bakery" || this.name == "S1 - Framed photo"))
+        if (isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S2 - Framed photo" || this.name == "S3 - Framed photo" || this.name == "S2 - Award" || this.name == "S3 - Award" || this.name == "S1 - Framed bakery" || this.name == "S2 - Framed bakery" || this.name == "S3 - Framed bakery"))
         {
             AudioManager.Instance.PlaySFX("FrameOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FrameOn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FrameOn"][1]);
         }
-        else if (!isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S1 - Framed bakery" || this.name == "S1 - Framed photo"))
+        else if (!isBig && (this.name == "S1 - Framed photo" || this.name == "S1 - Award" || this.name == "S2 - Framed photo" || this.name == "S3 - Framed photo" || this.name == "S2 - Award" || this.name == "S3 - Award" || this.name == "S1 - Framed bakery" || this.name == "S2 - Framed bakery" || this.name == "S3 - Framed bakery"))
         {
             AudioManager.Instance.PlaySFX("FrameOff",GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FrameOff"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FrameOff"][1]);
         }
-        else if (isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule"))
+        else if (isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule" || this.name == "S2 - Folded newspaper" || this.name == "S2 - Work Schedule" || this.name == "S3 - Folded newspaper" || this.name == "S3 - Work Schedule"))
         {
             AudioManager.Instance.PlaySFX("PaperOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PaperOn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PaperOn"][1]);
         }
-        else if (!isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule"))
+        else if (!isBig && (this.name == "S1 - Folded newspaper" || this.name == "S1 - Work Schedule" || this.name == "S2 - Folded newspaper" || this.name == "S2 - Work Schedule" || this.name == "S3 - Folded newspaper" || this.name == "S3 - Work Schedule"))
         {
             AudioManager.Instance.PlaySFX("PaperOff", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PaperOff"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PaperOff"][1]);
+        }
+        else if (isBig && (this.name == "S2 - Potion crumpled" || this.name == "S3 - Potion crumpled"))
+        {
+            AudioManager.Instance.PlaySFX("CrumpleOn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["CrumpleOn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["CrumpleOn"][1]);
+        }
+        else if (!isBig && (this.name == "S2 - Potion crumpled" || this.name == "S3 - Potion crumpled"))
+        {
+            AudioManager.Instance.PlaySFX("CrumpleOff", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["CrumpleOff"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["CrumpleOff"][1]);
+        }
+        else if (this.name == "S3 - Rat Poster")
+        {
+            AudioManager.Instance.PlaySFX("PosterRemove", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PosterRemove"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PosterRemove"][1]);
         }
     }
     
