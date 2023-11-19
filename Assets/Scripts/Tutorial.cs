@@ -27,7 +27,7 @@ public class Tutorial : MonoBehaviour
         {
             tutorial.SetActive(false);
         }
-        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn("BassyMain","none", "none", "none", 2, 1, 1)); // Fade in music
+        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn("ChewTorial", "none", "none", "none", 1, 1, 1)); // Fade in music
     }
 
     void Update()
@@ -99,7 +99,7 @@ public class Tutorial : MonoBehaviour
             // Props can be clicked on??? does this need to be a step at all if story optional? if not then just say bye, press space to continue
             if (Input.GetKeyDown(KeyCode.Space))
                 TransitionCanvas.GetComponent<Menu>().FadeToScene("Game");
-                StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("BassyMain","none", "none", "none", 2, 0)); // Fade out music
+                StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("ChewTorial", "none", "none", "none", 2, 0)); // Fade out music
         }
     }
 }

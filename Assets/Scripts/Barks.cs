@@ -16,6 +16,7 @@ public class Barks : MonoBehaviour
     private float barkTimer = 0f;
     private float currentBarkTimeMax;
     private bool hasBarked = false;
+    private string barkSound;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,10 @@ public class Barks : MonoBehaviour
                 bubble.GetComponent<SpriteRenderer>().color = bubble.GetComponent<SpriteRenderer>().color + new Color(0, 0, 0, 1);
                 text.GetComponent<TextMeshPro>().color = text.GetComponent<TextMeshPro>().color + new Color(0, 0, 0, 1);
                 hasBarked = true;
+
+                string[] barkSound = { "KingBark1", "KingBark2", "KingBark3", "KingBark4", "KingBark5", "KingBark6", "KingBark7", "KingBark8", "KingBark9", "KingBark10", "KingBark11", "KingBark12", "KingBark13" };
+                this.barkSound = barkSound[Mathf.FloorToInt(Random.Range(0, 13))];
+                AudioManager.Instance.PlaySFX(this.barkSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.barkSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.barkSound][1]);
             }
            
             if (barkTimer > currentBarkTimeMax + 2f)

@@ -34,6 +34,7 @@ public class UnitBehaviour : MonoBehaviour
     private GameObject unit;
     private string fireSound;
     private string hitsSound;
+    private string potionHitSound;
 
     //======Animation Stuff=========
     public float frameRate = 4f;
@@ -155,9 +156,19 @@ public class UnitBehaviour : MonoBehaviour
         {
             Debug.Log("unit projectile hit");
             ProjectileCollide(collision.gameObject);
-            string[] hitsSound = { "CoffeeHit1", "CoffeeHit2", "CoffeeHit3" }; 
-            this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
-            AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
+            if (GameObject.FindWithTag("Projectile").GetComponent<ProjectileScript>().enemyProjectile == false)
+            {
+                string[] hitsSound = { "CoffeeHit1", "CoffeeHit2", "CoffeeHit3" };
+                this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
+                AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
+            }
+            else
+            {
+                string[] potionHitSound = { "PotionHit1", "PotionHit2", "PotionHit3", "PotionHit4" };
+                this.potionHitSound = potionHitSound[Mathf.FloorToInt(Random.Range(0, 4))];
+                AudioManager.Instance.PlaySFX(this.potionHitSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionHitSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionHitSound][1]);
+            }
+            
         }
     }
 

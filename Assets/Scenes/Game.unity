@@ -1542,6 +1542,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b0c647ecb7b270a42b2ec606d8cda22e, type: 3}
   - soundName: BassyDrums
     clip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  - soundName: ChewTorial
+    clip: {fileID: 8300000, guid: 9e9f6bc979f5fb14ead5050ca308fba4, type: 3}
+  - soundName: PercussiveOverWop
+    clip: {fileID: 8300000, guid: 98d9f5b03f6ac4047b380c0cc2822105, type: 3}
+  - soundName: HotWopLeads
+    clip: {fileID: 8300000, guid: 7ccd4a878638e10468efaad15d91aa71, type: 3}
+  - soundName: TwoWop
+    clip: {fileID: 8300000, guid: 917e55b9ee4b3d040a29f75607765348, type: 3}
+  - soundName: TitleWop
+    clip: {fileID: 8300000, guid: e4195305acef6e04c8f9add74d258fcf, type: 3}
+  - soundName: EasyWop
+    clip: {fileID: 8300000, guid: bb3291ce56ab17547924db3f24f45672, type: 3}
   sfx:
   - soundName: BottleCapHurt1
     clip: {fileID: 8300000, guid: c1be1a321bc09aa48895756181777954, type: 3}
@@ -1549,14 +1561,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 272f166f89cad15409afb9cb9bd64e78, type: 3}
   - soundName: BottleCapHurt3
     clip: {fileID: 8300000, guid: a53d8aba861baab45a341b7c3112cd58, type: 3}
-  - soundName: DonutHurt1
-    clip: {fileID: 8300000, guid: db7466d625555694c86dec3ffb8d8c15, type: 3}
-  - soundName: DonutHurt2
-    clip: {fileID: 8300000, guid: 2783cb3d73857a94e9d0f4e19f6f4fa2, type: 3}
-  - soundName: DonutHurt3
-    clip: {fileID: 8300000, guid: da8ceb8bbf6b78d4185971356173f388, type: 3}
-  - soundName: DonutHurt4
-    clip: {fileID: 8300000, guid: c7644191dd0ab9a4999902715ad63db8, type: 3}
+  - soundName: Bite1
+    clip: {fileID: 8300000, guid: 42ff34552fe814e4d8d623889c457639, type: 3}
+  - soundName: Bite2
+    clip: {fileID: 8300000, guid: d01e536e04192ba49aed78bf768bbc03, type: 3}
+  - soundName: Bite3
+    clip: {fileID: 8300000, guid: 575b67ffa0234d34bb7e533102cf8443, type: 3}
+  - soundName: Bite4
+    clip: {fileID: 8300000, guid: 263c7df4655eafd43aaf62279b844124, type: 3}
   - soundName: DonutPlace
     clip: {fileID: 8300000, guid: 44a88af888fbb4248a77858ad9d46066, type: 3}
   - soundName: EggDrop1
@@ -1695,6 +1707,78 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 13644e2481313da4eb7aa59c4f487aef, type: 3}
   - soundName: RatSpawn4
     clip: {fileID: 8300000, guid: 166eef171398fda4c9d65ef4d5aabc68, type: 3}
+  - soundName: CrumpleOff
+    clip: {fileID: 8300000, guid: 5a3231876776ef9498ca2f0c6aac4520, type: 3}
+  - soundName: CrumpleOn
+    clip: {fileID: 8300000, guid: 401fdc3bbb2e1d744bce080e028c862a, type: 3}
+  - soundName: KingBark1
+    clip: {fileID: 8300000, guid: 9c2f0e0a333242c45b082c3c41a2cfb3, type: 3}
+  - soundName: KingBark2
+    clip: {fileID: 8300000, guid: 4b7109c7901cf8544a35e948da1041c0, type: 3}
+  - soundName: KingBark3
+    clip: {fileID: 8300000, guid: 9d8c7361a3c98fa4ab63044d4bfdae94, type: 3}
+  - soundName: KingBark4
+    clip: {fileID: 8300000, guid: 6148011c9b42ca142949e1b5ea6aae03, type: 3}
+  - soundName: KingBark5
+    clip: {fileID: 8300000, guid: 1664810cd354a644f92d61ab7ac4547d, type: 3}
+  - soundName: KingBark6
+    clip: {fileID: 8300000, guid: 4bb2ecef1dbfdfa429fe15f671c9a688, type: 3}
+  - soundName: KingBark7
+    clip: {fileID: 8300000, guid: c51f4c3217de82342a51eb5cba3a93e5, type: 3}
+  - soundName: KingBark8
+    clip: {fileID: 8300000, guid: 75fc20147ae105b44b15f356b1a2c2d8, type: 3}
+  - soundName: KingBark9
+    clip: {fileID: 8300000, guid: 15ab40bbe18f60447bf51caa8dd589f5, type: 3}
+  - soundName: KingBark10
+    clip: {fileID: 8300000, guid: 13d41f4ba8eb3be4991946263637ee85, type: 3}
+  - soundName: KingBark11
+    clip: {fileID: 8300000, guid: a5418be16e4d22246ad77e25164a131c, type: 3}
+  - soundName: KingBark12
+    clip: {fileID: 8300000, guid: 24747249266949b4799dda4c71273529, type: 3}
+  - soundName: KingBark13
+    clip: {fileID: 8300000, guid: 83d4bfe090b781a488833871e377844d, type: 3}
+  - soundName: KingHurt1
+    clip: {fileID: 8300000, guid: 54c8db8d2c612d341a2449e974b90fb8, type: 3}
+  - soundName: KingHurt2
+    clip: {fileID: 8300000, guid: 9cab149bfb6f706478f484f92228fed3, type: 3}
+  - soundName: KingHurt3
+    clip: {fileID: 8300000, guid: 4af09de06bbc6864790e59decd7e48da, type: 3}
+  - soundName: KingHurt4
+    clip: {fileID: 8300000, guid: 4a9128debc4da5a408ac4d0e013eb5e5, type: 3}
+  - soundName: KingMeleeGrowl1
+    clip: {fileID: 8300000, guid: e8ada3dbad1aba2458c674464ffb5293, type: 3}
+  - soundName: KingMeleeGrowl2
+    clip: {fileID: 8300000, guid: e1b7d39a19ab5994fb7355f25f57cafd, type: 3}
+  - soundName: KingMeleeGrowl3
+    clip: {fileID: 8300000, guid: 043c7589077be2b44aff6b71669ed8ea, type: 3}
+  - soundName: KingMeleeGrowl4
+    clip: {fileID: 8300000, guid: 5f6c9b6cfe85ec34fb12172ce5c618c1, type: 3}
+  - soundName: KingSummon1
+    clip: {fileID: 8300000, guid: 1542808c7308e7d478f56335e450f8f0, type: 3}
+  - soundName: KingSummon2
+    clip: {fileID: 8300000, guid: fc661a3ee8cc0f54689ca5d7cf81554f, type: 3}
+  - soundName: PosterRemove
+    clip: {fileID: 8300000, guid: 9cf35bb8066f3f64381f11214b68cc08, type: 3}
+  - soundName: PotionHit1
+    clip: {fileID: 8300000, guid: a45a8a13b3e4f354b986882c04375781, type: 3}
+  - soundName: PotionHit2
+    clip: {fileID: 8300000, guid: 0a3410e739cc57b4e91e38df6c7c46c9, type: 3}
+  - soundName: PotionHit3
+    clip: {fileID: 8300000, guid: bc8efedec4025aa40a5608ead527a9de, type: 3}
+  - soundName: PotionHit4
+    clip: {fileID: 8300000, guid: a4b6cd7e42a1a3845bf979514b27ecc4, type: 3}
+  - soundName: PotionThrow1
+    clip: {fileID: 8300000, guid: 26fe032b8de9267438524a8ddf89ae46, type: 3}
+  - soundName: PotionThrow2
+    clip: {fileID: 8300000, guid: b423ef85e5a4a1e43b38bc8a91c26b18, type: 3}
+  - soundName: PotionThrow3
+    clip: {fileID: 8300000, guid: e60bd226f718c8e4ca07f421b5d802ce, type: 3}
+  - soundName: RatKingDefeat
+    clip: {fileID: 8300000, guid: 700e7d1b6bf8e7c42be79fc29768582b, type: 3}
+  - soundName: RatKingSpawnFinal
+    clip: {fileID: 8300000, guid: 9cee56177f07a6f488efddea35d8cbd5, type: 3}
+  - soundName: GameWin
+    clip: {fileID: 8300000, guid: c28ae7160ad44d441ab131e706e57050, type: 3}
   musicSource: {fileID: 1460442798}
   sfxSource: {fileID: 2026674770}
   musicSource2: {fileID: 95567700}
