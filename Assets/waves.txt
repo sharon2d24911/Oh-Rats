@@ -4,6 +4,7 @@
 		"wave": 1,
 		"enemyTypes": ["BasicRat"],
 		"showcaseEnemy": "none",
+		"ratsAtATime" : 1,
 		"duration": 45,
 		"warmUp": 15,
 		"minSpawnInterval": 10,
@@ -15,13 +16,15 @@
 		"track4" : "none",
 		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackSpeed" : 1,
+		"propScene" : 1
 	},
 
 	{
 		"wave": 2,
 		"enemyTypes": ["BasicRat"],
 		"showcaseEnemy": "HealthRat",
+		"ratsAtATime" : 1,
 		"duration": 35,
 		"warmUp": 5,
 		"minSpawnInterval": 17,
@@ -33,12 +36,14 @@
 		"track4" : "none",
 		"trackFadeTime" : 2,
 		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackSpeed" : 1,
+		"propScene" : 0
 	},
 	{
 		"wave": 3,
 		"enemyTypes": ["BasicRat", "HealthRat"],
 		"showcaseEnemy": "none",
+		"ratsAtATime" : 1,
 		"duration": 45,
 		"warmUp": 5,
 		"minSpawnInterval": 9,
@@ -50,12 +55,14 @@
 		"track4" : "none",
 		"trackFadeTime" : 2,
 		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackSpeed" : 1,
+		"propScene" : 0
 	},
 	{
 		"wave": 4,
 		"enemyTypes": ["BasicRat", "HealthRat"],
 		"showcaseEnemy": "none",
+		"ratsAtATime" : 1,
 		"duration": 45,
 		"warmUp": 8,
 		"minSpawnInterval": 9,
@@ -67,12 +74,14 @@
 		"track4" : "none",
 		"trackFadeTime" : 1,
 		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackSpeed" : 1,
+		"propScene" : 0
 	},
 	{
 		"wave": 5,
 		"enemyTypes": ["BasicRat", "HealthRat"],
 		"showcaseEnemy": "none",
+		"ratsAtATime" : 1,
 		"duration": 60,
 		"warmUp": 8,
 		"minSpawnInterval": 5,
@@ -84,7 +93,8 @@
 		"track4" : "none",
 		"trackFadeTime" : 9,
 		"trackFinalVolume" : 1,
-		"trackSpeed" : 1
+		"trackSpeed" : 1,
+		"propScene" : 0
 	}
  ]	
 }
