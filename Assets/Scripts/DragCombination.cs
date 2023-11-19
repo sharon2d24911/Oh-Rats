@@ -441,7 +441,7 @@ public class DragCombination : MonoBehaviour
 
 
     // OPTION if player wants to clear combination before mixing, delete if we don't use
-    void ClearBowl()
+    public void ClearBowl()
     {
         // Empty any objects on the combination zone
         if (combining.Count > 0)

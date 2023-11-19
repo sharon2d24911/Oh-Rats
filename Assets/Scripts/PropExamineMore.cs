@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/********************
+ * NOT WORKING
+ * DON'T USE
+ * THANK YOU
+ ********************/
+
+
 public class PropExamineMore : MonoBehaviour
 {
     public BoxCollider2D boxCollider;
