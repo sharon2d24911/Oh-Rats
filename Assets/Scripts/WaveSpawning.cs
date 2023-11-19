@@ -44,6 +44,7 @@ public class WaveSpawning : MonoBehaviour
     private GameHandler GameHandler;
     private GameObject grid;
     private GridCreate gridScript;
+    private GameObject boss = null;
     private List<Vector3> gridPositions;
     private Dictionary<Vector2, GameObject> unitPositions;
     [HideInInspector] public float waveTimer = 0f;
@@ -160,6 +161,16 @@ public class WaveSpawning : MonoBehaviour
                 ///this line of code was implemented when the bossWave came about
                 ///the new version of the waves system doesn't have this included, so a music event like this might have to be handled differently
                 ///maybe depending of the enemy type(s) in the wave? or the wave number? a music attribute can also be added to the JSON, although this would likely be limited
+
+                if (boss)
+                {
+                    EnemyBehaviour EB = boss.GetComponent<EnemyBehaviour>();
+                    EB.attackAdjust = 2 * (EB.animations[1].BaseAnimation.Count / EB.numOfAttacks);
+                    EB.animIndex = 0;
+                    EB.animTimer = 0;
+                    EB.currentAnim = "Attack";
+                    StartCoroutine(EB.StopMovement(1f));
+                }
 
                 for(int i = 0; i < waveRatsAtATime; i++)
                 {
@@ -335,9 +346,13 @@ public class WaveSpawning : MonoBehaviour
             }
             GameObject enemy = getEnemyObj(enemyName);
             GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
+            if(enemyName == "BossRat")
+            {
+                boss = spawnedEnemy;
+            }
             Debug.Log("pos z" + position.z);
             Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
-            spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 3);
+            spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
             spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
             Debug.Log("rat lane: " + spawnedEnemy.GetComponent<EnemyBehaviour>().lane);
             Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
@@ -348,7 +363,7 @@ public class WaveSpawning : MonoBehaviour
                 this.coffeeSpawnSound = coffeeSpawnSound[Mathf.FloorToInt(Random.Range(0, 4))];
                 AudioManager.Instance.PlaySFX(this.coffeeSpawnSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.coffeeSpawnSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.coffeeSpawnSound][1]);
             }
-            else if (enemyName == "RocketRat")
+            else if (enemyName == "SpeedRat")
             {
                 string[] rocketSpawnSound = { "RocketSpawn1", "RocketSpawn2", "RocketSpawn3", "RocketSpawn4" };
                 this.rocketSpawnSound = rocketSpawnSound[Mathf.FloorToInt(Random.Range(0, 4))];

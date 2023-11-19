@@ -11,7 +11,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3147261269107466100, guid: fb6878b8364d2b44ba264fc731db3c18,
+      objectReference: {fileID: 21300000, guid: cb03d0b02d9e07149b7404526ae2a931,
         type: 3}
     - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
         type: 3}
@@ -86,6 +86,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
         type: 3}
+      propertyPath: spinQuant
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
       propertyPath: screenEdge
       value: -4.95
       objectReference: {fileID: 0}
@@ -117,12 +122,12 @@ PrefabInstance:
     - target: {fileID: 1988653267027465591, guid: c492fd4b9ee74844f92fa275635aef25,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 6.18
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1988653267027465591, guid: c492fd4b9ee74844f92fa275635aef25,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 3.5
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c492fd4b9ee74844f92fa275635aef25, type: 3}
