@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3531b5be8409419790197f3d8db3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxFile: {fileID: 4900000, guid: 3a98c16d30432ee49ae05b8976319f44, type: 3}
 --- !u!4 &62833957
 Transform:
   m_ObjectHideFlags: 0
@@ -370,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3531b5be8409419790197f3d8db3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxFile: {fileID: 4900000, guid: 3a98c16d30432ee49ae05b8976319f44, type: 3}
 --- !u!114 &231790966 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 772315038711781701, guid: 5bb15ea5051b8374fb9dddfeed7f8386,

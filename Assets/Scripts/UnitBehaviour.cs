@@ -216,5 +216,6 @@ public class UnitBehaviour : MonoBehaviour
         // Projectile update to match the unit's boosted stats
         myProjectile.GetComponent<ProjectileScript>().attack += projAddAttack;
         myProjectile.GetComponent<ProjectileScript>().speed += projAddSpeed;
+        myProjectile.GetComponent<SpriteRenderer>().sortingOrder = healthLayer.sortingOrder + 1;
     }
 }
