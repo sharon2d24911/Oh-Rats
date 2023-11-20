@@ -73,10 +73,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeIn(string musicName1, string musicName2, string musicName3, string musicName4, float duration, float targetVolume, float speed)
+    public IEnumerator FadeIn(string[] musicNames, float duration, float[] targetVolume, float[] speed)
     {
         AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
-        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
 
         AudioSource[] availableSources = new AudioSource[8];
         int index = 0;
@@ -101,7 +100,7 @@ public class AudioManager : MonoBehaviour
                 if (s != null)
                 {
                     availableSources[i].clip = s.clip;
-                    availableSources[i].pitch = speed;
+                    availableSources[i].pitch = speed[i];
                     availableSources[i].Play();
                 }
             }
@@ -119,7 +118,7 @@ public class AudioManager : MonoBehaviour
                 if (musicNames[i] != "none")
                 {
                     // Update volume for each source
-                    availableSources[i].volume = Mathf.Lerp(0, targetVolume, time / duration);
+                    availableSources[i].volume = Mathf.Lerp(0, targetVolume[i], time / duration);
                 }
             }
 

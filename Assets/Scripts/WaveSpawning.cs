@@ -29,8 +29,14 @@ public class WaveSpawning : MonoBehaviour
         public string track3;
         public string track4;
         public int trackFadeTime;
-        public int trackFinalVolume;
-        public float trackSpeed;
+        public float trackFinalVolume1;
+        public float trackFinalVolume2;
+        public float trackFinalVolume3;
+        public float trackFinalVolume4;
+        public float trackSpeed1;
+        public float trackSpeed2;
+        public float trackSpeed3;
+        public float trackSpeed4;
         public int propScene;
     }
 
@@ -79,8 +85,14 @@ public class WaveSpawning : MonoBehaviour
     private string waveTrack4;
     private int waveRatsAtATime;
     private int waveTrackFadeTime;
-    private int waveTrackFinalVolume;
-    private float waveTrackSpeed;
+    private float waveTrackFinalVolume1;
+    private float waveTrackFinalVolume2;
+    private float waveTrackFinalVolume3;
+    private float waveTrackFinalVolume4;
+    private float waveTrackSpeed1;
+    private float waveTrackSpeed2;
+    private float waveTrackSpeed3;
+    private float waveTrackSpeed4;
     private string waveShowcaseEnemy;
     private string[] waveEnemyTypes;
     private int waveEnemiesNum;
@@ -131,13 +143,23 @@ public class WaveSpawning : MonoBehaviour
         waveTrack3 = wavesInFile.waves[0].track3;
         waveTrack4 = wavesInFile.waves[0].track4;
         waveTrackFadeTime = wavesInFile.waves[0].trackFadeTime;
-        waveTrackFinalVolume = wavesInFile.waves[0].trackFinalVolume;
-        waveTrackSpeed = wavesInFile.waves[0].trackSpeed;
+        waveTrackFinalVolume1 = wavesInFile.waves[0].trackFinalVolume1;
+        waveTrackFinalVolume2 = wavesInFile.waves[0].trackFinalVolume2;
+        waveTrackFinalVolume3 = wavesInFile.waves[0].trackFinalVolume3;
+        waveTrackFinalVolume4 = wavesInFile.waves[0].trackFinalVolume4;
+        waveTrackSpeed1 = wavesInFile.waves[0].trackSpeed1;
+        waveTrackSpeed2 = wavesInFile.waves[0].trackSpeed2;
+        waveTrackSpeed3 = wavesInFile.waves[0].trackSpeed3;
+        waveTrackSpeed4 = wavesInFile.waves[0].trackSpeed4;
         warmUpDuration = wavesInFile.waves[0].warmUp;
         waveShowcaseEnemy = wavesInFile.waves[0].showcaseEnemy;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
-        playTrack(waveTrack1, waveTrack2, waveTrack3, waveTrack4); //fade in of new track
+        string[] tracks = { waveTrack1, waveTrack2, waveTrack3, waveTrack4 };
+        float[] volumes = { waveTrackFinalVolume1, waveTrackFinalVolume2, waveTrackFinalVolume3, waveTrackFinalVolume4 };
+        float[] speeds = { waveTrackSpeed1, waveTrackSpeed2, waveTrackSpeed3, waveTrackSpeed4 };
+
+        playTrack(tracks, volumes, speeds); //fade in of new track
         wavePropScene = wavesInFile.waves[0].propScene;
         // Set all prop scenes to inactive except the first scene
         foreach (GameObject scene in propScenesArr)
@@ -235,9 +257,19 @@ public class WaveSpawning : MonoBehaviour
                         waveTrack3 = wavesInFile.waves[currentWave].track3;
                         waveTrack4 = wavesInFile.waves[currentWave].track4;
                         waveTrackFadeTime = wavesInFile.waves[currentWave].trackFadeTime;
-                        waveTrackFinalVolume = wavesInFile.waves[currentWave].trackFinalVolume;
-                        waveTrackSpeed = wavesInFile.waves[currentWave].trackSpeed;
-                        playTrack(waveTrack1, waveTrack2, waveTrack3, waveTrack4); //fade in of new track
+                        waveTrackFinalVolume1 = wavesInFile.waves[currentWave].trackFinalVolume1;
+                        waveTrackFinalVolume2 = wavesInFile.waves[currentWave].trackFinalVolume2;
+                        waveTrackFinalVolume3 = wavesInFile.waves[currentWave].trackFinalVolume3;
+                        waveTrackFinalVolume4 = wavesInFile.waves[currentWave].trackFinalVolume4;
+                        waveTrackSpeed1 = wavesInFile.waves[currentWave].trackSpeed1;
+                        waveTrackSpeed2 = wavesInFile.waves[currentWave].trackSpeed2;
+                        waveTrackSpeed3 = wavesInFile.waves[currentWave].trackSpeed3;
+                        waveTrackSpeed4 = wavesInFile.waves[currentWave].trackSpeed4;
+                        string[] tracks = { waveTrack1, waveTrack2, waveTrack3, waveTrack4 };
+                        float[] volumes = { waveTrackFinalVolume1, waveTrackFinalVolume2, waveTrackFinalVolume3, waveTrackFinalVolume4 };
+                        float[] speeds = { waveTrackSpeed1, waveTrackSpeed2, waveTrackSpeed3, waveTrackSpeed4 };
+
+                        playTrack(tracks, volumes, speeds); //fade in of new track
                     }
 
                     // Prop transition
@@ -302,14 +334,14 @@ public class WaveSpawning : MonoBehaviour
         }
     }
 
-    void playTrack(string trackName1, string trackName2, string trackName3, string trackName4)
+    void playTrack(string[] trackName, float[] volume, float[] speed)
     {
-        if (trackName1 != "none")
+        if (trackName[0] != "none")
         {
-            Debug.Log("PLAY SONG" + trackName1);
+            Debug.Log("PLAY SONG" + trackName[0]);
 
 
-            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(trackName1, trackName2, trackName3, trackName4, waveTrackFadeTime, waveTrackFinalVolume, waveTrackSpeed));
+            StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(trackName, waveTrackFadeTime, volume, speed));
 
         }
     }

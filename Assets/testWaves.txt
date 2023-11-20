@@ -1,7 +1,7 @@
 {"waves":
  [
 	{
-		"wave": 5,
+		"wave": 1,
 		"enemyTypes": ["BasicRat", "HealthRat"],
 		"showcaseEnemy": "BossRat",
 		"ratsAtATime" : 2,
@@ -20,7 +20,7 @@
 		"propScene" : 1
 	},
 	{
-		"wave": 1,
+		"wave": 2,
 		"enemyTypes": ["HealthRat"],
 		"showcaseEnemy": "HealthRat",
 		"ratsAtATime" : 1,
@@ -39,7 +39,7 @@
 		"propScene" : 0
 	},
 	{
-		"wave": 1,
+		"wave": 3,
 		"enemyTypes": ["SpeedRat"],
 		"showcaseEnemy": "SpeedRat",
 		"ratsAtATime" : 1,
@@ -58,7 +58,7 @@
 		"propScene" : 2
 	},
 	{
-		"wave": 1,
+		"wave": 4,
 		"enemyTypes": ["RangedRat"],
 		"showcaseEnemy": "RangedRat",
 		"ratsAtATime" : 1,
@@ -94,25 +94,6 @@
 		"trackFinalVolume" : 1,
 		"trackSpeed" : 1,
 		"propScene" : 3
-	},
-	{
-		"wave": 1,
-		"enemyTypes": ["none"],
-		"showcaseEnemy": "none",
-		"ratsAtATime" : 1,
-		"duration": 0,
-		"warmUp": 0,
-		"minSpawnInterval": 0,
-		"maxSpawnInterval": 0,
-		"difficulty" : 1,
-		"track1" : "BassyDrums",
-		"track2" : "none",
-		"track3" : "none",
-		"track4" : "none",
-		"trackFadeTime" : 9,
-		"trackFinalVolume" : 1,
-		"trackSpeed" : 1,
-		"propScene" : 0
 	}
  ]	
 }

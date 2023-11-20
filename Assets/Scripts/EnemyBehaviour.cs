@@ -419,26 +419,13 @@ public class EnemyBehaviour : MonoBehaviour
                 isDead = true;
                 if (isBoss)
                 {
-                    //kills all units/enemies ==> DEATH HOWL
-                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                    GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
-                    foreach (GameObject enemy in enemies){
-                        enemy.GetComponent<EnemyBehaviour>().health = 0;
-                    }
-                    foreach(GameObject unit in units){
-                        unit.GetComponent<UnitBehaviour>().health = 0;
-                    }
-                    AudioManager.Instance.PlaySFX("RatKingDefeat", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][1]);
-                    //finishes current wave
-                    WS.waveTimer = 0;
-                    WS.waveDurationTimer = WS.waveDuration;
-
                     //spawns in phase2 decoy if current enemy is the "real" boss
                     if (phase2 != null)
                     {
                         //kills all units/enemies ==> DEATH HOWL
                         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                         GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
+                        AudioManager.Instance.PlaySFX("KingHowl", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["KingHowl"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["KingHowl"][1]);
                         foreach (GameObject enemy in enemies)
                         {
                             enemy.GetComponent<EnemyBehaviour>().health = 0;
@@ -464,6 +451,7 @@ public class EnemyBehaviour : MonoBehaviour
                     else {
 
                         Debug.Log("decoy died");
+                        AudioManager.Instance.PlaySFX("RatKingDefeat", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][1]);
                         WS.toggleActive(false, lane);
                         StartCoroutine(GameHandler.PlayerWin());
                     }
