@@ -4992,6 +4992,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e4195305acef6e04c8f9add74d258fcf, type: 3}
   - soundName: EasyWop
     clip: {fileID: 8300000, guid: 108070447d71fcd4e94bf844addca119, type: 3}
+  - soundName: BasicBassy
+    clip: {fileID: 8300000, guid: bc408ddb7045d6449901271fea970230, type: 3}
+  - soundName: SecondBassy
+    clip: {fileID: 8300000, guid: f290781cc7d8ce243a4b5e3e42c02eb2, type: 3}
+  - soundName: BassyHarmonyNSnares
+    clip: {fileID: 8300000, guid: 28597de11467a514495520dec835b8bf, type: 3}
+  - soundName: BassyPickinUp
+    clip: {fileID: 8300000, guid: 38cd29797a60dd943bf2789b467c00f7, type: 3}
   sfx:
   - soundName: BottleCapHurt1
     clip: {fileID: 8300000, guid: c1be1a321bc09aa48895756181777954, type: 3}
@@ -5217,6 +5225,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9cee56177f07a6f488efddea35d8cbd5, type: 3}
   - soundName: GameWin
     clip: {fileID: 8300000, guid: c28ae7160ad44d441ab131e706e57050, type: 3}
+  - soundName: KingHowl
+    clip: {fileID: 8300000, guid: 9f1e67d50d7425b408c7ca35ca36a46e, type: 3}
   musicSource: {fileID: 1514032389}
   sfxSource: {fileID: 884024079}
   musicSource2: {fileID: 1194809285}
