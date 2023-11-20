@@ -56,6 +56,8 @@ public class GameHandler : MonoBehaviour
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "none");
         SceneManager.LoadScene("WinScene");
         Debug.Log("Player won!");
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "none");
+        AudioManager.Instance.PlaySFX("GameWin", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameWin"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameWin"][1]);
     }
 
     public void PlayerLoss()

@@ -37,7 +37,7 @@ public class PropExamineMore : MonoBehaviour
     private int i;
 
     private readonly float fadeDuration = 0.3f;
-    private readonly float speed = 2f;
+    //private readonly float speed = 2f;
 
     private void Start()
     {
