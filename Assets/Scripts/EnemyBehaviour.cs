@@ -204,7 +204,7 @@ public class EnemyBehaviour : MonoBehaviour
         sprite.color = Color.red;
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
-        StartCoroutine(StopMovement(stunTime));
+        //StartCoroutine(StopMovement(stunTime));
         Debug.Log("health:" + health);
 
     }
@@ -407,12 +407,14 @@ public class EnemyBehaviour : MonoBehaviour
                         WS.waveTimer = 0;
                         WS.waveDurationTimer = WS.waveDuration;
                         GameObject PII = Instantiate(phase2, enemy.transform.position, enemy.transform.rotation);
+                        StartCoroutine(PII.GetComponent<SonicWave>().startWaves(4, 0.5f));
                         PII.GetComponent<EnemyBehaviour>().lane = lane;
                         PII.GetComponent<EnemyBehaviour>().phase1 = enemy;
                     }
                     else {
 
                         Debug.Log("decoy died");
+                        WS.toggleActive(false, lane);
                         StartCoroutine(GameHandler.PlayerWin());
                     }
                     

@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &73977502951958394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7004806659110968169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad6eecdf04b402f45bd5e71fd9d25672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barksFile: {fileID: 4900000, guid: f29863a33abbf5a45ab04c6b85f8239c, type: 3}
-  text: {fileID: 2040342473734459266}
-  bubble: {fileID: 5469077799437851484}
-  minTime: 0
-  maxTime: 10
 --- !u!1 &2040342473734459266
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +304,23 @@ Transform:
   m_Father: {fileID: 7004806659110968171}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &73977502951958394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004806659110968169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6eecdf04b402f45bd5e71fd9d25672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barksFile: {fileID: 4900000, guid: f29863a33abbf5a45ab04c6b85f8239c, type: 3}
+  text: {fileID: 2040342473734459266}
+  bubble: {fileID: 5469077799437851484}
+  minTime: 0
+  maxTime: 10
 --- !u!1001 &1538023678961766817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -482,7 +482,7 @@ PrefabInstance:
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
       propertyPath: health
-      value: 50
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
@@ -502,8 +502,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
+      propertyPath: stunTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
       propertyPath: deathTime
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
@@ -676,27 +681,32 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
+      propertyPath: animations.Array.data[2].BandageAnimation.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
       propertyPath: animations.Array.data[2].BaseAnimation.Array.data[0]
       value: 
-      objectReference: {fileID: -1277490644293477004, guid: bad3ff06c875cef47b8f7cc644bace0a,
+      objectReference: {fileID: -2059725784949622939, guid: 168c3ab9184a9be46be8c6082378eacb,
         type: 3}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
       propertyPath: animations.Array.data[2].BaseAnimation.Array.data[1]
       value: 
-      objectReference: {fileID: 4797729513976129809, guid: bad3ff06c875cef47b8f7cc644bace0a,
+      objectReference: {fileID: -4520297448055179535, guid: 168c3ab9184a9be46be8c6082378eacb,
         type: 3}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
       propertyPath: animations.Array.data[2].BaseAnimation.Array.data[2]
       value: 
-      objectReference: {fileID: 7290813199394399690, guid: bad3ff06c875cef47b8f7cc644bace0a,
+      objectReference: {fileID: -4989722290713761435, guid: 168c3ab9184a9be46be8c6082378eacb,
         type: 3}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
       propertyPath: animations.Array.data[2].BaseAnimation.Array.data[3]
       value: 
-      objectReference: {fileID: -7322233601911238669, guid: bad3ff06c875cef47b8f7cc644bace0a,
+      objectReference: {fileID: -8209760021741649607, guid: 168c3ab9184a9be46be8c6082378eacb,
         type: 3}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
@@ -798,6 +808,30 @@ PrefabInstance:
       propertyPath: animations.Array.data[1].BandageAnimation.Array.data[9]
       value: 
       objectReference: {fileID: -426926808164298696, guid: f0a6191074f90154f93364aa0f82552f,
+        type: 3}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: animations.Array.data[2].BandageAnimation.Array.data[0]
+      value: 
+      objectReference: {fileID: -1703634606182838032, guid: c9fcd4fd8c47c11469636f789eeac565,
+        type: 3}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: animations.Array.data[2].BandageAnimation.Array.data[1]
+      value: 
+      objectReference: {fileID: 3231978901421637591, guid: c9fcd4fd8c47c11469636f789eeac565,
+        type: 3}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: animations.Array.data[2].BandageAnimation.Array.data[2]
+      value: 
+      objectReference: {fileID: 1722835400217838377, guid: c9fcd4fd8c47c11469636f789eeac565,
+        type: 3}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: animations.Array.data[2].BandageAnimation.Array.data[3]
+      value: 
+      objectReference: {fileID: -381396541746713835, guid: c9fcd4fd8c47c11469636f789eeac565,
         type: 3}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}

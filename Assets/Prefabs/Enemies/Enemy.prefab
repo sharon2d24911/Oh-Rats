@@ -190,7 +190,9 @@ MonoBehaviour:
   speed: 0.15
   enemyType: Basic
   isBoss: 0
+  phase1: {fileID: 0}
   phase2: {fileID: 0}
+  pIIActivated: 0
   projectile: {fileID: 0}
   ProjectileOrigin: {fileID: 0}
   isProjectileShooter: 0

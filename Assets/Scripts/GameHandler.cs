@@ -48,7 +48,7 @@ public class GameHandler : MonoBehaviour
             }
         }
     }
-
+     
     public IEnumerator PlayerWin()
     {
         yield return new WaitForSeconds(7f);
