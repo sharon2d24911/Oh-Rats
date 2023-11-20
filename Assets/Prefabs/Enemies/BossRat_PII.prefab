@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7004806659110968168, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7004806659110968169, guid: e505965306bedfa4fb16b43a653176f3,
         type: 3}
       propertyPath: m_Name
@@ -59,6 +64,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
         type: 3}
+      propertyPath: frameRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
       propertyPath: attackTime
       value: 0
       objectReference: {fileID: 0}
@@ -66,6 +76,16 @@ PrefabInstance:
         type: 3}
       propertyPath: projectile
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animTimeMax
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: numOfAttacks
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
         type: 3}
@@ -77,6 +97,98 @@ PrefabInstance:
       propertyPath: isProjectileShooter
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[1].animation
+      value: Transition
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[0].BaseAnimation.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[1].BaseAnimation.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[2].BaseAnimation.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[0].BaseAnimation.Array.data[0]
+      value: 
+      objectReference: {fileID: 3852700912659176032, guid: 8d91c9c332980eb41bd7e329c431ce31,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[0].BaseAnimation.Array.data[1]
+      value: 
+      objectReference: {fileID: -3221523549803771851, guid: 8d91c9c332980eb41bd7e329c431ce31,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[0].BaseAnimation.Array.data[2]
+      value: 
+      objectReference: {fileID: -1374716371614397888, guid: 8d91c9c332980eb41bd7e329c431ce31,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[0].BaseAnimation.Array.data[3]
+      value: 
+      objectReference: {fileID: 2019145399689716835, guid: 8d91c9c332980eb41bd7e329c431ce31,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[1].BaseAnimation.Array.data[0]
+      value: 
+      objectReference: {fileID: -1277490644293477004, guid: bad3ff06c875cef47b8f7cc644bace0a,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[1].BaseAnimation.Array.data[1]
+      value: 
+      objectReference: {fileID: 4797729513976129809, guid: bad3ff06c875cef47b8f7cc644bace0a,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[1].BaseAnimation.Array.data[2]
+      value: 
+      objectReference: {fileID: 7290813199394399690, guid: bad3ff06c875cef47b8f7cc644bace0a,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[1].BaseAnimation.Array.data[3]
+      value: 
+      objectReference: {fileID: -7322233601911238669, guid: bad3ff06c875cef47b8f7cc644bace0a,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[2].BaseAnimation.Array.data[0]
+      value: 
+      objectReference: {fileID: -1937852056898303951, guid: 0bec30ccca425bc4ba535b7bb39241c1,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[2].BaseAnimation.Array.data[1]
+      value: 
+      objectReference: {fileID: -8840966160902648481, guid: 0bec30ccca425bc4ba535b7bb39241c1,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[2].BaseAnimation.Array.data[2]
+      value: 
+      objectReference: {fileID: 2259534221974198988, guid: 0bec30ccca425bc4ba535b7bb39241c1,
+        type: 3}
+    - target: {fileID: 7004806659110968170, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: animations.Array.data[2].BaseAnimation.Array.data[3]
+      value: 
+      objectReference: {fileID: -257141489830408133, guid: 0bec30ccca425bc4ba535b7bb39241c1,
+        type: 3}
     - target: {fileID: 7004806659110968171, guid: e505965306bedfa4fb16b43a653176f3,
         type: 3}
       propertyPath: m_RootOrder

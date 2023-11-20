@@ -49,9 +49,10 @@ public class GameHandler : MonoBehaviour
         }
     }
 
-    public void PlayerWin()
+    public IEnumerator PlayerWin()
     {
         SceneManager.LoadScene("WinScene");
+        yield return new WaitForSeconds(3f);
         Debug.Log("Player won!");
     }
 

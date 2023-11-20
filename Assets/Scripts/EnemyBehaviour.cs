@@ -42,7 +42,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Boss")]
     public bool isBoss; //only should be set true for enemies that are bosses, duh
+    public GameObject phase1;
     public GameObject phase2;
+    public bool pIIActivated = false;
 
     [Header("Projectiles")]
     public GameObject projectile;
@@ -119,6 +121,10 @@ public class EnemyBehaviour : MonoBehaviour
                 animNum = 2;
                 animFrames = animations[animNum].BaseAnimation.Count;
                 break;
+            case "Transition":
+                animNum = 1;
+                animFrames = (animations[animNum].BaseAnimation.Count) / numOfAttacks;
+                break;
         }
         animTimer += Time.deltaTime;
 
@@ -133,20 +139,25 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else
             {
-                if (currentAnim != "Walk" && currentAnim != "Death") //all other animations should end after one cycle
+                if (currentAnim != "Walk" && currentAnim != "Death" && currentAnim != "Transition") //all other animations should end after one cycle
                 {
                     currentAnim = "Walk";
                 }
 
-                if(currentAnim != "Death")
+                if(currentAnim != "Death" && currentAnim != "Transition")
                 {
                     animIndex = 0;
                     attackAdjust = 0;
-                }    
+                }
+
+                if (currentAnim == "Transition")
+                {
+                    currentAnim = "Walk";
+                }
             }
 
             //-->cycles through all layers of animations 
-            sprite.sprite = animations[animNum].BaseAnimation[animIndex + (animNum == 1 ? attackAdjust : 0)]; //only add the attack adjust if the current anim is attack];
+            sprite.sprite = animations[animNum].BaseAnimation[animIndex + (animNum == 1 ? attackAdjust : 0)]; //only add the attack adjust if the current anim is attack
 
 
             if (animations[animNum].AccessoryAnimation.Count != 0) //if the rat has an accessory
@@ -155,7 +166,7 @@ public class EnemyBehaviour : MonoBehaviour
                 
                 if (Damage2 != null)
                 {
-                    Damage2.GetComponent<SpriteRenderer>().sprite = animations[animNum].AccessoryAnimation[animIndex];
+                    Damage2.GetComponent<SpriteRenderer>().sprite = animations[animNum].AccessoryAnimation[animIndex + (animNum == 1 ? attackAdjust : 0)];
                 }
             }
 
@@ -254,6 +265,12 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Destroy(enemy);
             GameHandler.PlayerLoss();
+
+            if (isBoss) //insta lose
+            {
+                GameHandler.PlayerLoss();
+                GameHandler.PlayerLoss();
+            }
             StartCoroutine(StopMovement(deathTime + 1.0f));
         }
     }
@@ -346,6 +363,20 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //get Phase II decoy to begin life MUAHAHAHA
+        if(isBoss && phase1 == null && phase2 == null && !pIIActivated )
+        {
+            sprite.enabled = true;
+            currentAnim = "Transition";
+            animIndex = 0;
+            animTimer = 0;
+            pIIActivated = true;
+            Animate();
+        }
+        if(currentAnim == "Transition")
+        {
+            Animate();
+        }
 
         Debug.Log("health" + health);
         if (health <= 0)
@@ -361,8 +392,12 @@ public class EnemyBehaviour : MonoBehaviour
                     foreach (GameObject enemy in enemies){
                         enemy.GetComponent<EnemyBehaviour>().health = 0;
                     }
-                    foreach(GameObject unit in units){
-                        unit.GetComponent<UnitBehaviour>().health = 0;
+                    foreach (GameObject unit in units)
+                    {
+                        if (unit.GetComponent<UnitBehaviour>().placed)
+                        {
+                            unit.GetComponent<UnitBehaviour>().health = 0;
+                        }
                     }
                     //finishes current wave
                     WS.waveTimer = 0;
@@ -373,11 +408,12 @@ public class EnemyBehaviour : MonoBehaviour
                     {
                         GameObject PII = Instantiate(phase2, enemy.transform.position, enemy.transform.rotation);
                         PII.GetComponent<EnemyBehaviour>().lane = lane;
+                        PII.GetComponent<EnemyBehaviour>().phase1 = enemy;
                     }
                     else {
 
                         Debug.Log("decoy died");
-                        GameHandler.PlayerWin();
+                        StartCoroutine(GameHandler.PlayerWin());
                     }
                     
                 }
