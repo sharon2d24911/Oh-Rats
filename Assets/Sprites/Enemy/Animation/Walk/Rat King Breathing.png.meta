@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 59e5f14a095d92945abe2f0d03a9280d
+guid: 8d91c9c332980eb41bd7e329c431ce31
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3548852367088040192
-    second: Rat Die Bandaid_0
+      213: 3852700912659176032
+    second: Rat King Breathing_0
   - first:
-      213: 2088561401496453119
-    second: Rat Die Bandaid_1
+      213: -3221523549803771851
+    second: Rat King Breathing_1
   - first:
-      213: -3210090032057113543
-    second: Rat Die Bandaid_2
+      213: -1374716371614397888
+    second: Rat King Breathing_2
   - first:
-      213: -8956900481259588027
-    second: Rat Die Bandaid_3
+      213: 2019145399689716835
+    second: Rat King Breathing_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,13 +111,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rat Die Bandaid_0
+      name: Rat King Breathing_0
       rect:
         serializedVersion: 2
-        x: 105
-        y: 562
-        width: 614
-        height: 323
+        x: 84
+        y: 646
+        width: 757
+        height: 297
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,20 +125,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 009369cdc6e004130800000000000000
-      internalID: 3548852367088040192
+      spriteID: 06a9fdc411b877530800000000000000
+      internalID: 3852700912659176032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_1
+      name: Rat King Breathing_1
       rect:
         serializedVersion: 2
-        x: 906
-        y: 562
-        width: 629
-        height: 323
+        x: 984
+        y: 649
+        width: 733
+        height: 324
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fffb9cb678f0cfc10800000000000000
-      internalID: 2088561401496453119
+      spriteID: 538046a5669da43d0800000000000000
+      internalID: -3221523549803771851
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_2
+      name: Rat King Breathing_2
       rect:
         serializedVersion: 2
-        x: 105
-        y: 82
-        width: 661
-        height: 323
+        x: 84
+        y: 43
+        width: 733
+        height: 342
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +167,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 934a636af187373d0800000000000000
-      internalID: -3210090032057113543
+      spriteID: 04a820b5eb60cece0800000000000000
+      internalID: -1374716371614397888
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_3
+      name: Rat King Breathing_3
       rect:
         serializedVersion: 2
-        x: 905
-        y: 82
-        width: 629
-        height: 323
+        x: 984
+        y: 49
+        width: 733
+        height: 324
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,8 +188,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5463ffdc772b2b380800000000000000
-      internalID: -8956900481259588027
+      spriteID: 364ae5a0b02750c10800000000000000
+      internalID: 2019145399689716835
       vertices: []
       indices: 
       edges: []

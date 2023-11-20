@@ -48,9 +48,11 @@ public class GameHandler : MonoBehaviour
             }
         }
     }
-
-    public void PlayerWin()
+     
+    public IEnumerator PlayerWin()
     {
+        yield return new WaitForSeconds(7f);
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "none");
         SceneManager.LoadScene("WinScene");
         Debug.Log("Player won!");
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "none");

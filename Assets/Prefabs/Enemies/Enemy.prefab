@@ -190,7 +190,9 @@ MonoBehaviour:
   speed: 0.15
   enemyType: Basic
   isBoss: 0
+  phase1: {fileID: 0}
   phase2: {fileID: 0}
+  pIIActivated: 0
   projectile: {fileID: 0}
   ProjectileOrigin: {fileID: 0}
   isProjectileShooter: 0
@@ -199,6 +201,7 @@ MonoBehaviour:
   isThrower: 0
   puddle: {fileID: 0}
   frameRate: 4
+  animTimer: 0
   animTimeMax: 0.8
   animations:
   - animation: Walk
@@ -239,9 +242,13 @@ MonoBehaviour:
     - {fileID: 2088561401496453119, guid: 59e5f14a095d92945abe2f0d03a9280d, type: 3}
     - {fileID: -3210090032057113543, guid: 59e5f14a095d92945abe2f0d03a9280d, type: 3}
     - {fileID: -8956900481259588027, guid: 59e5f14a095d92945abe2f0d03a9280d, type: 3}
+  currentAnim: Walk
+  animIndex: 0
+  numOfAttacks: 1
   healthBoost: 0
   speedBoost: 0
   attackBoost: 0
+  attackAdjust: 0
 --- !u!61 &4407265408525170048
 BoxCollider2D:
   m_ObjectHideFlags: 0

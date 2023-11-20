@@ -1,19 +1,28 @@
 fileFormatVersion: 2
-guid: 59e5f14a095d92945abe2f0d03a9280d
+guid: 168c3ab9184a9be46be8c6082378eacb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3548852367088040192
-    second: Rat Die Bandaid_0
+      213: -2059725784949622939
+    second: Rat King Howl_0
   - first:
-      213: 2088561401496453119
-    second: Rat Die Bandaid_1
+      213: 2629432341914712565
+    second: Rat King Howl_1
   - first:
-      213: -3210090032057113543
-    second: Rat Die Bandaid_2
+      213: -4520297448055179535
+    second: Rat King Howl_2
   - first:
-      213: -8956900481259588027
-    second: Rat Die Bandaid_3
+      213: -6660276863477643429
+    second: Rat King Howl_3
+  - first:
+      213: -4989722290713761435
+    second: Rat King Howl_4
+  - first:
+      213: -8633908928241956356
+    second: Rat King Howl_5
+  - first:
+      213: -8209760021741649607
+    second: Rat King Howl_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,85 +120,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rat Die Bandaid_0
+      name: Rat King Howl_0
       rect:
         serializedVersion: 2
-        x: 105
-        y: 562
-        width: 614
-        height: 323
+        x: 242
+        y: 1010
+        width: 731
+        height: 423
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 009369cdc6e004130800000000000000
-      internalID: 3548852367088040192
+      spriteID: 5677d5dbf426a63e0800000000000000
+      internalID: -2059725784949622939
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_1
+      name: Rat King Howl_2
       rect:
         serializedVersion: 2
-        x: 906
-        y: 562
-        width: 629
-        height: 323
+        x: 1347
+        y: 1010
+        width: 682
+        height: 431
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fffb9cb678f0cfc10800000000000000
-      internalID: 2088561401496453119
+      spriteID: 1f6f099ab6da441c0800000000000000
+      internalID: -4520297448055179535
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_2
+      name: Rat King Howl_4
       rect:
         serializedVersion: 2
-        x: 105
-        y: 82
-        width: 661
-        height: 323
+        x: 249
+        y: 210
+        width: 713
+        height: 427
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 934a636af187373d0800000000000000
-      internalID: -3210090032057113543
+      spriteID: 56968266302f0cab0800000000000000
+      internalID: -4989722290713761435
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_3
+      name: Rat King Howl_6
       rect:
         serializedVersion: 2
-        x: 905
-        y: 82
-        width: 629
-        height: 323
+        x: 1368
+        y: 211
+        width: 711
+        height: 426
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5463ffdc772b2b380800000000000000
-      internalID: -8956900481259588027
+      spriteID: 931c2e4e1c2111e80800000000000000
+      internalID: -8209760021741649607
       vertices: []
       indices: 
       edges: []

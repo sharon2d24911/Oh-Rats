@@ -42,7 +42,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Boss")]
     public bool isBoss; //only should be set true for enemies that are bosses, duh
+    public GameObject phase1;
     public GameObject phase2;
+    public bool pIIActivated = false;
 
     [Header("Projectiles")]
     public GameObject projectile;
@@ -124,6 +126,10 @@ public class EnemyBehaviour : MonoBehaviour
                 animNum = 2;
                 animFrames = animations[animNum].BaseAnimation.Count;
                 break;
+            case "Transition":
+                animNum = 1;
+                animFrames = (animations[animNum].BaseAnimation.Count) / numOfAttacks;
+                break;
         }
         animTimer += Time.deltaTime;
 
@@ -138,20 +144,25 @@ public class EnemyBehaviour : MonoBehaviour
             }
             else
             {
-                if (currentAnim != "Walk" && currentAnim != "Death") //all other animations should end after one cycle
+                if (currentAnim != "Walk" && currentAnim != "Death" && currentAnim != "Transition") //all other animations should end after one cycle
                 {
                     currentAnim = "Walk";
                 }
 
-                if(currentAnim != "Death")
+                if(currentAnim != "Death" && currentAnim != "Transition")
                 {
                     animIndex = 0;
                     attackAdjust = 0;
-                }    
+                }
+
+                if (currentAnim == "Transition")
+                {
+                    currentAnim = "Walk";
+                }
             }
 
             //-->cycles through all layers of animations 
-            sprite.sprite = animations[animNum].BaseAnimation[animIndex + (animNum == 1 ? attackAdjust : 0)]; //only add the attack adjust if the current anim is attack];
+            sprite.sprite = animations[animNum].BaseAnimation[animIndex + (animNum == 1 ? attackAdjust : 0)]; //only add the attack adjust if the current anim is attack
 
 
             if (animations[animNum].AccessoryAnimation.Count != 0) //if the rat has an accessory
@@ -160,14 +171,14 @@ public class EnemyBehaviour : MonoBehaviour
                 
                 if (Damage2 != null)
                 {
-                    Damage2.GetComponent<SpriteRenderer>().sprite = animations[animNum].AccessoryAnimation[animIndex];
+                    Damage2.GetComponent<SpriteRenderer>().sprite = animations[animNum].AccessoryAnimation[animIndex + (animNum == 1 ? attackAdjust : 0)];
                 }
             }
 
             if (animations[animNum].BandageAnimation.Count > 0)
             {
                 Debug.Log("bandaid animate");
-                Damage1.GetComponent<SpriteRenderer>().sprite = animations[animNum].BandageAnimation[animIndex];
+                Damage1.GetComponent<SpriteRenderer>().sprite = animations[animNum].BandageAnimation[animIndex +( (animNum == 1 && isBoss) ? attackAdjust : 0)];
             }
             else
             {
@@ -204,7 +215,7 @@ public class EnemyBehaviour : MonoBehaviour
         sprite.color = Color.red;
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
-        StartCoroutine(StopMovement(stunTime));
+        //StartCoroutine(StopMovement(stunTime));
         Debug.Log("health:" + health);
 
     }
@@ -265,6 +276,12 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Destroy(enemy);
             GameHandler.PlayerLoss();
+
+            if (isBoss) //insta lose
+            {
+                GameHandler.PlayerLoss();
+                GameHandler.PlayerLoss();
+            }
             StartCoroutine(StopMovement(deathTime + 1.0f));
         }
     }
@@ -379,6 +396,21 @@ public class EnemyBehaviour : MonoBehaviour
             AudioManager.Instance.PlaySFX("RocketMove_Loop", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RocketMove_Loop"][0], GameObject.FindWithTag("RocketMove_Loop").GetComponent<ReadSfxFile>().sfxDictionary["RocketMove_Loop"][1]);
         }
            
+        //get Phase II decoy to begin life MUAHAHAHA
+        if(isBoss && phase1 == null && phase2 == null && !pIIActivated )
+        {
+            sprite.enabled = true;
+            currentAnim = "Transition";
+            animIndex = 0;
+            animTimer = 0;
+            pIIActivated = true;
+            Animate();
+        }
+        if(currentAnim == "Transition")
+        {
+            Animate();
+        }
+
         Debug.Log("health" + health);
         if (health <= 0)
         {
@@ -404,16 +436,36 @@ public class EnemyBehaviour : MonoBehaviour
                     //spawns in phase2 decoy if current enemy is the "real" boss
                     if (phase2 != null)
                     {
+                        //kills all units/enemies ==> DEATH HOWL
+                        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                        GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
+                        foreach (GameObject enemy in enemies)
+                        {
+                            enemy.GetComponent<EnemyBehaviour>().health = 0;
+                        }
+                        foreach (GameObject unit in units)
+                        {
+                            if (unit.GetComponent<UnitBehaviour>().placed)
+                            {
+                                unit.GetComponent<UnitBehaviour>().health = 0;
+                            }
+                        }
+                        //finishes current wave
+                        WS.waveTimer = 0;
+                        WS.waveDurationTimer = WS.waveDuration;
                         GameObject PII = Instantiate(phase2, enemy.transform.position, enemy.transform.rotation);
+                        StartCoroutine(PII.GetComponent<SonicWave>().startWaves(4, 0.5f));
                         PII.GetComponent<EnemyBehaviour>().lane = lane;
                         string[] kingSummonSound = { "KingSummon1", "KingSummon2" };
                         this.kingSummonSound = kingSummonSound[Mathf.FloorToInt(Random.Range(0, 2))];
                         AudioManager.Instance.PlaySFX(this.kingSummonSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][1]);
+                        PII.GetComponent<EnemyBehaviour>().phase1 = enemy;
                     }
                     else {
 
                         Debug.Log("decoy died");
-                        GameHandler.PlayerWin();
+                        WS.toggleActive(false, lane);
+                        StartCoroutine(GameHandler.PlayerWin());
                     }
                     
                 }
@@ -486,8 +538,7 @@ public class EnemyBehaviour : MonoBehaviour
                 AudioManager.Instance.PlaySFX(this.capBreakSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capBreakSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.capBreakSound][1]);
                 Destroy(Damage2);
                 enemyType = "Basic";
-            } else if (health > 0 && health <= 0.25 * initialHealth) {
-                Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
+                initialHealth = 150;
             }
         } 
         //shows bandage if no bottle cap
@@ -495,7 +546,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
         }
-
-        //.tag == "Projectile"
+        else if (pIIActivated)
+        {
+            Damage1.GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 1);
+        }
     }
 }

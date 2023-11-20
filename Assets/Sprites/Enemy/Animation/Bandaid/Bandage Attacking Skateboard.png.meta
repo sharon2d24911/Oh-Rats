@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: 59e5f14a095d92945abe2f0d03a9280d
+guid: 76e96cf328c782b46b9daf23b268478f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3548852367088040192
-    second: Rat Die Bandaid_0
+      213: 8255592740430579781
+    second: Bandage Attacking Skateboard_0
   - first:
-      213: 2088561401496453119
-    second: Rat Die Bandaid_1
+      213: 7393536607389658229
+    second: Bandage Attacking Skateboard_1
   - first:
-      213: -3210090032057113543
-    second: Rat Die Bandaid_2
+      213: -5080760511524604446
+    second: Bandage Attacking Skateboard_2
   - first:
-      213: -8956900481259588027
-    second: Rat Die Bandaid_3
+      213: 9167919019188179724
+    second: Bandage Attacking Skateboard_3
+  - first:
+      213: 8744319767432382391
+    second: Bandage Attacking Skateboard_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,85 +114,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rat Die Bandaid_0
+      name: Bandage Attacking Skateboard_0
       rect:
         serializedVersion: 2
         x: 105
-        y: 562
-        width: 614
-        height: 323
+        y: 1042
+        width: 606
+        height: 326
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 009369cdc6e004130800000000000000
-      internalID: 3548852367088040192
+      spriteID: 54888af7bd1c19270800000000000000
+      internalID: 8255592740430579781
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_1
+      name: Bandage Attacking Skateboard_1
       rect:
         serializedVersion: 2
         x: 906
-        y: 562
-        width: 629
-        height: 323
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 1042
+        width: 578
+        height: 327
+      alignment: 9
+      pivot: {x: 0.52, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fffb9cb678f0cfc10800000000000000
-      internalID: 2088561401496453119
+      spriteID: 57cae4d2f5e1b9660800000000000000
+      internalID: 7393536607389658229
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_2
+      name: Bandage Attacking Skateboard_2
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 562
+        width: 570
+        height: 367
+      alignment: 9
+      pivot: {x: 0.53, y: 0.44}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e57eb9db338d79b0800000000000000
+      internalID: -5080760511524604446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandage Attacking Skateboard_3
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 562
+        width: 554
+        height: 327
+      alignment: 9
+      pivot: {x: 0.615, y: 0.49}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c03524436cdfa3f70800000000000000
+      internalID: 9167919019188179724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bandage Attacking Skateboard_4
       rect:
         serializedVersion: 2
         x: 105
         y: 82
-        width: 661
-        height: 323
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 591
+        height: 327
+      alignment: 9
+      pivot: {x: 0.51, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 934a636af187373d0800000000000000
-      internalID: -3210090032057113543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Rat Die Bandaid_3
-      rect:
-        serializedVersion: 2
-        x: 905
-        y: 82
-        width: 629
-        height: 323
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5463ffdc772b2b380800000000000000
-      internalID: -8956900481259588027
+      spriteID: 7b7cb34cf701a5970800000000000000
+      internalID: 8744319767432382391
       vertices: []
       indices: 
       edges: []

@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: 59e5f14a095d92945abe2f0d03a9280d
+guid: 0bec30ccca425bc4ba535b7bb39241c1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3548852367088040192
-    second: Rat Die Bandaid_0
+      213: -1937852056898303951
+    second: Rat King Dying_0
   - first:
-      213: 2088561401496453119
-    second: Rat Die Bandaid_1
+      213: -8840966160902648481
+    second: Rat King Dying_1
   - first:
-      213: -3210090032057113543
-    second: Rat Die Bandaid_2
+      213: 2259534221974198988
+    second: Rat King Dying_2
   - first:
-      213: -8956900481259588027
-    second: Rat Die Bandaid_3
+      213: -257141489830408133
+    second: Rat King Dying_3
+  - first:
+      213: -7444063734658472232
+    second: Rat King Dying_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,13 +114,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rat Die Bandaid_0
+      name: Rat King Dying_0
       rect:
         serializedVersion: 2
-        x: 105
-        y: 562
-        width: 614
-        height: 323
+        x: 84
+        y: 1246
+        width: 757
+        height: 297
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,20 +128,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 009369cdc6e004130800000000000000
-      internalID: 3548852367088040192
+      spriteID: 138015942dd5b15e0800000000000000
+      internalID: -1937852056898303951
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_1
+      name: Rat King Dying_1
       rect:
         serializedVersion: 2
-        x: 906
-        y: 562
-        width: 629
-        height: 323
+        x: 984
+        y: 1249
+        width: 733
+        height: 324
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fffb9cb678f0cfc10800000000000000
-      internalID: 2088561401496453119
+      spriteID: f5d062c3e149e4580800000000000000
+      internalID: -8840966160902648481
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_2
+      name: Rat King Dying_2
       rect:
         serializedVersion: 2
-        x: 105
-        y: 82
-        width: 661
-        height: 323
+        x: 84
+        y: 643
+        width: 733
+        height: 342
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +170,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 934a636af187373d0800000000000000
-      internalID: -3210090032057113543
+      spriteID: cca5c92476a7b5f10800000000000000
+      internalID: 2259534221974198988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_3
+      name: Rat King Dying_3
       rect:
         serializedVersion: 2
-        x: 905
-        y: 82
-        width: 629
-        height: 323
+        x: 984
+        y: 649
+        width: 676
+        height: 324
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,8 +191,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5463ffdc772b2b380800000000000000
-      internalID: -8956900481259588027
+      spriteID: b30d4a96d237e6cf0800000000000000
+      internalID: -257141489830408133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rat King Dying_4
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 29
+        width: 666
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d66052497f51b890800000000000000
+      internalID: -7444063734658472232
       vertices: []
       indices: 
       edges: []
