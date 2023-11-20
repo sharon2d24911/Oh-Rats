@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 59e5f14a095d92945abe2f0d03a9280d
+guid: 5ec02c067e2c5194b8743eaafb5db831
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3548852367088040192
-    second: Rat Die Bandaid_0
+      213: -2700472605662788004
+    second: 2. Rat King Attack 2 Injured_0
   - first:
-      213: 2088561401496453119
-    second: Rat Die Bandaid_1
+      213: 3263204869257171858
+    second: 2. Rat King Attack 2 Injured_1
   - first:
-      213: -3210090032057113543
-    second: Rat Die Bandaid_2
+      213: 736649171004655824
+    second: 2. Rat King Attack 2 Injured_2
   - first:
-      213: -8956900481259588027
-    second: Rat Die Bandaid_3
+      213: 6618443101098726949
+    second: 2. Rat King Attack 2 Injured_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,13 +111,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rat Die Bandaid_0
+      name: 2. Rat King Attack 2 Injured_0
       rect:
         serializedVersion: 2
-        x: 105
-        y: 562
-        width: 614
-        height: 323
+        x: 143
+        y: 711
+        width: 729
+        height: 421
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,20 +125,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 009369cdc6e004130800000000000000
-      internalID: 3548852367088040192
+      spriteID: c56cbcd097ef58ad0800000000000000
+      internalID: -2700472605662788004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_1
+      name: 2. Rat King Attack 2 Injured_1
       rect:
         serializedVersion: 2
-        x: 906
-        y: 562
-        width: 629
-        height: 323
+        x: 1047
+        y: 711
+        width: 680
+        height: 428
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fffb9cb678f0cfc10800000000000000
-      internalID: 2088561401496453119
+      spriteID: 29316651a8b394d20800000000000000
+      internalID: 3263204869257171858
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_2
+      name: 2. Rat King Attack 2 Injured_2
       rect:
         serializedVersion: 2
-        x: 105
-        y: 82
-        width: 661
-        height: 323
+        x: 150
+        y: 111
+        width: 711
+        height: 424
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +167,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 934a636af187373d0800000000000000
-      internalID: -3210090032057113543
+      spriteID: 0d881d1a48a193a00800000000000000
+      internalID: 736649171004655824
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rat Die Bandaid_3
+      name: 2. Rat King Attack 2 Injured_3
       rect:
         serializedVersion: 2
-        x: 905
-        y: 82
-        width: 629
-        height: 323
+        x: 1047
+        y: 111
+        width: 731
+        height: 428
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,8 +188,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5463ffdc772b2b380800000000000000
-      internalID: -8956900481259588027
+      spriteID: 526df173fee69db50800000000000000
+      internalID: 6618443101098726949
       vertices: []
       indices: 
       edges: []
