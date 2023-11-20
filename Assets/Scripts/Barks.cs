@@ -21,6 +21,10 @@ public class Barks : MonoBehaviour
     void Start()
     {
         barks = barksFile.ToString().Split('\n');
+        for (int i = 0; i < barks.Length; i++)
+        {
+            barks[i] = barks[i] + '\n';
+        }
         numBarks = barks.Length;
         currentBarkTimeMax = Random.Range(minTime, maxTime);
         bubble.GetComponent<SpriteRenderer>().sortingOrder = 22;

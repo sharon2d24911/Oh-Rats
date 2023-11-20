@@ -292,7 +292,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &182605836
 GameObject:
@@ -948,7 +948,7 @@ RectTransform:
   m_Children:
   - {fileID: 1444496742}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1725,6 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3531b5be8409419790197f3d8db3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxFile: {fileID: 4900000, guid: 3a98c16d30432ee49ae05b8976319f44, type: 3}
 --- !u!4 &837515534
 Transform:
   m_ObjectHideFlags: 0
@@ -1752,6 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creditsPopUp: {fileID: 1444496741}
+  defaultCursor: {fileID: 2800000, guid: 2dd8612876f1de24ab7fd9734ed26ba5, type: 3}
 --- !u!1 &875799554
 GameObject:
   m_ObjectHideFlags: 0
@@ -5447,7 +5449,7 @@ PrefabInstance:
     - target: {fileID: 772315038711781698, guid: 5bb15ea5051b8374fb9dddfeed7f8386,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 772315038711781698, guid: 5bb15ea5051b8374fb9dddfeed7f8386,
         type: 3}

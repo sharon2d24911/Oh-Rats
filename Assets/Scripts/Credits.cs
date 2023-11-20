@@ -7,11 +7,13 @@ public class Credits : MonoBehaviour
 
     public GameObject creditsPopUp;
     private readonly float fadeDuration = .3f;
+    public Texture2D defaultCursor;
 
     // Start is called before the first frame update
     void Start()
     {
         creditsPopUp.SetActive(false);
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     // Update is called once per frame

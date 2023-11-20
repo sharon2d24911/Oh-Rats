@@ -2164,7 +2164,6 @@ GameObject:
   m_Component:
   - component: {fileID: 340900040}
   - component: {fileID: 340900039}
-  - component: {fileID: 340900041}
   - component: {fileID: 340900042}
   - component: {fileID: 340900043}
   m_Layer: 0
@@ -2207,34 +2206,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &340900041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340900038}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21ec560d2b45fe479b2af0676d82068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waveTimer: 0
-  waveDurationTimer: 0
-  enemyPrefabs:
-  - enemyName: BasicRat
-    enemyPrefab: {fileID: 8389707924955351752, guid: e32c1181774641146b446c79cd76b6cd,
-      type: 3}
-  - enemyName: BossRat
-    enemyPrefab: {fileID: 3574632674719258354, guid: 53d2b0f58451016459b5299f6bf8a2b6,
-      type: 3}
-  - enemyName: HealthRat
-    enemyPrefab: {fileID: 5560318420793073805, guid: c4f98ecce2423064dbd6182af85deec2,
-      type: 3}
-  wavesFile: {fileID: 4900000, guid: dfff19f1c5d64a54bbb6d5968b87e806, type: 3}
-  enemyPosHeightAdjust: 0.3
-  propScenesArr: []
-  waveDuration: 0
 --- !u!114 &340900042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2278,6 +2249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da3531b5be8409419790197f3d8db3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxFile: {fileID: 4900000, guid: 3a98c16d30432ee49ae05b8976319f44, type: 3}
 --- !u!1 &342972033
 GameObject:
   m_ObjectHideFlags: 0
@@ -8928,7 +8900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -18.000015, y: 22.144026}
+  m_AnchoredPosition: {x: -18, y: 22.144028}
   m_SizeDelta: {x: -84, y: 8.636719}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1684819951
@@ -9872,6 +9844,7 @@ MonoBehaviour:
   - {fileID: 321003349}
   - {fileID: 253264778}
   gameHandler: {fileID: 340900038}
+  defaultCursor: {fileID: 2800000, guid: 2dd8612876f1de24ab7fd9734ed26ba5, type: 3}
 --- !u!4 &2075758822
 Transform:
   m_ObjectHideFlags: 0

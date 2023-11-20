@@ -141,7 +141,7 @@ PrefabInstance:
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
       propertyPath: animations.Array.data[0].BandageAnimation.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
@@ -170,7 +170,7 @@ PrefabInstance:
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
       propertyPath: animations.Array.data[1].BandageAnimation.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
@@ -202,6 +202,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5791344358141018705, guid: 3971bc4971a615f478e684d6acf3af0e,
         type: 3}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: animations.Array.data[2].BandageAnimation.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
       propertyPath: animations.Array.data[2].BaseAnimation.Array.data[0]
