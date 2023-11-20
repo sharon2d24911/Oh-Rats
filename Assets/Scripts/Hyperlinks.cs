@@ -11,26 +11,20 @@ using UnityEngine.EventSystems;
  ********************/
 
 
-// Add IPointerClickHandler interface to let Unity know you want to
-// catch and handle clicks (or taps on Mobile)
+[RequireComponent(typeof(TMP_Text))]
 public class Hyperlinks : MonoBehaviour, IPointerClickHandler
 {
 
-    [SerializeField, Tooltip("The UI GameObject having the TextMesh Pro component.")]
-    private TMP_Text text = default;
-
-    // Callback for handling clicks.
     public void OnPointerClick(PointerEventData eventData)
     {
-        // First, get the index of the link clicked. Each of the links in the text has its own index.
-        var linkIndex = TMP_TextUtilities.FindIntersectingLink(text, Input.mousePosition, null);
+        TMP_Text pTextMeshPro = GetComponent<TMP_Text>();
+        int linkIndex = TMP_TextUtilities.FindIntersectingLink(pTextMeshPro, eventData.position, null);  // If you are not in a Canvas using Screen Overlay, put your camera instead of null
+        if (linkIndex != -1)
+        { // was a link clicked?
+            TMP_LinkInfo linkInfo = pTextMeshPro.textInfo.linkInfo[linkIndex];
+            Debug.Log(linkInfo);
+            Application.OpenURL(linkInfo.GetLinkID());
+        }
+    }
 
-        // As the order of the links can vary easily (e.g. because of multi-language support),
-        // you need to get the ID assigned to the links instead of using the index as a base for our decisions.
-        // you need the LinkInfo array from the textInfo member of the TextMesh Pro object for that.
-        var linkId = text.textInfo.linkInfo[linkIndex].GetLinkID();
-
-		// Let's see that web page!
-		Application.OpenURL(linkId);
-	}
 }
