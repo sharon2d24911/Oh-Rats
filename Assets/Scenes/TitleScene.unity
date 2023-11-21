@@ -1769,13 +1769,13 @@ MonoBehaviour:
   - soundName: EasyWop
     clip: {fileID: 8300000, guid: 108070447d71fcd4e94bf844addca119, type: 3}
   - soundName: BasicBassy
-    clip: {fileID: 8300000, guid: bc408ddb7045d6449901271fea970230, type: 3}
+    clip: {fileID: 8300000, guid: d6dffb50db5c9f7429612608c63626f6, type: 3}
   - soundName: SecondBassy
-    clip: {fileID: 8300000, guid: f290781cc7d8ce243a4b5e3e42c02eb2, type: 3}
+    clip: {fileID: 8300000, guid: a293c5162dae7344683a50eec98ec78f, type: 3}
   - soundName: BassyHarmonyNSnare
-    clip: {fileID: 8300000, guid: 28597de11467a514495520dec835b8bf, type: 3}
+    clip: {fileID: 8300000, guid: 48cfbc8d0d8343344b2f9e6506681e4e, type: 3}
   - soundName: BassyPickinUp
-    clip: {fileID: 8300000, guid: 38cd29797a60dd943bf2789b467c00f7, type: 3}
+    clip: {fileID: 8300000, guid: 26158b98d5dfbd740a8e21ac696d7b68, type: 3}
   - soundName: Static
     clip: {fileID: 8300000, guid: 363ae4abb752d9649a8f7a90b4e00ed2, type: 3}
   - soundName: CityAmbience
