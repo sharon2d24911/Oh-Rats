@@ -108,7 +108,7 @@ PotionHit4,1,0
 PotionThrow1,1,0
 PotionThrow2,1,0
 PotionThrow3,1,0
-RatkingDefeat,1,0
+RatKingDefeat,1,0
 RatkingSpawnFinal,1.5,0.8
 GameWin,1,0
 KingHowl,1,0
