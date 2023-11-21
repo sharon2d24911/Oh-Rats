@@ -37,40 +37,32 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StopMusic(string musicName1, string musicName2, string musicName3, string musicName4)
+    public void StopMusic(string musicName1, string musicName2, string musicName3, string musicName4, string musicName5, string musicName6, string musicName7, string musicName8, string musicName9, string musicName10, string musicName11, string musicName12)
     {
         AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
-        string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
+        string[] musicNames = { musicName1, musicName2, musicName3, musicName4, musicName5, musicName6, musicName7, musicName8, musicName9, musicName10, musicName11,musicName12 };
 
-        AudioSource[] playingSources = new AudioSource[4];
-        int index = 0;
 
         // Check which musicSources are currently playing
         for (int i = 0; i < musicSources.Length; i++)
         {
-            if (musicSources[i].volume > 0)
+            for (int j = 0; j < musicNames.Length; j++)
             {
-                playingSources[index] = musicSources[i];
-                index++;
+                if (musicSources[i].volume > 0)
+                {
+                    Sound matchingSound = Array.Find(music, x => x.soundName == musicNames[j]);
+
+                    if (matchingSound != null && musicSources[i].clip == matchingSound.clip)
+                    {
+                        Debug.Log("stopping" + musicNames[j]);
+                        musicSources[i].Stop();
+                        musicSources[i].volume = 0;
+                    }
+                }
             }
+
         }
 
-        // Adjusting the number of iterations to the number of sources actually playing
-        int sourcesToFadeOut = Math.Min(index, musicNames.Length);
-        for (int i = 0; i < sourcesToFadeOut; i++)
-        {
-            if (musicNames[i] != "none" && playingSources[i] != null)
-            {
-                playingSources[i].clip = Array.Find(music, x => x.soundName == musicNames[i]).clip;
-            }
-        }
-        for (int i = 0; i < playingSources.Length; i++)
-        {
-            if (playingSources[i] != null)
-            {
-                playingSources[i].Stop();
-            }
-        }
     }
 
     public IEnumerator FadeIn(string[] musicNames, float duration, float[] targetVolume, float[] speed)
@@ -132,7 +124,7 @@ public class AudioManager : MonoBehaviour
         AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
         string[] musicNames = { musicName1, musicName2, musicName3, musicName4 };
 
-        AudioSource[] playingSources = new AudioSource[4];
+        AudioSource[] playingSources = new AudioSource[8];
         int index = 0;
 
         // Check which musicSources are currently playing
@@ -141,19 +133,13 @@ public class AudioManager : MonoBehaviour
             if (musicSources[i].volume > 0)
             {
                 playingSources[index] = musicSources[i];
+                Debug.Log("source playing" + musicSources[i]);
                 index++;
             }
         }
 
         // Adjusting the number of iterations to the number of sources actually playing
         int sourcesToFadeOut = Math.Min(index, musicNames.Length);
-        for (int i = 0; i < sourcesToFadeOut; i++)
-        {
-            if (musicNames[i] != "none" && playingSources[i] != null)
-            {
-                playingSources[i].clip = Array.Find(music, x => x.soundName == musicNames[i]).clip;
-            }
-        }
 
         float time = 0f;
         float[] startVolumes = new float[sourcesToFadeOut];
@@ -166,7 +152,7 @@ public class AudioManager : MonoBehaviour
                 startVolumes[i] = playingSources[i].volume;
             }
         }
-
+        Debug.Log("sourestofadeout" + sourcesToFadeOut);
         // Fade out all music sources together
         while (time < duration)
         {
@@ -177,6 +163,7 @@ public class AudioManager : MonoBehaviour
                 if (musicNames[i] != "none" && playingSources[i] != null)
                 {
                     // Update volume for each source
+                    Debug.Log("fading out" + playingSources[i]);
                     playingSources[i].volume = Mathf.Lerp(startVolumes[i], targetVolume, time / duration);
                 }
             }

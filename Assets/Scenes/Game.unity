@@ -148,7 +148,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -356,7 +356,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -1589,7 +1589,7 @@ MonoBehaviour:
   - enemyName: ThrowerRat
     enemyPrefab: {fileID: 6149675322062594952, guid: 0be042759c1de6745b177213c4f37594,
       type: 3}
-  wavesFile: {fileID: 4900000, guid: dfff19f1c5d64a54bbb6d5968b87e806, type: 3}
+  wavesFile: {fileID: 4900000, guid: b905cd1e5dba494499118fca0d4e58b3, type: 3}
   enemyPosHeightAdjust: 0.3
   propScenesArr:
   - {fileID: 766286091}
@@ -2498,7 +2498,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -3020,7 +3020,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -3354,7 +3354,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -4982,24 +4982,32 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
   - soundName: ChewTorial
     clip: {fileID: 8300000, guid: 9e9f6bc979f5fb14ead5050ca308fba4, type: 3}
-  - soundName: PercussiveOverWop
+  - soundName: Wop4
     clip: {fileID: 8300000, guid: 75c5a9484ce8bd643ac07e359797e2d7, type: 3}
-  - soundName: HotWopLeads
+  - soundName: Wop3
     clip: {fileID: 8300000, guid: 681d48967ef5f384eb1d0c71c67b79c9, type: 3}
-  - soundName: TwoWop
+  - soundName: Wop2
     clip: {fileID: 8300000, guid: 23dc1c1b1c0bfa944b7b394bf168c496, type: 3}
   - soundName: TitleWop
     clip: {fileID: 8300000, guid: e4195305acef6e04c8f9add74d258fcf, type: 3}
-  - soundName: EasyWop
+  - soundName: Wop1
     clip: {fileID: 8300000, guid: 108070447d71fcd4e94bf844addca119, type: 3}
-  - soundName: BasicBassy
+  - soundName: Bassy1
     clip: {fileID: 8300000, guid: bc408ddb7045d6449901271fea970230, type: 3}
-  - soundName: SecondBassy
+  - soundName: Bassy2
     clip: {fileID: 8300000, guid: f290781cc7d8ce243a4b5e3e42c02eb2, type: 3}
-  - soundName: BassyHarmonyNSnares
+  - soundName: Bassy3
     clip: {fileID: 8300000, guid: 28597de11467a514495520dec835b8bf, type: 3}
-  - soundName: BassyPickinUp
+  - soundName: Bassy4
     clip: {fileID: 8300000, guid: 38cd29797a60dd943bf2789b467c00f7, type: 3}
+  - soundName: Static
+    clip: {fileID: 8300000, guid: 363ae4abb752d9649a8f7a90b4e00ed2, type: 3}
+  - soundName: CityAmbience
+    clip: {fileID: 8300000, guid: 20fbd2d090280374c878260adfe553b4, type: 3}
+  - soundName: EmptyRoomTone
+    clip: {fileID: 8300000, guid: 84f5b8df6f7dd114c98060ba6ce7106e, type: 3}
+  - soundName: KitchenTone
+    clip: {fileID: 8300000, guid: 87f581874a8fbec44bb3459929dd909e, type: 3}
   sfx:
   - soundName: BottleCapHurt1
     clip: {fileID: 8300000, guid: c1be1a321bc09aa48895756181777954, type: 3}
@@ -6036,7 +6044,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -8306,7 +8314,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d5f3f67e1e1ea494d8a1a4ad8d63efde, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -8609,7 +8617,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 06abb4443c5032041a1030abc4068b36, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1

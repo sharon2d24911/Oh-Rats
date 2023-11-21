@@ -10,7 +10,7 @@
 		"minSpawnInterval": 8,
 		"maxSpawnInterval": 10,
 		"difficulty" : 1,
-		"track1" : "BassyMain",
+		"track1" : "Wop1",
 		"track2" : "none",
 		"track3" : "none",
 		"track4" : "none",
