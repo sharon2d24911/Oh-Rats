@@ -108,7 +108,7 @@
 		"ratsAtATime" : 2,
 		"duration": 60,
 		"warmUp": 10,
-		"minSpawnInterval": 6,
+		"minSpawnInterval": 7,
 		"maxSpawnInterval": 9,
 		"difficulty" : 2,
 		"track1" : "none",
