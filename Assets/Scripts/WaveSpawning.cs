@@ -253,7 +253,60 @@ public class WaveSpawning : MonoBehaviour
                     wavePropScene = wavesInFile.waves[currentWave].propScene;
 
                     //Music transition
-                    if (wavesInFile.waves[currentWave].track1 != "none")  //only change tracks if a transition was mentioned
+                    if (wavesInFile.waves[currentWave].track1 == "none")  
+                    {
+                        for (int i = currentWave; i>0;i--)
+                        {
+                            if (wavesInFile.waves[i].track1 != "none")
+                            {
+                                waveTrack1 = wavesInFile.waves[i].track1;
+                            }
+                        }
+                        if (wavesInFile.waves[currentWave].track2 =="none")
+                        {
+                            for (int i = currentWave; i > 0; i--)
+                            {
+                                if (wavesInFile.waves[i].track2 != "none")
+                                {
+                                    waveTrack2 = wavesInFile.waves[currentWave].track2;
+                                }
+                            }
+                        }
+                        if (wavesInFile.waves[currentWave].track3 == "none")
+                        {
+                            for (int i = currentWave; i > 0; i--)
+                            {
+                                if (wavesInFile.waves[i].track3 != "none")
+                                {
+                                    waveTrack3 = wavesInFile.waves[currentWave].track3;
+                                }
+                            }
+                        }
+                        if (wavesInFile.waves[currentWave].track4 == "none")
+                        {
+                            for (int i = currentWave; i > 0; i--)
+                            {
+                                if (wavesInFile.waves[i].track4 != "none")
+                                {
+                                    waveTrack4 = wavesInFile.waves[currentWave].track4;
+                                }
+                            }
+                        }
+                        waveTrackFadeTime = wavesInFile.waves[currentWave].trackFadeTime;
+                        waveTrackFinalVolume1 = wavesInFile.waves[currentWave].trackFinalVolume1;
+                        waveTrackFinalVolume2 = wavesInFile.waves[currentWave].trackFinalVolume2;
+                        waveTrackFinalVolume3 = wavesInFile.waves[currentWave].trackFinalVolume3;
+                        waveTrackFinalVolume4 = wavesInFile.waves[currentWave].trackFinalVolume4;
+                        waveTrackSpeed1 = wavesInFile.waves[currentWave].trackSpeed1;
+                        waveTrackSpeed2 = wavesInFile.waves[currentWave].trackSpeed2;
+                        waveTrackSpeed3 = wavesInFile.waves[currentWave].trackSpeed3;
+                        waveTrackSpeed4 = wavesInFile.waves[currentWave].trackSpeed4;
+                        string[] tracks = { waveTrack1, waveTrack2, waveTrack3, waveTrack4 };
+                        float[] volumes = { waveTrackFinalVolume1, waveTrackFinalVolume2, waveTrackFinalVolume3, waveTrackFinalVolume4 };
+                        float[] speeds = { waveTrackSpeed1, waveTrackSpeed2, waveTrackSpeed3, waveTrackSpeed4 };
+                        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().AdjustMusicVolume(tracks, volumes,speeds));
+                    }
+                    else //only re-fade in tracks if a transition was mentioned
                     {
                         endTrack(waveTrack1, waveTrack2, waveTrack3, waveTrack4); //fadeout of current track
                         waveTrack1 = wavesInFile.waves[currentWave].track1;
