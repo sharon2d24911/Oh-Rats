@@ -2,13 +2,13 @@
  [
 	{
 		"wave": 5,
-		"enemyTypes": ["BasicRat", "HealthRat"],
+		"enemyTypes": ["SpeedRat"],
 		"showcaseEnemy": "BossRat",
 		"ratsAtATime" : 2,
 		"duration": 5,
 		"warmUp": 0,
-		"minSpawnInterval": 7,
-		"maxSpawnInterval": 8,
+		"minSpawnInterval": 4,
+		"maxSpawnInterval": 4,
 		"difficulty" : 3,
 		"track1" : "BassyDrums",
 		"track2" : "none",

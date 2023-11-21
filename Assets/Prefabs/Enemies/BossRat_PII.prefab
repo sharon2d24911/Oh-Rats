@@ -21,6 +21,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 73977502951958394, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: maxTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 73977502951958394, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: barksFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 391f72b324e00bd499d112e19cba09ba, type: 3}
+    - target: {fileID: 73977502951958394, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4959752198561211204, guid: e505965306bedfa4fb16b43a653176f3,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

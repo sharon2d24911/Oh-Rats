@@ -63,6 +63,7 @@ public class WaveSpawning : MonoBehaviour
     private string coffeeSpawnSound;
     private string rocketSpawnSound;
     private string ratSpawnSound;
+    private string kingSummonSound;
     private Waves wavesInFile;
     public EnemyObjects[] enemyPrefabs;
     public TextAsset wavesFile;
@@ -205,6 +206,9 @@ public class WaveSpawning : MonoBehaviour
                     EB.animIndex = 0;
                     EB.animTimer = 0;
                     EB.currentAnim = "Attack";
+                    string[] kingSummonSound = { "KingSummon1", "KingSummon2" };
+                    this.kingSummonSound = kingSummonSound[Mathf.FloorToInt(Random.Range(0, 2))];
+                    AudioManager.Instance.PlaySFX(this.kingSummonSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][1]);
                     StartCoroutine(EB.StopMovement(1f));
                 }
 
