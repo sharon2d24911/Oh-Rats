@@ -36,7 +36,8 @@ public class GameHandler : MonoBehaviour
         UICanvas.renderMode = RenderMode.ScreenSpaceCamera;
         UICanvas.worldCamera = mainCamera;
 
-        if(ratLife != null)
+
+        if (ratLife != null)
         {
             for (int i = 0; i < maxRats; i++)
             {

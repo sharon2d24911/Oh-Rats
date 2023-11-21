@@ -72,7 +72,8 @@ public class Prop : MonoBehaviour
         i += 1;
         newspaper.GetComponent<SpriteRenderer>().sprite = flipthrough[i];
     }
-
+    
+    // Fade between two scenes' worth of props
     public void TransitionScenes(GameObject currentScene, GameObject nextScene)
     {
         StartCoroutine(Fade(currentScene, nextScene));

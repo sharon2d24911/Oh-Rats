@@ -395,9 +395,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             AudioManager.Instance.PlaySFX("RocketMove_Loop", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RocketMove_Loop"][0], GameObject.FindWithTag("RocketMove_Loop").GetComponent<ReadSfxFile>().sfxDictionary["RocketMove_Loop"][1]);
         }
-           
         //get Phase II decoy to begin life MUAHAHAHA
-        if(isBoss && phase1 == null && phase2 == null && !pIIActivated )
+        if (isBoss && phase1 == null && phase2 == null && !pIIActivated )
         {
             sprite.enabled = true;
             currentAnim = "Transition";
@@ -410,7 +409,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Animate();
         }
-
         Debug.Log("health" + health);
         if (health <= 0)
         {
@@ -437,16 +435,17 @@ public class EnemyBehaviour : MonoBehaviour
                                 unit.GetComponent<UnitBehaviour>().health = 0;
                             }
                         }
+                        AudioManager.Instance.PlaySFX("RatKingDefeat", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][1]);
                         //finishes current wave
                         WS.waveTimer = 0;
                         WS.waveDurationTimer = WS.waveDuration;
                         GameObject PII = Instantiate(phase2, enemy.transform.position, enemy.transform.rotation);
                         StartCoroutine(PII.GetComponent<SonicWave>().startWaves(4, 0.5f));
                         PII.GetComponent<EnemyBehaviour>().lane = lane;
+                        PII.GetComponent<EnemyBehaviour>().phase1 = enemy;
                         string[] kingSummonSound = { "KingSummon1", "KingSummon2" };
                         this.kingSummonSound = kingSummonSound[Mathf.FloorToInt(Random.Range(0, 2))];
                         AudioManager.Instance.PlaySFX(this.kingSummonSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][1]);
-                        PII.GetComponent<EnemyBehaviour>().phase1 = enemy;
                     }
                     else {
 

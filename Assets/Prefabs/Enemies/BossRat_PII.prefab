@@ -21,6 +21,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4959752198561211204, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1864765437602854249, guid: 790c671c2860ccf4ab83ddf5a8d1f356,
+        type: 2}
+    - target: {fileID: 5101705603165684871, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 790c671c2860ccf4ab83ddf5a8d1f356,
+        type: 2}
+    - target: {fileID: 5101705603165684871, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1864765437602854249, guid: 790c671c2860ccf4ab83ddf5a8d1f356,
+        type: 2}
     - target: {fileID: 7004806659110968168, guid: e505965306bedfa4fb16b43a653176f3,
         type: 3}
       propertyPath: m_Enabled
@@ -338,6 +356,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7427363371446920232, guid: e505965306bedfa4fb16b43a653176f3,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: feddf3caf1112464d90fc67183a0b125,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 1677769801280281616, guid: e505965306bedfa4fb16b43a653176f3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e505965306bedfa4fb16b43a653176f3, type: 3}

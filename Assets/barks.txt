@@ -1,19 +1,19 @@
-“How could you do this?!”
-“We’ll get you back for this!”
-“You’re toast!”
-“We’ll ratify your fate!”
-“We’re crumbing for you!”
-“Time to bake the world a better place!”
-“What a mice day for revenge!”
-“Try putting yourself in our shoes!”
-“Rattastic!”
-“We’ll give you a taste of your own medicine!”
-“Say ‘cheese’ to justice!”
-“It’s time for you to pay the price!”
-“Rats bite back!”
-“Rattaliation!”
-“You ruined us!”
-“We didn’t do anything to deserve this!”
-“We won’t run away!”
-“You’re next in line, you ratty baker!”
-“We’ll make a rat out of you!”
+How could you do this?!
+We'll get you back for this!
+You're <color=#c44f4f>toast</color>!
+We'll <color=#c44f4f>ratify</color> your fate!
+We're <color=#c44f4f>crumbing</color> for you!
+Time to <color=#c44f4f>bake</color> the world a better place!
+What a <color=#c44f4f>mice</color> day for revenge!
+Try putting yourself in our shoes!
+<color=#c44f4f>Rattastic!</color>
+We'll give you a taste of your own medicine!
+Say "<color=#c44f4f>cheese</color>" to justice!
+It's time for you to pay the price!
+Rats bite back!
+<color=#c44f4f>Rattaliation!</color>
+You ruined us!
+We didn't do anything to deserve this!
+We won't run away!
+You're next in line, you <color=#c44f4f>ratty</color> baker!
+We'll make a rat out of you!

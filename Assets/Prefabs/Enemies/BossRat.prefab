@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &73977502951958394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004806659110968169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6eecdf04b402f45bd5e71fd9d25672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barksFile: {fileID: 4900000, guid: f29863a33abbf5a45ab04c6b85f8239c, type: 3}
+  text: {fileID: 2040342473734459266}
+  bubble: {fileID: 5469077799437851484}
+  minTime: 0
+  maxTime: 10
 --- !u!1 &2040342473734459266
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,16 +45,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040342473734459266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0}
   m_Children: []
-  m_Father: {fileID: 7004806659110968171}
-  m_RootOrder: 3
+  m_Father: {fileID: 7389264933642604163}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.4, y: 1.655}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 0, y: 0.25}
+  m_SizeDelta: {x: 15.07, y: 11.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4959752198561211204
 MeshRenderer:
@@ -57,7 +74,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2967258255869965902, guid: 52a2981626d4cda4c9267d18e5d07d0c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,8 +124,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: hello i am the KING RAT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 52a2981626d4cda4c9267d18e5d07d0c, type: 2}
+  m_sharedMaterial: {fileID: 2967258255869965902, guid: 52a2981626d4cda4c9267d18e5d07d0c,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -132,15 +150,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -214,15 +232,16 @@ RectTransform:
   m_GameObject: {fileID: 5469077799437851484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0}
-  m_Children: []
+  m_LocalScale: {x: 1.6, y: 1.6, z: 0}
+  m_Children:
+  - {fileID: 721305780946598484}
   m_Father: {fileID: 7004806659110968171}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.3709996, y: 1.1400002}
-  m_SizeDelta: {x: 9.98, y: 8.79}
+  m_AnchoredPosition: {x: -3.42, y: 1.83}
+  m_SizeDelta: {x: 2.58, y: 2.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &7427363371446920232
 SpriteRenderer:
@@ -263,7 +282,7 @@ SpriteRenderer:
   m_SortingLayerID: 558721739
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fcbfb39cfe0c5d94ebe466234f199d03, type: 3}
+  m_Sprite: {fileID: 21300000, guid: feddf3caf1112464d90fc67183a0b125, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -304,23 +323,6 @@ Transform:
   m_Father: {fileID: 7004806659110968171}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &73977502951958394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7004806659110968169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad6eecdf04b402f45bd5e71fd9d25672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barksFile: {fileID: 4900000, guid: f29863a33abbf5a45ab04c6b85f8239c, type: 3}
-  text: {fileID: 2040342473734459266}
-  bubble: {fileID: 5469077799437851484}
-  minTime: 0
-  maxTime: 10
 --- !u!1001 &1538023678961766817
 PrefabInstance:
   m_ObjectHideFlags: 0

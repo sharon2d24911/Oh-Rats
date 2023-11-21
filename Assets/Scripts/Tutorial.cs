@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
-    //public GameObject prop;
     public Button mixButton;
     public Button deliveryButton;
     public GameObject[] popUps;
     public GameObject[] toHide;
     public GameObject gameHandler;
+    public Texture2D defaultCursor;
     private Canvas TutorialCanvas;
     private Canvas TransitionCanvas;
     Camera mainCamera;
@@ -22,7 +22,8 @@ public class Tutorial : MonoBehaviour
         TutorialCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         TutorialCanvas.worldCamera = mainCamera;
         TransitionCanvas = GameObject.Find("Transition Canvas").GetComponent<Canvas>();
-        
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
+
         foreach (GameObject tutorial in popUps)
         {
             tutorial.SetActive(false);
