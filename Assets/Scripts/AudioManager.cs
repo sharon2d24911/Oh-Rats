@@ -133,7 +133,6 @@ public class AudioManager : MonoBehaviour
             if (musicSources[i].volume > 0)
             {
                 playingSources[index] = musicSources[i];
-                Debug.Log("source playing" + musicSources[i]);
                 index++;
             }
         }
@@ -152,7 +151,7 @@ public class AudioManager : MonoBehaviour
                 startVolumes[i] = playingSources[i].volume;
             }
         }
-        Debug.Log("sourestofadeout" + sourcesToFadeOut);
+
         // Fade out all music sources together
         while (time < duration)
         {
@@ -163,7 +162,6 @@ public class AudioManager : MonoBehaviour
                 if (musicNames[i] != "none" && playingSources[i] != null)
                 {
                     // Update volume for each source
-                    Debug.Log("fading out" + playingSources[i]);
                     playingSources[i].volume = Mathf.Lerp(startVolumes[i], targetVolume, time / duration);
                 }
             }
@@ -185,7 +183,6 @@ public class AudioManager : MonoBehaviour
             sfxSource.PlayOneShot(s.clip,volume); // Play sfx once
         }
     }
-
     public void MusicVolume(float volume)
     {
         AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
@@ -198,6 +195,37 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator AdjustMusicVolume(string[] musicNames, float[] volume,float[] speed)
+    {
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        for (int i = 0; i < musicSources.Length; i++)
+        {
+            for (int j = 0; j < musicNames.Length; j++)
+            {
+                // If the music source is currently playing
+                if (musicNames[j] != "none")
+                {
+                    Sound matchingSound = Array.Find(music, x => x.soundName == musicNames[j]);
+
+                    if (matchingSound != null && musicSources[i].clip == matchingSound.clip)
+                    {
+                        musicSources[i].pitch = speed[j];
+                        float time = 0f;
+                        // Fade in
+                        while (time < 3)
+                        {
+                            time += Time.deltaTime;
+                            musicSources[i].volume = Mathf.Lerp(musicSources[i].volume, volume[j], time / 3);
+                            yield return null;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
     public void SFXVolume(float volume)
     {
         sfxSource.volume = volume;
