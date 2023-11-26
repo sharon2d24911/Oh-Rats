@@ -415,8 +415,8 @@ public class DragCombination : MonoBehaviour
         newUnit.GetComponent<UnitBehaviour>().health += addHealth;
 
         //Note from Matthieu: for right now, this is simply hard coded cause I couldnt find a simpler way to grab the "base" values for each stat. If you have a fix, please implement it. Thanks
-        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / 5) - 1;
-        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / 0.8) - 1;
+        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / 15) - 1;
+        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / 1.6) - 1;
         newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / 25) - 1;
         newUnit.tag = "Unit";
         bowlFull = true;

@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   remaining: 3
-  attack: 5
+  attack: 15
   speed: 0
   health: 0
   singularIngredient: {fileID: 925020032748316901, guid: 65cd133f1598add4eb9a72a9031fc6d7,
@@ -1794,7 +1794,7 @@ MonoBehaviour:
   - enemyName: ThrowerRat
     enemyPrefab: {fileID: 6149675322062594952, guid: 0be042759c1de6745b177213c4f37594,
       type: 3}
-  wavesFile: {fileID: 4900000, guid: 0ae82a10000320f41b0541a2ac77d4a6, type: 3}
+  wavesFile: {fileID: 4900000, guid: b905cd1e5dba494499118fca0d4e58b3, type: 3}
   enemyPosHeightAdjust: 0.3
   propScenesArr:
   - {fileID: 766286091}
@@ -7409,7 +7409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   remaining: 3
   attack: 0
-  speed: 0.8
+  speed: 1.6
   health: 0
   singularIngredient: {fileID: 5629173496294011564, guid: 0221319457181bd419b05286ae6cbb4f,
     type: 3}

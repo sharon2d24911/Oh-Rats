@@ -63,7 +63,6 @@ public class EnemyBehaviour : MonoBehaviour
     private string rocketDefeatSound;
     private string coffeeDefeatSound;
     private string biteSound;
-    private string kingSummonSound;
     private string kingMeleeSound;
     private string potionThrowSound;
 
@@ -372,7 +371,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.Log("swap");
             ProjectileOrigin.localPosition = new Vector3(ProjectileOrigin.localPosition.x, -1f * ProjectileOrigin.localPosition.y, ProjectileOrigin.localPosition.z);
-            string[] potionThrowSound = { "PotionThrow1", "PotionThrow2", "PotionThrow3", "PotionThrow4" };
+            string[] potionThrowSound = { "PotionThrow1", "PotionThrow2", "PotionThrow3" };
             this.potionThrowSound = potionThrowSound[Mathf.FloorToInt(Random.Range(0, 2))];
             AudioManager.Instance.PlaySFX(this.potionThrowSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionThrowSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionThrowSound][1]);
         }
@@ -391,14 +390,18 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         // Play sfx for rocket rat move
-        if (enemyType == "RocketRat")
+        /*if (enemyType == "RocketRat")
         {
             AudioManager.Instance.PlaySFX("RocketMove_Loop", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RocketMove_Loop"][0], GameObject.FindWithTag("RocketMove_Loop").GetComponent<ReadSfxFile>().sfxDictionary["RocketMove_Loop"][1]);
-        }
+        }*/
+
+        //Plays too often
+
         //get Phase II decoy to begin life MUAHAHAHA
         if (isBoss && phase1 == null && phase2 == null && !pIIActivated )
         {
             sprite.enabled = true;
+            AudioManager.Instance.PlaySFX("KingHowl", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["KingHowl"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["KingHowl"][1]);
             currentAnim = "Transition";
             animIndex = 0;
             animTimer = 0;
@@ -423,7 +426,6 @@ public class EnemyBehaviour : MonoBehaviour
                         //kills all units/enemies ==> DEATH HOWL
                         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                         GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
-                        AudioManager.Instance.PlaySFX("KingHowl", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["KingHowl"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["KingHowl"][1]);
                         foreach (GameObject enemy in enemies)
                         {
                             enemy.GetComponent<EnemyBehaviour>().health = 0;
@@ -435,7 +437,7 @@ public class EnemyBehaviour : MonoBehaviour
                                 unit.GetComponent<UnitBehaviour>().health = 0;
                             }
                         }
-                        AudioManager.Instance.PlaySFX("RatKingDefeat", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][1]);
+                        //AudioManager.Instance.PlaySFX("RatKingDefeat", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["RatKingDefeat"][1]);
                         //finishes current wave
                         WS.waveTimer = 0;
                         WS.waveDurationTimer = WS.waveDuration;
@@ -443,9 +445,6 @@ public class EnemyBehaviour : MonoBehaviour
                         StartCoroutine(PII.GetComponent<SonicWave>().startWaves(4, 0.5f));
                         PII.GetComponent<EnemyBehaviour>().lane = lane;
                         PII.GetComponent<EnemyBehaviour>().phase1 = enemy;
-                        string[] kingSummonSound = { "KingSummon1", "KingSummon2" };
-                        this.kingSummonSound = kingSummonSound[Mathf.FloorToInt(Random.Range(0, 2))];
-                        AudioManager.Instance.PlaySFX(this.kingSummonSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.kingSummonSound][1]);
                     }
                     else {
 
