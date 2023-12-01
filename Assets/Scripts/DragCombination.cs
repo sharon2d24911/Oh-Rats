@@ -29,7 +29,9 @@ public class DragCombination : MonoBehaviour
     private int sugarDropCount = 1;
     private int flourDropCount = 1;
     private int eggDropCount = 1;
-    private bool mixButtonClicked = false;
+    private bool mixButtonClickedEgg = false;
+    private bool mixButtonClickedFlour = false;
+    private bool mixButtonClickedSugar = false;
     [HideInInspector] public GameObject[] allIngredients;
     [HideInInspector] public bool tutorialMode;
     [HideInInspector] public Vector2 topLeft;
@@ -245,10 +247,10 @@ public class DragCombination : MonoBehaviour
                 if (selectedObject.name == "Sugar_individual(Clone)") // sugar sfx
                 {
                     // Check if mix button is clicked, if so then play the first sfx
-                    if (mixButtonClicked)
+                    if (mixButtonClickedSugar)
                     {
                         sugarDropCount = 1;
-                        mixButtonClicked = false;
+                        mixButtonClickedSugar = false;
                     }
                     if (sugarDropCount == 1)
                     {
@@ -269,17 +271,17 @@ public class DragCombination : MonoBehaviour
                 else if(selectedObject.name == "Flour_individual(Clone)") // flour sfx
                 {
                     // Check if mix button is clicked, if so then play the first sfx
-                    if (mixButtonClicked)
+                    if (mixButtonClickedFlour)
                     {
                         flourDropCount = 1;
-                        mixButtonClicked = false;
+                        mixButtonClickedFlour = false;
                     }
                     if (flourDropCount == 1)
                     {
                         AudioManager.Instance.PlaySFX("FlourDrop1", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourDrop1"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourDrop1"][1]);
                         flourDropCount++;
                     }
-                    else if (sugarDropCount == 2)
+                    else if (flourDropCount == 2)
                     {
                         AudioManager.Instance.PlaySFX("FlourDrop2", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourDrop2"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourDrop2"][1]);
                         flourDropCount++;
@@ -293,15 +295,15 @@ public class DragCombination : MonoBehaviour
                 else if (selectedObject.name == "Egg_individual(Clone)") // egg sfx
                 {
                     // Check if mix button is clicked, if so then play the first sfx
-                    if (mixButtonClicked)
+                    if (mixButtonClickedEgg)
                     {
                         eggDropCount = 1;
-                        mixButtonClicked = false;
+                        mixButtonClickedEgg = false;
                     }
                     if (eggDropCount == 1)
                     {
                         AudioManager.Instance.PlaySFX("EggDrop1", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggDrop1"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggDrop1"][1]);
-                        flourDropCount++;
+                        eggDropCount++;
                     }
                     else if (eggDropCount == 2)
                     {
@@ -352,7 +354,9 @@ public class DragCombination : MonoBehaviour
         float speed = 0;
         float health = 0;
 
-        mixButtonClicked = true;
+        mixButtonClickedEgg = true;
+        mixButtonClickedFlour = true;
+        mixButtonClickedSugar = true;
         // Clear ingredients used counters
         foreach (GameObject ingredient in allIngredients)
         {
