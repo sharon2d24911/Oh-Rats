@@ -1,26 +1,6 @@
 {"waves":
  [
 	{
-<<<<<<< HEAD
-		"wave": 5,
-		"enemyTypes": ["SpeedRat"],
-		"showcaseEnemy": "BossRat",
-		"ratsAtATime" : 2,
-		"duration": 5,
-		"warmUp": 0,
-		"minSpawnInterval": 5,
-		"maxSpawnInterval": 5,
-		"difficulty" : 3,
-		"track1" : "Wop1",
-		"track2" : "Wop2",
-		"track3" : "Wop3",
-		"track4" : "Wop4",
-		"trackFadeTime" : 9,
-		"trackFinalVolume" : 1,
-		"trackSpeed" : 1,
-		"propScene" : 1
-	},	
-=======
 		"wave": 1,
 		"enemyTypes": ["BasicRat"],
 		"showcaseEnemy": "none",
@@ -222,7 +202,6 @@
 		"trackSpeed4" : 1.01,
 		"propScene" : 0
 	},
->>>>>>> dab0d8c5e915042a29ff489ba50969b226bc6467
 	{
 		"wave": 9,
 		"enemyTypes": ["BasicRat", "HealthRat", "SpeedRat"],

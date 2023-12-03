@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering;
+using UnityEngine.UI;
+using TMPro;
 
 public class WaveSpawning : MonoBehaviour
 {
@@ -51,6 +53,7 @@ public class WaveSpawning : MonoBehaviour
     private GameHandler GameHandler;
     private GameObject grid;
     private GridCreate gridScript;
+    //public GameObject wavesDisplay;
     private GameObject boss = null;
     private List<Vector3> gridPositions;
     private Dictionary<Vector2, GameObject> unitPositions;
@@ -72,7 +75,7 @@ public class WaveSpawning : MonoBehaviour
     private Prop prop;
 
     //variables that change depending on current wave in the JSON
-    private int currentWave = 0;
+    [HideInInspector] public int currentWave = 0;
     private int wavesNum;
     private bool waveShowcased = false;
     private float waveTimerMax;
@@ -190,7 +193,15 @@ public class WaveSpawning : MonoBehaviour
             
             waveDurationTimer += Time.deltaTime;
             waveTimer += Time.deltaTime;
+            /*if (currentWave < (wavesNum - 1))
+            {
+                wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave " + wavesInFile.waves[currentWave].wave + "/" + (wavesNum - 2); //minus two for cool "extra" boss wave 
+            }
 
+            if (currentWave == (wavesNum - 2))
+            {
+                wavesDisplay.GetComponent<TextMeshProUGUI>().color = new Color(150, 0, 0, 1);
+            }*/
             if (waveTimer > currentWaveTimeMax)
             {
 

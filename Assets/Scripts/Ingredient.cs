@@ -25,9 +25,9 @@ public class Ingredient : MonoBehaviour
     }
 
     // Used for shipment, adds one to the ingredient and updates remaining counter
-    public void AddIngredient()
+    public void AddIngredient(int amount)
     {
-        remaining += 1;
+        remaining += amount;
         remainingCounter.GetComponent<TextMeshProUGUI>().text = remaining.ToString();
         if (remaining > 0)
         {

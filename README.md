@@ -1,8 +1,9 @@
 # OhRats
-Next milestones: Beta — November 20, 2023
+Next milestones: GOLD RELEASE!!! (December 15, 2023)
 ## itch.io Builds
-https://matthieu-larochelle.itch.io/oh-rats-tech-demo (last updated: Oct 26)  
-https://constellaetion.itch.io/oh-rats (last updated: November 12)
+https://matthieu-larochelle.itch.io/oh-rats-beta (last updated: Nov 21)  
+https://matthieu-larochelle.itch.io/oh-rats-spudnut (last updated: Nov 29)  
+https://constellaetion.itch.io/oh-rats (last updated: Nov 26)
 ## Notes:
 1. Make sure to be working on a WebGL build!
 2. Take extra care when pulling any code that requires merging of Scenes, maybe make copies of your current Scenes before pulling if you've made important changes you think might be affected

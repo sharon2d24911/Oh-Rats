@@ -12,7 +12,7 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public List<GameObject> dragged = new List<GameObject>();
     public Dictionary<Vector2, GameObject> filledPositions = new Dictionary<Vector2, GameObject>();
     public GameObject combinationZone;
-    private readonly float sensitivity = 2.0f;
+    private readonly float sensitivity = 3.0f;
     private bool isIngredient;
     private GameObject grid;
     public GameObject unit;
@@ -425,8 +425,7 @@ public class DragCombination : MonoBehaviour
             speed += ingredient.GetComponent<Ingredient>().speed;
             health += ingredient.GetComponent<Ingredient>().health;
         }
-
-        //Note from Matthieu: for right now, this is simply hard coded cause I couldnt find a simpler way to grab the "base" values for each stat. If you have a fix, please implement it. Thanks
+        
         newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / attack) - 1;
         newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / speed) - 1;
         newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / health) - 1;
@@ -465,7 +464,7 @@ public class DragCombination : MonoBehaviour
 
             foreach (GameObject item in combining)
             {
-                item.GetComponentInParent<Ingredient>().AddIngredient();
+                item.GetComponentInParent<Ingredient>().AddIngredient(1);
                 Destroy(item);
             }
         }
