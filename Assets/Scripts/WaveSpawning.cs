@@ -260,6 +260,7 @@ public class WaveSpawning : MonoBehaviour
                             if (wavesInFile.waves[i].track1 != "none")
                             {
                                 waveTrack1 = wavesInFile.waves[i].track1;
+                                break;
                             }
                         }
                         if (wavesInFile.waves[currentWave].track2 =="none")
@@ -268,7 +269,8 @@ public class WaveSpawning : MonoBehaviour
                             {
                                 if (wavesInFile.waves[i].track2 != "none")
                                 {
-                                    waveTrack2 = wavesInFile.waves[currentWave].track2;
+                                    waveTrack2 = wavesInFile.waves[i].track2;
+                                    break;
                                 }
                             }
                         }
@@ -278,7 +280,8 @@ public class WaveSpawning : MonoBehaviour
                             {
                                 if (wavesInFile.waves[i].track3 != "none")
                                 {
-                                    waveTrack3 = wavesInFile.waves[currentWave].track3;
+                                    waveTrack3 = wavesInFile.waves[i].track3;
+                                    break;
                                 }
                             }
                         }
@@ -288,7 +291,8 @@ public class WaveSpawning : MonoBehaviour
                             {
                                 if (wavesInFile.waves[i].track4 != "none")
                                 {
-                                    waveTrack4 = wavesInFile.waves[currentWave].track4;
+                                    waveTrack4 = wavesInFile.waves[i].track4;
+                                    break;
                                 }
                             }
                         }
