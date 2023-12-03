@@ -132,7 +132,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         animTimer += Time.deltaTime;
 
-        Debug.Log("animFrames: " + animFrames + "animNum " + animNum + "attackAdjust " + attackAdjust);
+        //Debug.Log("animFrames: " + animFrames + "animNum " + animNum + "attackAdjust " + attackAdjust);
 
         if (animTimer > animTimeMax)
         {
@@ -215,7 +215,7 @@ public class EnemyBehaviour : MonoBehaviour
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
         //StartCoroutine(StopMovement(stunTime));
-        Debug.Log("health:" + health);
+        //Debug.Log("health:" + health);
 
     }
 
@@ -315,7 +315,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.tag == "Projectile" && !collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile)
         {
-            Debug.Log("projectile hit");
+            //Debug.Log("projectile hit");
             ProjectileCollide(collision.gameObject);
             string[] hitsSound = { "ProjectileHit1", "ProjectileHit2", "ProjectileHit3" };
             this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];

@@ -26,7 +26,7 @@ public class ProjectileScript : MonoBehaviour
         transform.rotation = newRot; 
         if (pastEdge)
         {
-            Debug.Log("position" + transform.position.x + "screenEdge" + screenEdge);
+            //Debug.Log("position" + transform.position.x + "screenEdge" + screenEdge);
             Destroy(gameObject); //destroys projectile after reaching the edge of the screen
         }
     }

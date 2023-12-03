@@ -26,6 +26,8 @@ public class PropExamineMore : MonoBehaviour
     public GameObject topPropPrefab;
     
     private GameObject background;
+    private Texture2D interactCursor;
+    private Texture2D defaultCursor;
 
     private Vector3 targetPos;
     private Vector3 targetScale;
@@ -34,10 +36,11 @@ public class PropExamineMore : MonoBehaviour
 
     private GameObject topProp = null;
     private GameObject props;
+    private GameObject gameHandler;
+    private GameObject currentProp;
     private int i;
 
     private readonly float fadeDuration = 0.3f;
-    //private readonly float speed = 2f;
 
     private void Start()
     {
@@ -51,7 +54,10 @@ public class PropExamineMore : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = smallSprite;
         targetImage = smallSprite;
         props = FindObjectOfType<Prop>().gameObject;
+        interactCursor = props.GetComponent<Prop>().interactCursor;
+        defaultCursor = props.GetComponent<Prop>().defaultCursor;
         background = props.GetComponent<Prop>().background;
+        gameHandler = FindObjectOfType<GameHandler>().gameObject;
         if (captions.Length == 2)
         {
             captions[0].SetActive(false);
@@ -62,7 +68,8 @@ public class PropExamineMore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f)
+        currentProp = props.GetComponent<Prop>().inspecting;
+        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f && (currentProp == gameObject || currentProp == null))
         {
             // Toggle the target scale on mouse click
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -71,25 +78,28 @@ public class PropExamineMore : MonoBehaviour
             // Toggle switch
             if (i == 0 && hit.collider != null && hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == smallSprite.name)
             {
+                props.GetComponent<Prop>().inspecting = gameObject;
                 i += 1; // Expand on first click
-            } else if (i == 1)
+            } else if (i == 1 && hit.collider != null)
             {
                 // Check if player clicked on big prop or little prop
-                Debug.Log(hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name);
-                if (hit.collider != null && hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == smallHiddenSprite.name)
+                if (hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == smallHiddenSprite.name)
                     i = 2; // Expand smaller prop
-                else if (hit.collider != null && topProp != null && hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == topProp.GetComponent<SpriteRenderer>().sprite.name)
+                else if (topProp != null && hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == topProp.GetComponent<SpriteRenderer>().sprite.name)
+                {
                     i = 0; // Retract both props
+                    props.GetComponent<Prop>().inspecting = null;
+                }
             } else if (i == 2 && hit.collider != null && hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite.name == bigHiddenSprite.name)
             {
                 i = 0;
+                props.GetComponent<Prop>().inspecting = null;
             }
                 ToggleSize();
         }
 
-        if (GetComponent<SpriteRenderer>().sprite != targetImage || transform.position != targetPos || transform.localScale != targetScale)
+        if (GetComponent<SpriteRenderer>().sprite != targetImage || transform.position != targetPos || transform.localScale != targetScale && (currentProp == gameObject || currentProp == null))
         {
-            Debug.Log("i IS CURRENTLY: " + i);
             // Transform to the new position/rotation/scale based on i
             transform.position = targetPos; // Vector3.Lerp(transform.position, targetPos, speed * Time.deltaTime);
             transform.localScale = targetScale; // Vector3.Lerp(transform.localScale, targetScale, speed * Time.deltaTime);
@@ -104,6 +114,7 @@ public class PropExamineMore : MonoBehaviour
                 background.SetActive(true);
 
                 topProp = Instantiate(topPropPrefab);
+                topProp.transform.parent = gameObject.transform.parent;
                 topProp.GetComponent<SpriteRenderer>().sortingOrder = 51;
 
                 if (captions.Length > 0)
@@ -114,7 +125,7 @@ public class PropExamineMore : MonoBehaviour
             // If on second click (smaller prop expands)
             } else if (i == 2)
             {
-                StartCoroutine(FadeTopOut());
+                StartCoroutine(DropTop());
 
                 if (captions.Length > 0)
                 {
@@ -141,6 +152,18 @@ public class PropExamineMore : MonoBehaviour
                 background.SetActive(false);
             }
         }
+    }
+
+    void OnMouseEnter()
+    {
+        if (Time.timeScale != 0f && !gameHandler.GetComponent<DragCombination>().trashMode && (currentProp == gameObject || currentProp == null))
+            Cursor.SetCursor(interactCursor, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
+    void OnMouseExit()
+    {
+        if (!gameHandler.GetComponent<DragCombination>().trashMode)
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     private void ToggleSize()
@@ -175,7 +198,7 @@ public class PropExamineMore : MonoBehaviour
         targetBCSize = BC;
     }
 
-    public IEnumerator FadeTopOut()
+    public IEnumerator DropTop()
     {
         float elapsedTime = 0f;
 

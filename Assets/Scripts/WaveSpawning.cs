@@ -128,10 +128,10 @@ public class WaveSpawning : MonoBehaviour
         wavesInFile = JsonUtility.FromJson<Waves>(wavesFile.text);
         wavesNum = wavesInFile.waves.Length;
 
-        foreach (Wave wave in wavesInFile.waves)
+        /*foreach (Wave wave in wavesInFile.waves)
         {
             Debug.Log("max" + wave.maxSpawnInterval + "duration" + wave.duration);
-        }
+        }*/
 
         //setup of first wave
         waveTimerMax = wavesInFile.waves[0].maxSpawnInterval;
@@ -378,7 +378,7 @@ public class WaveSpawning : MonoBehaviour
         int rows = gridScript.rows;
         int cols = gridScript.columns;
         int lowerBound = lane * cols, upperBound = lowerBound + (cols - 1);
-        Debug.Log("lowerBound " + lowerBound + "upperBound " + upperBound);
+        //Debug.Log("lowerBound " + lowerBound + "upperBound " + upperBound);
         for(int i =lowerBound; i < upperBound; i++)
         {
             Vector3 currentPos = gridPositions[i];
@@ -453,12 +453,12 @@ public class WaveSpawning : MonoBehaviour
             else
             {
                 float probability = Random.Range(0f, 1f);
-                Debug.Log("probability " + probability);
+                //Debug.Log("probability " + probability);
                 float goalPost = 0.5f / (1f - (waveDifficulty * 0.1875f)); //waveDifficulty determines what the probability must equal to spawn a non-basic enemy type
                 int randInd = (int)Mathf.Clamp(Mathf.Round((goalPost * probability)), 0f, 1f) * (int)(waveEnemiesNum - Random.Range(1, waveEnemiesNum)); //selects random index between range of enemy types
-                Debug.Log("randInd " + randInd);
+                //Debug.Log("randInd " + randInd);
                 enemyName = waveEnemyTypes[randInd];
-                Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum " + waveEnemiesNum);
+                //Debug.Log("randInd " + randInd + " enemyName " + enemyName + " waveEnemiesNum " + waveEnemiesNum);
             }
             GameObject enemy = getEnemyObj(enemyName);
             GameObject spawnedEnemy = Instantiate(enemy, position, enemy.transform.rotation);
@@ -466,12 +466,12 @@ public class WaveSpawning : MonoBehaviour
             {
                 boss = spawnedEnemy;
             }
-            Debug.Log("pos z" + position.z);
-            Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
+            //Debug.Log("pos z" + position.z);
+            //Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
             spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
             spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
-            Debug.Log("rat lane: " + spawnedEnemy.GetComponent<EnemyBehaviour>().lane);
-            Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
+            //Debug.Log("rat lane: " + spawnedEnemy.GetComponent<EnemyBehaviour>().lane);
+            //Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));
             // Play spawn sfx
             if (enemyName == "RangedRat")
             {

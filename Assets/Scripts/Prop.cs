@@ -14,7 +14,7 @@ public class Prop : MonoBehaviour
     private GameObject gameHandler;
     private GameObject newspaper;
     private int i;
-    [HideInInspector] public bool inspecting;
+    [HideInInspector] public GameObject inspecting;
     private float fadeDuration = 2f;
 
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class Prop : MonoBehaviour
     {
         gameHandler = FindObjectOfType<GameHandler>().gameObject;
         i = 0;
-        inspecting = false;
+        inspecting = null;
     }
 
     // Update is called once per frame
@@ -79,6 +79,7 @@ public class Prop : MonoBehaviour
         StartCoroutine(Fade(currentScene, nextScene));
     }
     
+    // Coordinates the fade between prop scenes
     public IEnumerator Fade(GameObject currentScene, GameObject nextScene)
     {
         nextScene.SetActive(true);
@@ -86,11 +87,15 @@ public class Prop : MonoBehaviour
         Color transparent = new Color(1, 1, 1, 0f);
         List<SpriteRenderer> currentChildren = new List<SpriteRenderer>();
         List<SpriteRenderer> nextChildren = new List<SpriteRenderer>();
+        
+        // Getting all props in current scene (to transition out)
         foreach (Transform child in currentScene.transform)
         {
             if (child.GetComponent<SpriteRenderer>() != null)
                 currentChildren.Add(child.GetComponent<SpriteRenderer>());
         }
+
+        // Getting all props in next scene (to transition in) and set them to be transparent to start
         foreach (Transform child in nextScene.transform)
         {
             if (child.GetComponent<SpriteRenderer>() != null)
@@ -102,6 +107,7 @@ public class Prop : MonoBehaviour
 
         float elapsedTime = 0f;
 
+        // Lerp fade
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -109,8 +115,32 @@ public class Prop : MonoBehaviour
                 child.color = Color.Lerp(fullAlpha, transparent, elapsedTime / fadeDuration);
             foreach (SpriteRenderer child in nextChildren)
                 child.color = Color.Lerp(transparent, fullAlpha, elapsedTime / fadeDuration);
-            yield return null;
+
+            if (leftButton.activeInHierarchy)
+            {
+                leftButton.GetComponent<Image>().color = Color.Lerp(fullAlpha, transparent, elapsedTime / fadeDuration);
+                rightButton.GetComponent<Image>().color = Color.Lerp(fullAlpha, transparent, elapsedTime / fadeDuration);
+            }
+                yield return null;
         }
+
+        // Ensures any clicked props are properly set to inactive during transition
+        foreach (SpriteRenderer child in currentChildren)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        if (leftButton.activeInHierarchy)
+        {
+            SetButtonsInactive();
+            leftButton.GetComponent<Image>().color = fullAlpha;
+            rightButton.GetComponent<Image>().color = fullAlpha;
+        }
+
+        if (inspecting != null)
+            inspecting = null;
+
+        // Sets first scene to inactive
         currentScene.SetActive(false);
     }
 }

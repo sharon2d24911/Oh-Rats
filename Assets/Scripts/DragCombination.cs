@@ -31,8 +31,6 @@ public class DragCombination : MonoBehaviour
     private int eggDropCount = 1;
     private bool mixButtonClicked = false;
     [HideInInspector] public GameObject[] allIngredients;
-    [HideInInspector] public bool tutorialMode;
-    [HideInInspector] public Vector2 topLeft;
     [HideInInspector] public bool trashMode;
     private bool bowlFull = false;
 
@@ -53,8 +51,6 @@ public class DragCombination : MonoBehaviour
         allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
         animTimeMax = animTimeMax / frameRate;
         trashMode = false;
-        tutorialMode = false;
-        topLeft = Vector2.zero;
     }
 
     // Update is called once per frame
@@ -216,7 +212,7 @@ public class DragCombination : MonoBehaviour
             {
                 nearestDistance = newDistance;
                 gridDepth = (gridPositions.IndexOf(p) / gridScript.columns);
-                Debug.Log("gridDepth " + gridDepth);
+                //Debug.Log("gridDepth " + gridDepth);
                 nearestPos = p;
             }
         }
@@ -398,6 +394,7 @@ public class DragCombination : MonoBehaviour
        //Begin bowl animation
         bowlIsAnimating = true;
 
+        bowlFull = true;
         AudioManager.Instance.PlaySFX("Mixing", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["Mixing"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["Mixing"][1]);
         // Wait for 3 seconds
         yield return new WaitForSeconds(3);
@@ -414,12 +411,22 @@ public class DragCombination : MonoBehaviour
         newUnit.GetComponent<UnitBehaviour>().projAddSpeed += addSpeed;
         newUnit.GetComponent<UnitBehaviour>().health += addHealth;
 
+        float attack = 0;
+        float speed = 0;
+        float health = 0;
+
+        foreach (GameObject ingredient in allIngredients)
+        {
+            attack += ingredient.GetComponent<Ingredient>().attack;
+            speed += ingredient.GetComponent<Ingredient>().speed;
+            health += ingredient.GetComponent<Ingredient>().health;
+        }
+
         //Note from Matthieu: for right now, this is simply hard coded cause I couldnt find a simpler way to grab the "base" values for each stat. If you have a fix, please implement it. Thanks
-        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / 15) - 1;
-        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / 1.6) - 1;
-        newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / 25) - 1;
+        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / attack) - 1;
+        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / speed) - 1;
+        newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / health) - 1;
         newUnit.tag = "Unit";
-        bowlFull = true;
     }
 
     // Unit removal
@@ -446,6 +453,12 @@ public class DragCombination : MonoBehaviour
         // Empty any objects on the combination zone
         if (combining.Count > 0)
         {
+            // Clear ingredients used counters
+            foreach (GameObject ingredient in allIngredients)
+            {
+                ingredient.GetComponent<Ingredient>().ClearUse();
+            }
+
             foreach (GameObject item in combining)
             {
                 item.GetComponentInParent<Ingredient>().AddIngredient();

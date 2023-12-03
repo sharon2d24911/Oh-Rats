@@ -112,11 +112,11 @@ public class Tutorial : MonoBehaviour
         }
         else if (popUpIndex == 7)
         {
-
             // Say bye, press space to continue
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space)) { 
                 TransitionCanvas.GetComponent<Menu>().FadeToScene("Game");
                 StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("ChewTorial", "none", "none", "none", 2, 0)); // Fade out music
+            }
         }
     }
 }
