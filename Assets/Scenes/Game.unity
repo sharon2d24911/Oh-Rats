@@ -5466,7 +5466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f7f87f3598d1342aea5086ac28708c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipmentTimerMax: 5
+  shipmentTimerMax: 15
   ingredients:
   - {fileID: 1322198715}
   - {fileID: 333822077}
@@ -7694,7 +7694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -437.9, y: 69.7}
+  m_AnchoredPosition: {x: -440, y: -62}
   m_SizeDelta: {x: 53.143387, y: 30.897987}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1343136851

@@ -118,7 +118,7 @@ public class DragCombination : MonoBehaviour
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
 
-            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop" && (selectedObject.tag == "Ingredient" || selectedObject.tag == "Unit"))
+            if (!dragged.Contains(selectedObject) && selectedObject.tag != "Prop" && (selectedObject.tag == "Ingredient" || selectedObject.tag == "Unit"))
             {
                 // Separates behaviour depending on selected object type
                 if (selectedObject.tag == "Ingredient" && selectedObject.GetComponent<Ingredient>().remaining > 0)
@@ -362,6 +362,7 @@ public class DragCombination : MonoBehaviour
         // Pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
         while (combining.Count > 0)
         {
+            dragged.Remove(combining[0]);
             attack += combining[0].GetComponentInParent<Ingredient>().attack;
             speed += combining[0].GetComponentInParent<Ingredient>().speed;
             health += combining[0].GetComponentInParent<Ingredient>().health;
@@ -450,7 +451,7 @@ public class DragCombination : MonoBehaviour
     }
 
 
-    // OPTION if player wants to clear combination before mixing, delete if we don't use
+    // if player wants to clear combination before mixing
     public void ClearBowl()
     {
         // Empty any objects on the combination zone
@@ -470,6 +471,13 @@ public class DragCombination : MonoBehaviour
         }
         // Clear anything that was already added to the list to be combined
         combining.Clear();
-        dragged.Clear();
+        foreach (GameObject obj in dragged.ToArray())
+        {
+            if (obj == null || obj.tag != "Unit")
+            {
+                dragged.Remove(obj);
+            }
+
+        }
     }
 }
