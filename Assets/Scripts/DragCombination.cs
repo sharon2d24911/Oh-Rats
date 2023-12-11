@@ -34,6 +34,8 @@ public class DragCombination : MonoBehaviour
     private bool mixButtonClickedSugar = false;
     [HideInInspector] public GameObject[] allIngredients;
     [HideInInspector] public bool trashMode;
+    [HideInInspector] public bool tutorialMode;
+    [HideInInspector] public Vector2 topLeft;
     private bool bowlFull = false;
 
     //=====Animation stuff=======
@@ -53,6 +55,8 @@ public class DragCombination : MonoBehaviour
         allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
         animTimeMax = animTimeMax / frameRate;
         trashMode = false;
+        tutorialMode = false;
+        topLeft = Vector2.zero;
     }
 
     // Update is called once per frame
@@ -196,17 +200,6 @@ public class DragCombination : MonoBehaviour
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
-        /*// Use for tutorial only, forces player to put donut only on the top left grid spot
-        if (tutorialMode)
-        {
-            topLeft = gridPositions[0];
-            for (int j = 1; j < gridPositions.Count; j++)
-            {
-                Debug.Log("ADDING TO: " + gridPositions[j]);
-                filledPositions.Add(gridPositions[j], selectedObject);
-            }
-        }*/
-
         foreach (Vector2 p in gridPositions)
         {
             float newDistance = Vector2.Distance(p, selectedV2);
@@ -217,6 +210,21 @@ public class DragCombination : MonoBehaviour
                 //Debug.Log("gridDepth " + gridDepth);
                 nearestPos = p;
             }
+        }
+
+        // Use for tutorial only, forces player to put donut only on the top left grid spot
+        if (tutorialMode)
+        {
+            topLeft = gridPositions[0];
+            if (filledPositions.Count == 0)
+            {
+                for (int j = 1; j < gridPositions.Count; j++)
+                {
+                    Debug.Log("ADDING TO: " + gridPositions[j]);
+                    filledPositions.Add(gridPositions[j], selectedObject);
+                }
+            }
+            
         }
 
         if (isIngredient)
@@ -386,8 +394,10 @@ public class DragCombination : MonoBehaviour
         // Checks if each ingredient has at least one child (and is not the currently selected one, as that hasn't been placed in the bowl yet)
         foreach (GameObject ingredient in allIngredients)
         {
-            if (ingredient.transform.childCount < 1 || (ingredient.transform.childCount == 1 && selectedObject != null && selectedObject.transform.parent == ingredient))
+            if (ingredient.transform.childCount < 1 || (ingredient.transform.childCount == 1 && selectedObject != null && selectedObject.transform.parent == ingredient.transform))
+            {
                 return false;
+            }
         }
         return true;
         

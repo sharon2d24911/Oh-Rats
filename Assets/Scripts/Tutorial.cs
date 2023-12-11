@@ -5,6 +5,8 @@ public class Tutorial : MonoBehaviour
 {
     public Button mixButton;
     public Button deliveryButton;
+    public Button garbageButton;
+    public GameObject enemyPrefab;
     public GameObject[] popUps;
     public GameObject[] toHide;
     public GameObject gameHandler;
@@ -13,6 +15,7 @@ public class Tutorial : MonoBehaviour
     private Canvas TransitionCanvas;
     Camera mainCamera;
     private int popUpIndex;
+    private bool rat;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,7 @@ public class Tutorial : MonoBehaviour
         TutorialCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         TutorialCanvas.worldCamera = mainCamera;
         TransitionCanvas = GameObject.Find("Transition Canvas").GetComponent<Canvas>();
-        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
+        rat = false;
 
         foreach (GameObject tutorial in popUps)
         {
@@ -33,6 +36,11 @@ public class Tutorial : MonoBehaviour
         float[] volumes = { 1, 1, 1, 1 };
         float[] speeds = { 1, 1, 1, 1 };
         StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(tracks, 3, volumes, speeds));
+    }
+
+    private void OnMouseEnter()
+    {
+        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     void Update()
@@ -51,19 +59,17 @@ public class Tutorial : MonoBehaviour
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 1)
+        else if (popUpIndex == 1) // If user picks up object and drags it into bowl
         {
-            // If user picks up object and drags it into bowl
             if (gameHandler.GetComponent<DragCombination>().combining.Count > 0)
             {
                 toHide[popUpIndex].SetActive(false);
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 2)
+        else if (popUpIndex == 2) // If user puts one of each item in bowl
         {
             gameHandler.GetComponent<DragCombination>().allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
-            // If user puts one of each item in bowl
             if (gameHandler.GetComponent<DragCombination>().CheckMinimum())
             {
                 toHide[popUpIndex].SetActive(false);
@@ -71,51 +77,86 @@ public class Tutorial : MonoBehaviour
             }
 
         }
-        else if (popUpIndex == 3)
+        else if (popUpIndex == 3) // If user hits mix button, move to next step
         {
-            // User can put up to 3 of each ingredients in the bowl to adjust stats
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                toHide[popUpIndex].SetActive(false);
-                popUpIndex++;
-            }
-        }
-        else if (popUpIndex == 4)
-        {
-            // If user hits mix button, move to next step
             mixButton.onClick.AddListener(() =>
             {
-                toHide[4].SetActive(false);
-                popUpIndex = 5;
+                toHide[3].SetActive(false);
+                popUpIndex = 4;
+                mixButton.onClick.RemoveAllListeners();
             });
         }
-        else if (popUpIndex == 5)
+        else if (popUpIndex == 4) // If user drags unit to the correct position on the board
         {
-            // If user drags unit to a correct position on the board
-            // CURRENTLY WILL ALLOW PLACEMENT ON ANY GRID SPACE. FIX??
-            //gameHandler.GetComponent<DragCombination>().tutorialMode = true;
-            // ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft)
-            if (gameHandler.GetComponent<DragCombination>().filledPositions.Count > 0)
+            gameHandler.GetComponent<DragCombination>().tutorialMode = true;
+            if (gameHandler.GetComponent<DragCombination>().filledPositions.ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft))
             {
                 toHide[popUpIndex].SetActive(false);
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 6)
+        else if (popUpIndex == 5) // If user removes the placed unit
         {
-            // If user presses tracker to allow delivery
+            if (!gameHandler.GetComponent<DragCombination>().filledPositions.ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft))
+            {
+                garbageButton.interactable = false;
+                toHide[popUpIndex].SetActive(false);
+                popUpIndex++;
+            }
+        }
+        else if (popUpIndex == 6) // If user presses tracker to allow delivery
+        {
+            GameObject.Find("Shipment Truck").GetComponent<Shipment>().tutorial = true;
             deliveryButton.onClick.AddListener(() =>
             {
                 toHide[6].SetActive(false);
                 popUpIndex = 7;
+                deliveryButton.onClick.RemoveAllListeners();
             });
         }
-        else if (popUpIndex == 7)
+        else if (popUpIndex == 7) // User should put 3 of each ingredient in the bowl, mix it up, and place... is that too much for one step...
         {
-            // Say bye, press space to continue
-            if (Input.GetKeyDown(KeyCode.Space)) { 
-                TransitionCanvas.GetComponent<Menu>().FadeToScene("Game");
+            if (gameHandler.GetComponent<DragCombination>().combining.Count == 9)
+                mixButton.interactable = true;
+            else if (gameHandler.GetComponent<DragCombination>().CheckMinimum())
+                mixButton.interactable = false;
+
+            if (gameHandler.GetComponent<DragCombination>().filledPositions.ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft))
+            {
+                toHide[popUpIndex].SetActive(false);
+                popUpIndex++;
+            }
+        }
+        else if (popUpIndex == 8) // Spawn an enemy, let it die
+        {
+            GameObject spawnedEnemy = null;
+            GameObject unit = gameHandler.GetComponent<DragCombination>().filledPositions[gameHandler.GetComponent<DragCombination>().topLeft];
+            UnitBehaviour unitScript = unit.GetComponent<UnitBehaviour>();
+            if (GameObject.FindGameObjectWithTag("Enemy") == null && !rat)
+            {
+                rat = true;
+                Vector3 position = new Vector3(17.5f, .5f, 1.5f);
+                spawnedEnemy = Instantiate(enemyPrefab, position, enemyPrefab.transform.rotation);
+                spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
+                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 600;
+                spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
+                spawnedEnemy.GetComponent<EnemyBehaviour>().tutorial = true; 
+                unitScript.defending = true;
+            }
+            if (GameObject.FindGameObjectWithTag("Enemy") == null && rat)
+            {
+                unitScript.defending = false;
+                toHide[popUpIndex].SetActive(false);
+                popUpIndex++;
+            }
+
+        }
+        else if (popUpIndex == 9) // Say bye, press space to start game
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
                 StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("ChewTorial", "none", "none", "none", 2, 0)); // Fade out music
+                TransitionCanvas.GetComponent<Menu>().FadeToScene("Game");
             }
         }
     }
