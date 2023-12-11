@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    public bool isAlmanac = false;
+    public GameObject notification;
 
     public void Pause()
     {
@@ -13,6 +15,11 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick",GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][1]);
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().MusicVolume(0.25f);
+        if (isAlmanac)
+        {
+            notification.SetActive(false);
+            GameObject.FindWithTag("GameHandler").GetComponent<DragCombination>().newDonutsNum = 0;
+        }
     }
 
     public void Resume()

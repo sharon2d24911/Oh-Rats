@@ -67,6 +67,7 @@ public class WaveSpawning : MonoBehaviour
     private string rocketSpawnSound;
     private string ratSpawnSound;
     private string kingSummonSound;
+    public GameObject wavesDisplay;
     private Waves wavesInFile;
     public EnemyObjects[] enemyPrefabs;
     public TextAsset wavesFile;
@@ -159,6 +160,7 @@ public class WaveSpawning : MonoBehaviour
         waveShowcaseEnemy = wavesInFile.waves[0].showcaseEnemy;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
+        wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave 0" + "/" + (wavesNum - 2);
         string[] tracks = { waveTrack1, waveTrack2, waveTrack3, waveTrack4 };
         float[] volumes = { waveTrackFinalVolume1, waveTrackFinalVolume2, waveTrackFinalVolume3, waveTrackFinalVolume4 };
         float[] speeds = { waveTrackSpeed1, waveTrackSpeed2, waveTrackSpeed3, waveTrackSpeed4 };
@@ -193,7 +195,7 @@ public class WaveSpawning : MonoBehaviour
             
             waveDurationTimer += Time.deltaTime;
             waveTimer += Time.deltaTime;
-            /*if (currentWave < (wavesNum - 1))
+            if (currentWave < (wavesNum - 1))
             {
                 wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave " + wavesInFile.waves[currentWave].wave + "/" + (wavesNum - 2); //minus two for cool "extra" boss wave 
             }
@@ -201,7 +203,7 @@ public class WaveSpawning : MonoBehaviour
             if (currentWave == (wavesNum - 2))
             {
                 wavesDisplay.GetComponent<TextMeshProUGUI>().color = new Color(150, 0, 0, 1);
-            }*/
+            }
             if (waveTimer > currentWaveTimeMax)
             {
 
@@ -392,13 +394,17 @@ public class WaveSpawning : MonoBehaviour
     {
         int rows = gridScript.rows;
         int cols = gridScript.columns;
-        int lowerBound = lane * cols, upperBound = lowerBound + (cols - 1);
+        int lowerBound = lane * cols, upperBound = lowerBound + cols;
+        Debug.Log("upperBound: " + upperBound);
         //Debug.Log("lowerBound " + lowerBound + "upperBound " + upperBound);
-        for(int i =lowerBound; i < upperBound; i++)
+        for (int i =lowerBound; i < upperBound; i++)
         {
-            Vector3 currentPos = gridPositions[i];
+            Debug.Log("i: " + i);
+
+           Vector3 currentPos = gridPositions[i];
             if (unitPositions.ContainsKey(currentPos) && unitPositions[currentPos].tag == "Unit")
             {
+                Debug.Log("i: " + i + "pos: " + currentPos);
                 GameObject unit = unitPositions[currentPos];
                 UnitBehaviour unitScript = unit.GetComponent<UnitBehaviour>();
                 unitScript.defending = state;
@@ -484,6 +490,7 @@ public class WaveSpawning : MonoBehaviour
             //Debug.Log("pos z" + position.z);
             //Debug.Log("layer " + ((int)Mathf.Floor(position.z) * 5));
             spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
+            spawnedEnemy.GetComponent<SortingGroup>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
             spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
             //Debug.Log("rat lane: " + spawnedEnemy.GetComponent<EnemyBehaviour>().lane);
             //Debug.Log("layer " + (enemy.GetComponent<SpriteRenderer>().sortingOrder));

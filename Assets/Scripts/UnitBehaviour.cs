@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 using UnityEngine;
 
 public class UnitBehaviour : MonoBehaviour
@@ -70,14 +71,20 @@ public class UnitBehaviour : MonoBehaviour
         speedLayer = unit.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>();
         animTimeMax = animTimeMax / frameRate;
 
+        if(projAddSpeed != 0)
+        {
+            cooldown = cooldown / (0.5f* projAddSpeed);
+        }
+
     }
 
     public void layerSprites(int gridDepth)
     {
         sprite.sortingOrder = gridDepth;
-        attackLayer.sortingOrder = gridDepth + 2;
+        unit.GetComponent<SortingGroup>().sortingOrder = gridDepth;
+        attackLayer.sortingOrder = gridDepth + 1;
         healthLayer.sortingOrder = gridDepth + 3;
-        speedLayer.sortingOrder = gridDepth + 1;
+        speedLayer.sortingOrder = gridDepth + 2;
     }
 
     void Update()

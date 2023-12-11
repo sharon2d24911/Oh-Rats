@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DragCombination : MonoBehaviour
 {
@@ -11,15 +12,18 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public List<GameObject> combining = new List<GameObject>();
     [HideInInspector] public List<GameObject> dragged = new List<GameObject>();
     public Dictionary<Vector2, GameObject> filledPositions = new Dictionary<Vector2, GameObject>();
+    private Dictionary<string, bool> unlockedDonuts = new Dictionary<string, bool>();
     public GameObject combinationZone;
     private readonly float sensitivity = 3.0f;
     private bool isIngredient;
     private GameObject grid;
     public GameObject unit;
+    public GameObject notification;
     public Button mixButton;
     public Texture2D garbageCursor;
     public Texture2D defaultCursor;
     private GameObject newUnit;
+    public int newDonutsNum = 0; //number that is displayed for the notification
     private string sugarDropSound;
     private string flourDropSound;
     private string eggDropSound;
@@ -53,6 +57,17 @@ public class DragCombination : MonoBehaviour
         allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
         animTimeMax = animTimeMax / frameRate;
         trashMode = false;
+
+        for (int i = 1; i < 4; i++)
+        {
+            for (int j = 1; j < 4; j++)
+            {
+                unlockedDonuts.Add(string.Format("{0}:{1}:1",i,j), false);
+                unlockedDonuts.Add(string.Format("{0}:{1}:2", i, j), false);
+                unlockedDonuts.Add(string.Format("{0}:{1}:3", i, j), false);
+            }
+        }
+
     }
 
     // Update is called once per frame
@@ -323,7 +338,7 @@ public class DragCombination : MonoBehaviour
             else // Destroy the ingredient instance selected if not placed close enough
                 Destroy(selectedObject);
         }
-        else if (nearestDistance > (0.5 * sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
+        else if (nearestDistance > (sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {
             // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
@@ -426,10 +441,32 @@ public class DragCombination : MonoBehaviour
             speed += ingredient.GetComponent<Ingredient>().speed;
             health += ingredient.GetComponent<Ingredient>().health;
         }
-        
-        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / attack) - 1;
-        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / speed) - 1;
-        newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / health) - 1;
+
+        int attackBoost = (int)(addAttack / attack) - 1;
+        int speedBoost = (int)(addSpeed / speed) - 1;
+        int healthBoost = (int)(addHealth / health) - 1;
+
+        string currentCombo = string.Format("{0}:{1}:{2}", attackBoost, speedBoost, healthBoost);
+        bool alreadyMade;
+        unlockedDonuts.TryGetValue(currentCombo,out alreadyMade);
+
+    if (!alreadyMade)
+    {
+        Debug.Log("new make");
+        newDonutsNum += 1;
+        unlockedDonuts[currentCombo] = true;
+        notification.SetActive(true);
+        notification.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newDonutsNum.ToString();
+
+    }
+    else {
+        Debug.Log("already made");
+    }
+
+
+        newUnit.GetComponent<UnitBehaviour>().attackBoost = attackBoost;
+        newUnit.GetComponent<UnitBehaviour>().speedBoost = speedBoost;
+        newUnit.GetComponent<UnitBehaviour>().healthBoost = healthBoost;
         newUnit.tag = "Unit";
     }
 
