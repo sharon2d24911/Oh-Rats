@@ -38,7 +38,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float damage;
     public float speed;
     public string enemyType;
-   
+    [HideInInspector] public bool tutorial = false;
 
     [Header("Boss")]
     public bool isBoss; //only should be set true for enemies that are bosses, duh
@@ -456,7 +456,8 @@ public class EnemyBehaviour : MonoBehaviour
                     
                 }
                 else {
-                    WS.toggleActive(false, lane);
+                    if (!tutorial)
+                        WS.toggleActive(false, lane);
                     if (enemyType == "RocketRat")
                     {
                         string[] rocketDefeatSound = { "RocketDefeat1", "RocketDefeat2" };
@@ -493,7 +494,7 @@ public class EnemyBehaviour : MonoBehaviour
                 WS.toggleActive(true, lane - 1);
                 WS.toggleActive(true, lane);
             }
-            else
+            else if (!tutorial)
             {
                 WS.toggleActive(true, lane);
             }  

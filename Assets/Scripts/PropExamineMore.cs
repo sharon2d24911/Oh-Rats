@@ -38,6 +38,7 @@ public class PropExamineMore : MonoBehaviour
     private GameObject props;
     private GameObject gameHandler;
     private GameObject currentProp;
+    private bool paused;
     private int i;
 
     private readonly float fadeDuration = 0.3f;
@@ -69,7 +70,8 @@ public class PropExamineMore : MonoBehaviour
     void Update()
     {
         currentProp = props.GetComponent<Prop>().inspecting;
-        if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f && (currentProp == gameObject || currentProp == null))
+        paused = gameHandler.GetComponent<PauseMenu>().paused;
+        if (Input.GetMouseButtonDown(0) && !paused && (currentProp == gameObject || currentProp == null))
         {
             // Toggle the target scale on mouse click
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -109,6 +111,7 @@ public class PropExamineMore : MonoBehaviour
             // If on first click (props expand to show a smaller prop to click)
             if (i == 1)
             {
+                Time.timeScale = 0f;
                 GetComponent<SpriteRenderer>().sortingOrder = 50;
                 background.GetComponent<SpriteRenderer>().sortingOrder = 49;
                 background.SetActive(true);
@@ -136,6 +139,7 @@ public class PropExamineMore : MonoBehaviour
             }
             else if (i == 0)
             {
+                Time.timeScale = 1f;
                 if (topProp != null)
                 {
                     Destroy(topProp);
@@ -156,7 +160,7 @@ public class PropExamineMore : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (Time.timeScale != 0f && !gameHandler.GetComponent<DragCombination>().trashMode && (currentProp == gameObject || currentProp == null))
+        if (!paused && !gameHandler.GetComponent<DragCombination>().trashMode && (currentProp == gameObject || currentProp == null))
             Cursor.SetCursor(interactCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 

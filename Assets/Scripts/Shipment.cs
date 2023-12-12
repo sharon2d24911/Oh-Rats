@@ -63,7 +63,7 @@ public class Shipment : MonoBehaviour
                     }
                     else
                     {
-                        ingredients[i].GetComponent<Ingredient>().AddIngredient(1);
+                        ingredients[i].GetComponent<Ingredient>().AddIngredient(3);
                     }
 
 
@@ -72,7 +72,8 @@ public class Shipment : MonoBehaviour
                 transform.position = startPosition;
                 progressBar.fillAmount = 0;
                 shipping = false;
-                deliveryButton.interactable = true;
+                if(!tutorial)
+                    deliveryButton.interactable = true;
             }
         }
     }
