@@ -28,11 +28,7 @@ public class Tutorial : MonoBehaviour
         {
             tutorial.SetActive(false);
         }
-        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("TitleWop", "none", "none", "none", 1, 0));
-        string[] tracks = { "ChewTorial", "none", "none", "none" };
-        float[] volumes = { 1, 1, 1, 1 };
-        float[] speeds = { 1, 1, 1, 1 };
-        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(tracks, 3, volumes, speeds));
+
     }
 
     void Update()
@@ -116,7 +112,7 @@ public class Tutorial : MonoBehaviour
             // Say bye, press space to continue
             if (Input.GetKeyDown(KeyCode.Space))
                 TransitionCanvas.GetComponent<Menu>().FadeToScene("Game");
-                StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("ChewTorial", "none", "none", "none", 2, 0)); // Fade out music
+                StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("ChewTorial", "none", "none", "none", 1, 0)); // Fade out music
         }
     }
 }

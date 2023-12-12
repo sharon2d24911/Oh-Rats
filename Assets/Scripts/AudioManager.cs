@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class AudioManager : MonoBehaviour
@@ -8,7 +9,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     public Sound[] music, sfx;
     public AudioSource musicSource, sfxSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8;
-    //private bool fadingOut1 = false;
+    private float playerVolume = 1;
+    private float playerSfxVolume = 1;
 
     private void Awake()
     {
@@ -23,44 +25,19 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(string name)
-    {
-        Sound s = Array.Find(music, x => x.soundName == name);
-        if (s == null)
-        {
-            Debug.Log("Sound Not Found");
-        }
-        else
-        {
-            musicSource.clip = s.clip;
-            musicSource.Play();
-        }
-    }
 
-    public void StopMusic(string musicName1, string musicName2, string musicName3, string musicName4, string musicName5, string musicName6, string musicName7, string musicName8, string musicName9, string musicName10, string musicName11, string musicName12)
+    public void StopMusic()
     {
         AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
-        string[] musicNames = { musicName1, musicName2, musicName3, musicName4, musicName5, musicName6, musicName7, musicName8, musicName9, musicName10, musicName11,musicName12 };
-
 
         // Check which musicSources are currently playing
         for (int i = 0; i < musicSources.Length; i++)
         {
-            for (int j = 0; j < musicNames.Length; j++)
+            if (musicSources[i].volume > 0)
             {
-                if (musicSources[i].volume > 0)
-                {
-                    Sound matchingSound = Array.Find(music, x => x.soundName == musicNames[j]);
-
-                    if (matchingSound != null && musicSources[i].clip == matchingSound.clip)
-                    {
-                        Debug.Log("stopping" + musicNames[j]);
-                        musicSources[i].Stop();
-                        musicSources[i].volume = 0;
-                    }
-                }
+                musicSources[i].Stop();
+                musicSources[i].volume = 0;
             }
-
         }
 
     }
@@ -68,16 +45,17 @@ public class AudioManager : MonoBehaviour
     public IEnumerator FadeIn(string[] musicNames, float duration, float[] targetVolume, float[] speed)
     {
         AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
-
+        
         AudioSource[] availableSources = new AudioSource[8];
         int index = 0;
 
         // Check to see which musicSources are available to use
         for (int i = 0; i < musicSources.Length; i++)
         {
-            if (musicSources[i].volume == 0)
+            if (musicSources[i].volume == 0 || musicSources[i].mute == true || musicSources[i].clip == null)
             {
                 availableSources[index] = musicSources[i];
+                Debug.Log("availablesource"+availableSources[index]);
                 index++;
             }
         }
@@ -88,6 +66,7 @@ public class AudioManager : MonoBehaviour
         {
             if (musicNames[i] != "none")
             {
+                Debug.Log("musicFadeIn"+ musicNames[i]);
                 Sound s = Array.Find(music, x => x.soundName == musicNames[i]);
                 if (s != null)
                 {
@@ -109,8 +88,24 @@ public class AudioManager : MonoBehaviour
             {
                 if (musicNames[i] != "none")
                 {
-                    // Update volume for each source
-                    availableSources[i].volume = Mathf.Lerp(0, targetVolume[i], time / duration);
+                    if (targetVolume[i] == 0)
+                    {
+                        availableSources[i].mute = true;
+                    }
+                    else
+                    {
+                        availableSources[i].mute = false;
+                        // If player has adjusted volume control
+                        if (playerVolume != 1)
+                        {
+                            musicSources[i].volume = playerVolume;
+                        }
+                        else
+                        {
+                            // Update volume for each source
+                            availableSources[i].volume = Mathf.Lerp(0, targetVolume[i], time / duration);
+                        }
+                    }
                 }
             }
 
@@ -168,6 +163,13 @@ public class AudioManager : MonoBehaviour
 
             yield return null;
         }
+        for (int i = 0; i < sourcesToFadeOut; i++)
+        {
+            if (playingSources[i] != null)
+            {
+                playingSources[i].mute = true;
+            }
+        }
     }
 
     public void PlaySFX(string name,float volume,float pan)
@@ -180,19 +182,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             sfxSource.panStereo = pan;
-            sfxSource.PlayOneShot(s.clip,volume); // Play sfx once
-        }
-    }
-    public void MusicVolume(float volume)
-    {
-        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
-        for (int i = 0; i < musicSources.Length; i++)
-        {
-            // If the music source is currently playing
-            if (musicSources[i].volume > 0)
-            {
-                musicSources[i].volume = volume;
-            }
+            sfxSource.PlayOneShot(s.clip, volume); // Play sfx once
         }
     }
 
@@ -212,12 +202,29 @@ public class AudioManager : MonoBehaviour
                     {
                         musicSources[i].pitch = speed[j];
                         float time = 0f;
-                        // Fade in
-                        while (time < 3)
+                        if (volume[j] != 0)
                         {
-                            time += Time.deltaTime;
-                            musicSources[i].volume = Mathf.Lerp(musicSources[i].volume, volume[j], time / 3);
-                            yield return null;
+                            musicSources[i].mute = false;
+                        }
+                        else
+                        {
+                            musicSources[i].mute = true;
+                            musicSources[i].volume = 0;
+                        }
+                        // If player has adjusted volume control
+                        if (playerVolume != 1 && volume[j] != 0)
+                        {
+                            musicSources[i].volume = playerVolume;
+                        }
+                        else
+                        {
+                            // Fade in
+                            while (time < 3)
+                            {
+                                time += Time.deltaTime;
+                                musicSources[i].volume = Mathf.Lerp(musicSources[i].volume, volume[j], time / 3);
+                                yield return null;
+                            }
                         }
                     }
 
@@ -225,9 +232,58 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
-
+    public void MusicVolume(float volume)
+    {
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        for (int i = 0; i < musicSources.Length; i++)
+        {
+            // If the music source is currently playing
+            if (musicSources[i].volume > 0)
+            {
+                // If player adjusted volume
+                if (playerVolume != 1 && volume == 1)
+                {
+                    musicSources[i].volume = playerVolume;
+                }
+                else
+                {
+                   musicSources[i].volume = volume;
+                }
+            }
+        }
+    }
     public void SFXVolume(float volume)
     {
-        sfxSource.volume = volume;
+        if (playerSfxVolume != 1)
+        {
+            return;
+        }
+        else
+        {
+            sfxSource.volume = volume;
+        }
     }
+
+    // Music volume control for player
+    public void MusicVolumeControl()
+    {
+        AudioSource[] musicSources = { musicSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8 };
+        for (int i = 0; i < musicSources.Length; i++)
+        {
+            // If the music source is currently playing
+            if (musicSources[i].mute == false)
+            {
+                musicSources[i].volume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().musicSlider.value;
+            }
+        }
+        playerVolume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().musicSlider.value;
+    }
+
+    // Sfx volume control for player
+    public void SfxVolumeControl()
+    {
+        sfxSource.volume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().sfxSlider.value;
+        playerSfxVolume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().sfxSlider.value;
+    }
+
 }
