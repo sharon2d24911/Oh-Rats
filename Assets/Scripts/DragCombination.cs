@@ -26,6 +26,7 @@ public class DragCombination : MonoBehaviour
     private string sugarGrabSound;
     private string flourGrabSound;
     private string eggGrabSound;
+    private string donutGrabSound;
     private int sugarDropCount = 1;
     private int flourDropCount = 1;
     private int eggDropCount = 1;
@@ -156,7 +157,12 @@ public class DragCombination : MonoBehaviour
                     selectedObject.transform.SetParent(baseObject.transform, true);
                 }
                 else if (selectedObject.tag == "Unit")
+                {
                     isIngredient = false;
+                    string[] donutGrabSound = { "DonutGrab1", "DonutGrab2" };
+                    this.donutGrabSound = donutGrabSound[Mathf.FloorToInt(Random.Range(0, 2))];
+                    AudioManager.Instance.PlaySFX(this.donutGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.donutGrabSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.donutGrabSound][1]);
+                }
                 else
                     selectedObject = null;
             } else if (selectedObject.tag == "Unit" && trashMode)
@@ -345,6 +351,7 @@ public class DragCombination : MonoBehaviour
         {
             // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
+            AudioManager.Instance.PlaySFX("DonutReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutReturn"][1]);
         }
         else
         {

@@ -15,6 +15,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick",GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][1]);
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().sfxSource.Pause();
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().MusicVolume(0.25f);
     }
 
@@ -23,6 +24,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][1]);
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().sfxSource.Play();
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().MusicVolume(1f);
     }
 

@@ -1005,18 +1005,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: bdf454bfe335762478f49cced72f73b4, type: 3}
   - soundName: FlourGrab2
     clip: {fileID: 8300000, guid: d84760e37638f1749afa2945e9450f18, type: 3}
-  - soundName: ProjectileFire1
+  - soundName: ProjectileFire1A
     clip: {fileID: 8300000, guid: 4a30605b9cd420846b2159ce3e864045, type: 3}
-  - soundName: ProjectileFire2
+  - soundName: ProjectileFire1B
     clip: {fileID: 8300000, guid: 4563d7629a7fa5f4bb94c0052146bcaa, type: 3}
-  - soundName: ProjectileFire3
+  - soundName: ProjectileFire1C
     clip: {fileID: 8300000, guid: 62be090f1d35a96408db29e248198681, type: 3}
-  - soundName: ProjectileHit1
-    clip: {fileID: 8300000, guid: 7b1eb764fb666994b974899e91043534, type: 3}
-  - soundName: ProjectileHit2
-    clip: {fileID: 8300000, guid: 0d7561db1cdd9544aa6d33fbc40a3712, type: 3}
-  - soundName: ProjectileHit3
-    clip: {fileID: 8300000, guid: 044d154b5fc0e3943855afb2e5820625, type: 3}
+  - soundName: ProjectileHit1A
+    clip: {fileID: 8300000, guid: 274e9a7656f1a9d4594975d85c226191, type: 3}
+  - soundName: ProjectileHit1B
+    clip: {fileID: 8300000, guid: 11b8b22de3d4fca4899e33e0f1d02107, type: 3}
+  - soundName: ProjectileHit1C
+    clip: {fileID: 8300000, guid: f4d4fbcdabe88d743afcfe03fe4ea5fe, type: 3}
   - soundName: RatHurt1
     clip: {fileID: 8300000, guid: 21c8e199989233a4dadac07f09980dd2, type: 3}
   - soundName: RatHurt2
@@ -1201,6 +1201,48 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: fc23355e37704eb4fbcbfb332c8766ed, type: 3}
   - soundName: SugarReturn
     clip: {fileID: 8300000, guid: fc101c83e02904b459b9d10f3213b2e4, type: 3}
+  - soundName: ProjectileHit2A
+    clip: {fileID: 8300000, guid: 6220b3f1e461b754f9c74606d22eba62, type: 3}
+  - soundName: ProjectileHit2B
+    clip: {fileID: 8300000, guid: a30164c5952d0564e8cbdad16597a284, type: 3}
+  - soundName: ProjectileHit2C
+    clip: {fileID: 8300000, guid: b15e9ae7b919b0042a3f3620cbbe5ef4, type: 3}
+  - soundName: ProjectileHit3A
+    clip: {fileID: 8300000, guid: 3dcf26f5b2d13f1498970ec7f3463be2, type: 3}
+  - soundName: ProjectileHit3B
+    clip: {fileID: 8300000, guid: 2d6258ba37a7ba149acbc2fab6f89926, type: 3}
+  - soundName: ProjectileHit3C
+    clip: {fileID: 8300000, guid: d6f25aac0a230374fa75567b0b33e9e9, type: 3}
+  - soundName: ProjectileHit4A
+    clip: {fileID: 8300000, guid: 76b38ef33b382984ebe7be75c51f60a6, type: 3}
+  - soundName: ProjectileHit4B
+    clip: {fileID: 8300000, guid: 308dc57aac9b1e142880bbde7cb3d652, type: 3}
+  - soundName: ProjectileHit4C
+    clip: {fileID: 8300000, guid: 37748ed5b8cb099498e4cc823bbe6ed7, type: 3}
+  - soundName: DonutGrab1
+    clip: {fileID: 8300000, guid: 95984726a9c6bcd42b2e833b136c84ae, type: 3}
+  - soundName: DonutGrab2
+    clip: {fileID: 8300000, guid: 777d1af7a21546a4a9f68d7b06323645, type: 3}
+  - soundName: DonutReturn
+    clip: {fileID: 8300000, guid: 923c6237af2ee5c4aa58748c8dc92181, type: 3}
+  - soundName: ProjectileFire2A
+    clip: {fileID: 8300000, guid: f96b4e237513d0844b78c47cbc1610e9, type: 3}
+  - soundName: ProjectileFire2B
+    clip: {fileID: 8300000, guid: e4eb7ab35e51c48479ea00e72a525630, type: 3}
+  - soundName: ProjectileFire2C
+    clip: {fileID: 8300000, guid: 542d3c0d40f64674f9bbf8aba0fa04f1, type: 3}
+  - soundName: ProjectileFire3A
+    clip: {fileID: 8300000, guid: f85eb032ffc8a5b4f98421fcd1ac1893, type: 3}
+  - soundName: ProjectileFire3B
+    clip: {fileID: 8300000, guid: cff5c9470b5e83b4c9319c0fad95abe6, type: 3}
+  - soundName: ProjectileFire3C
+    clip: {fileID: 8300000, guid: d6f25aac0a230374fa75567b0b33e9e9, type: 3}
+  - soundName: ProjectileFire4A
+    clip: {fileID: 8300000, guid: 48154d597fbd8f54a94591693a818376, type: 3}
+  - soundName: ProjectileFire4B
+    clip: {fileID: 8300000, guid: e0b965eb24cfced4f9ccb850b09cf786, type: 3}
+  - soundName: ProjectileFire4C
+    clip: {fileID: 8300000, guid: 51f080c3ea1d2ee4faea6d9921813c4d, type: 3}
   musicSource: {fileID: 2043633130}
   sfxSource: {fileID: 565857927}
   musicSource2: {fileID: 735354324}
