@@ -268,7 +268,7 @@ public class DragCombination : MonoBehaviour
                         sugarDropCount = 1;
                     }
                 }
-                else if(selectedObject.name == "Flour_individual(Clone)") // flour sfx
+                else if (selectedObject.name == "Flour_individual(Clone)") // flour sfx
                 {
                     // Check if mix button is clicked, if so then play the first sfx
                     if (mixButtonClickedFlour)
@@ -324,8 +324,22 @@ public class DragCombination : MonoBehaviour
                 baseObject.GetComponent<Ingredient>().UseIngredient();
 
             }
-            else // Destroy the ingredient instance selected if not placed close enough
+            else
+            { // Destroy the ingredient instance selected if not placed close enough
+                if (selectedObject.name == "Egg_individual(Clone)")
+                {
+                    AudioManager.Instance.PlaySFX("EggReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggReturn"][1]);
+                }
+                else if (selectedObject.name == "Flour_individual(Clone)")
+                {
+                    AudioManager.Instance.PlaySFX("FlourReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourReturn"][1]);
+                }
+                else if (selectedObject.name == "Sugar_individual(Clone)")
+                {
+                    AudioManager.Instance.PlaySFX("SugarReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["SugarReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["SugarReturn"][1]);
+                }
                 Destroy(selectedObject);
+            }
         }
         else if (nearestDistance > (0.5 * sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {

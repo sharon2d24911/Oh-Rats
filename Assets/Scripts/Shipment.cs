@@ -43,7 +43,7 @@ public class Shipment : MonoBehaviour
                 for (int i = 0; i < ingredients.Count; i++)
                 {
                     // Adds one of each ingredient
-                    AudioManager.Instance.PlaySFX("delivery", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["delivery"][1]);
+                    AudioManager.Instance.PlaySFX("DeliveryReceive", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DeliveryReceive"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DeliveryReceive"][1]);
                 ingredients[i].GetComponent<Ingredient>().AddIngredient();
                 }
                 shipmentTimer = 0;
@@ -60,5 +60,6 @@ public class Shipment : MonoBehaviour
     {
         shipping = true;
         deliveryButton.interactable = false;
+        AudioManager.Instance.PlaySFX("DeliverySend", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DeliverySend"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DeliverySend"][1]);
     }
 }

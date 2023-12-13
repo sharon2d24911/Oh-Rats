@@ -1006,13 +1006,11 @@ MonoBehaviour:
   - soundName: FlourGrab2
     clip: {fileID: 8300000, guid: d84760e37638f1749afa2945e9450f18, type: 3}
   - soundName: ProjectileFire1
-    clip: {fileID: 8300000, guid: 96d6d76e255e130488fde6df2935937f, type: 3}
+    clip: {fileID: 8300000, guid: 4a30605b9cd420846b2159ce3e864045, type: 3}
   - soundName: ProjectileFire2
-    clip: {fileID: 8300000, guid: 6147293ced9ae224cac0e71c0bf19670, type: 3}
+    clip: {fileID: 8300000, guid: 4563d7629a7fa5f4bb94c0052146bcaa, type: 3}
   - soundName: ProjectileFire3
-    clip: {fileID: 8300000, guid: 5f76c6de6dc2b484588f060e9057dc52, type: 3}
-  - soundName: ProjectileFire4
-    clip: {fileID: 8300000, guid: d6741434af4ddce45b8203b28d341e95, type: 3}
+    clip: {fileID: 8300000, guid: 62be090f1d35a96408db29e248198681, type: 3}
   - soundName: ProjectileHit1
     clip: {fileID: 8300000, guid: 7b1eb764fb666994b974899e91043534, type: 3}
   - soundName: ProjectileHit2
@@ -1073,8 +1071,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b318a9b29b6603e449a13cb3b18f0614, type: 3}
   - soundName: BottleCapBreak2
     clip: {fileID: 8300000, guid: f4f58d5e5847155438a4ec5272d347bc, type: 3}
-  - soundName: delivery
-    clip: {fileID: 8300000, guid: 679d7ad3a10f4c34691d45f6460db444, type: 3}
+  - soundName: DeliverySend
+    clip: {fileID: 8300000, guid: beacdd884a79f51448f4bd622aa48858, type: 3}
   - soundName: DiscardOff
     clip: {fileID: 8300000, guid: d3ad75087c828a3429e09e26263f7e9c, type: 3}
   - soundName: DiscardOn
@@ -1195,6 +1193,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c28ae7160ad44d441ab131e706e57050, type: 3}
   - soundName: KingHowl
     clip: {fileID: 8300000, guid: 9f1e67d50d7425b408c7ca35ca36a46e, type: 3}
+  - soundName: DeliveryReceive
+    clip: {fileID: 8300000, guid: 6d7ed5af1d9332c499ba3cd3e7eb66ef, type: 3}
+  - soundName: EggReturn
+    clip: {fileID: 8300000, guid: f785e8511aac6c74daca33908269d346, type: 3}
+  - soundName: FlourReturn
+    clip: {fileID: 8300000, guid: fc23355e37704eb4fbcbfb332c8766ed, type: 3}
+  - soundName: SugarReturn
+    clip: {fileID: 8300000, guid: fc101c83e02904b459b9d10f3213b2e4, type: 3}
   musicSource: {fileID: 2043633130}
   sfxSource: {fileID: 565857927}
   musicSource2: {fileID: 735354324}

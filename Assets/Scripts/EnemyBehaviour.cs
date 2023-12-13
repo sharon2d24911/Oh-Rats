@@ -38,6 +38,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float damage;
     public float speed;
     public string enemyType;
+    private int projectileHitCount = 1;
    
 
     [Header("Boss")]
@@ -317,9 +318,21 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.Log("projectile hit");
             ProjectileCollide(collision.gameObject);
-            string[] hitsSound = { "ProjectileHit1", "ProjectileHit2", "ProjectileHit3" };
-            this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
-            AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
+            if (projectileHitCount == 1)
+            {
+                AudioManager.Instance.PlaySFX("ProjectileHit1", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["ProjectileHit1"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["ProjectileHit1"][1]);
+                projectileHitCount++;
+            }
+            else if (projectileHitCount == 2)
+            {
+                AudioManager.Instance.PlaySFX("ProjectileHit2", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["ProjectileHit2"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["ProjectileHit2"][1]);
+                projectileHitCount++;
+            }
+            else
+            {
+                AudioManager.Instance.PlaySFX("ProjectileHit3", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["ProjectileHit3"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["ProjectileHit3"][1]);
+                projectileHitCount = 1;
+            }
             
         }else if (collision.gameObject.tag == "Unit")
         {
