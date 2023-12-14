@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
     public bool isAlmanac = false;
     public GameObject notification;
-    [HideInInspector] public bool paused = false;
     private bool prop = false;
+    private GameObject props;
+
+    private void Start()
+    {
+        props = FindObjectOfType<Prop>().gameObject;
+    }
 
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        paused = true;
+        props.GetComponent<Prop>().paused = true;
         if (Time.timeScale == 0f)
             prop = true;
         else
@@ -32,7 +34,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenu.SetActive(false);
-        paused = false;
+        props.GetComponent<Prop>().paused = false;
         if (!prop)
             Time.timeScale = 1f;
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][1]);

@@ -53,53 +53,55 @@ public class PropExamine : MonoBehaviour
     private void Update()
     {
         currentProp = props.GetComponent<Prop>().inspecting;
-        paused = gameHandler.GetComponent<PauseMenu>().paused;
-
-    }
-
-    private void OnMouseDown()
-    {
-        // Toggle the target scale on mouse click
-        if (!paused && (currentProp == gameObject || currentProp == null))
-            ToggleSize();
-
-        if (transform.localScale != targetScale && (currentProp == gameObject || currentProp == null))
+        paused = props.GetComponent<Prop>().paused;
+        if ((currentProp == gameObject || currentProp == null) && Input.GetMouseButtonDown(0) && !paused)
         {
-            // Transform to the new position/rotation/scale based on isBig bool
-            transform.position = targetPos;
-            transform.localScale = targetScale;
-            GetComponent<SpriteRenderer>().sprite = targetImage;
-            boxCollider.size = targetBCSize;
+            // Toggle the target scale on mouse click
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-            // Set layering, visibility for background, and prop captions (also flip buttons if newspaper prop specifically)
-            if (isBig)
+            // Toggle the target scale on mouse click
+            if (!paused && (currentProp == gameObject || currentProp == null) && hit.collider != null && hit.collider.name == gameObject.name)
+                ToggleSize();
+
+            if (transform.localScale != targetScale && (currentProp == gameObject || currentProp == null))
             {
-                props.GetComponent<Prop>().inspecting = gameObject;
-                GetComponent<SpriteRenderer>().sortingOrder = 50;
-                background.GetComponent<SpriteRenderer>().sortingOrder = 49;
-                background.SetActive(true);
-                if (caption != null)
+                // Transform to the new position/rotation/scale based on isBig bool
+                transform.position = targetPos;
+                transform.localScale = targetScale;
+                GetComponent<SpriteRenderer>().sprite = targetImage;
+                boxCollider.size = targetBCSize;
+
+                // Set layering, visibility for background, and prop captions (also flip buttons if newspaper prop specifically)
+                if (isBig)
                 {
-                    caption.transform.position = new Vector3(transform.position.x, (transform.position.y - 8f), 1f);
-                    caption.SetActive(true);
+                    props.GetComponent<Prop>().inspecting = gameObject;
+                    GetComponent<SpriteRenderer>().sortingOrder = 50;
+                    background.GetComponent<SpriteRenderer>().sortingOrder = 49;
+                    background.SetActive(true);
+                    if (caption != null)
+                    {
+                        caption.transform.position = new Vector3(transform.position.x, (transform.position.y - 8f), 1f);
+                        caption.SetActive(true);
+                    }
+                    if (flipthrough.Count > 0)
+                    {
+                        props.GetComponent<Prop>().SetButtonsActive(flipthrough, this.gameObject);
+                    }
+                    Time.timeScale = 0f;
                 }
-                if (flipthrough.Count > 0)
+                else
                 {
-                    props.GetComponent<Prop>().SetButtonsActive(flipthrough, this.gameObject);
+                    Time.timeScale = 1f;
+                    props.GetComponent<Prop>().inspecting = null;
+                    if (caption != null)
+                        caption.SetActive(false);
+                    GetComponent<SpriteRenderer>().sortingOrder = 0;
+                    background.GetComponent<SpriteRenderer>().sortingOrder = 0;
+                    background.SetActive(false);
+                    if (flipthrough.Count > 0)
+                        props.GetComponent<Prop>().SetButtonsInactive();
                 }
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                Time.timeScale = 1f;
-                props.GetComponent<Prop>().inspecting = null;
-                if (caption != null)
-                    caption.SetActive(false);
-                GetComponent<SpriteRenderer>().sortingOrder = 0;
-                background.GetComponent<SpriteRenderer>().sortingOrder = 0;
-                background.SetActive(false);
-                if (flipthrough.Count > 0)  
-                    props.GetComponent<Prop>().SetButtonsInactive();
             }
         }
     }

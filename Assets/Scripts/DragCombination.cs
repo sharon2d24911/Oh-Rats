@@ -460,7 +460,7 @@ public class DragCombination : MonoBehaviour
         bool alreadyMade;
         unlockedDonuts.TryGetValue(currentCombo,out alreadyMade);
 
-    if (!alreadyMade)
+    if (!alreadyMade && !tutorialMode)
     {
         Debug.Log("new make");
         newDonutsNum += 1;

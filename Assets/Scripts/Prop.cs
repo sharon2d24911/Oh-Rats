@@ -15,7 +15,8 @@ public class Prop : MonoBehaviour
     private GameObject newspaper;
     private int i;
     [HideInInspector] public GameObject inspecting;
-    private float fadeDuration = 2f;
+    [HideInInspector] public bool paused = false;
+    private readonly float fadeDuration = 2f;
 
     // Start is called before the first frame update
     void Start()

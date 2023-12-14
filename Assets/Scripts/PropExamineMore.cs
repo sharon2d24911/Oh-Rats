@@ -38,7 +38,7 @@ public class PropExamineMore : MonoBehaviour
     private GameObject props;
     private GameObject gameHandler;
     private GameObject currentProp;
-    private bool paused;
+    private bool paused = false;
     private int i;
 
     private readonly float fadeDuration = 0.3f;
@@ -70,8 +70,8 @@ public class PropExamineMore : MonoBehaviour
     void Update()
     {
         currentProp = props.GetComponent<Prop>().inspecting;
-        paused = gameHandler.GetComponent<PauseMenu>().paused;
-        if (Input.GetMouseButtonDown(0) && !paused && (currentProp == gameObject || currentProp == null))
+        paused = props.GetComponent<Prop>().paused;
+        if ((currentProp == gameObject || currentProp == null) && Input.GetMouseButtonDown(0) && !paused)
         {
             // Toggle the target scale on mouse click
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -111,7 +111,6 @@ public class PropExamineMore : MonoBehaviour
             // If on first click (props expand to show a smaller prop to click)
             if (i == 1)
             {
-                Time.timeScale = 0f;
                 GetComponent<SpriteRenderer>().sortingOrder = 50;
                 background.GetComponent<SpriteRenderer>().sortingOrder = 49;
                 background.SetActive(true);
@@ -125,6 +124,7 @@ public class PropExamineMore : MonoBehaviour
                     captions[0].transform.position = new Vector3(topProp.transform.position.x, (topProp.transform.position.y - 8f), 1f);
                     captions[0].SetActive(true);
                 }
+                Time.timeScale = 0;
             // If on second click (smaller prop expands)
             } else if (i == 2)
             {
@@ -204,6 +204,7 @@ public class PropExamineMore : MonoBehaviour
 
     public IEnumerator DropTop()
     {
+        Time.timeScale = 1f;
         float elapsedTime = 0f;
 
         while (elapsedTime < fadeDuration)
@@ -214,5 +215,7 @@ public class PropExamineMore : MonoBehaviour
         }
         Destroy(topProp);
         topProp = null;
+
+        Time.timeScale = 0;
     }
 }

@@ -160,7 +160,7 @@ public class WaveSpawning : MonoBehaviour
         waveShowcaseEnemy = wavesInFile.waves[0].showcaseEnemy;
         waveEnemyTypes = wavesInFile.waves[0].enemyTypes;
         waveEnemiesNum = waveEnemyTypes.Length; //number of different enemy types in the wave
-        wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave 0" + "/" + (wavesNum - 2);
+        wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave:   0/" + (wavesNum - 2);
         string[] tracks = { waveTrack1, waveTrack2, waveTrack3, waveTrack4 };
         float[] volumes = { waveTrackFinalVolume1, waveTrackFinalVolume2, waveTrackFinalVolume3, waveTrackFinalVolume4 };
         float[] speeds = { waveTrackSpeed1, waveTrackSpeed2, waveTrackSpeed3, waveTrackSpeed4 };
@@ -197,7 +197,10 @@ public class WaveSpawning : MonoBehaviour
             waveTimer += Time.deltaTime;
             if (currentWave < (wavesNum - 1))
             {
-                wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave " + wavesInFile.waves[currentWave].wave + "/" + (wavesNum - 2); //minus two for cool "extra" boss wave 
+                if (wavesInFile.waves[currentWave].wave < 10) // string formatting didn't look good sorry this code is ugly
+                    wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave:   " + wavesInFile.waves[currentWave].wave + "/" + (wavesNum - 2); //minus two for cool "extra" boss wave 
+                else
+                    wavesDisplay.GetComponent<TextMeshProUGUI>().text = "Wave: " + wavesInFile.waves[currentWave].wave + "/" + (wavesNum - 2); //minus two for cool "extra" boss wave 
             }
 
             if (currentWave == (wavesNum - 2))

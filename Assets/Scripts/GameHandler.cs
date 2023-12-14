@@ -45,7 +45,7 @@ public class GameHandler : MonoBehaviour
                 life.transform.parent = BGCanvasGO.transform.GetChild(5);
                 playerLives.Add(life);
                 life.transform.position += new Vector3(i * ratLifeAdjust, 0f,0f);
-                life.transform.position = new Vector3(life.transform.position.x, -7.6f, 4f);
+                life.transform.position = new Vector3(life.transform.position.x, -8.9f, 4f);
             }
         }
     }

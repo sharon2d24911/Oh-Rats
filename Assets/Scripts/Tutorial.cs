@@ -114,20 +114,29 @@ public class Tutorial : MonoBehaviour
                 deliveryButton.onClick.RemoveAllListeners();
             });
         }
-        else if (popUpIndex == 7) // User should put 3 of each ingredient in the bowl, mix it up, and place... is that too much for one step...
+        else if (popUpIndex == 7) // User should put 3 of each ingredient in the bowl, hit mix
         {
             if (gameHandler.GetComponent<DragCombination>().combining.Count == 9)
                 mixButton.interactable = true;
-            else if (gameHandler.GetComponent<DragCombination>().CheckMinimum())
+            else
                 mixButton.interactable = false;
 
+            mixButton.onClick.AddListener(() =>
+            {
+                toHide[7].SetActive(false);
+                popUpIndex = 8;
+                mixButton.onClick.RemoveAllListeners();
+            });
+        }
+        else if (popUpIndex == 8) // User should put 3:3:3 on the board
+        {
             if (gameHandler.GetComponent<DragCombination>().filledPositions.ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft))
             {
                 toHide[popUpIndex].SetActive(false);
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 8) // Spawn an enemy, let it die
+        else if (popUpIndex == 9) // Spawn an enemy, let it die
         {
             GameObject spawnedEnemy = null;
             GameObject unit = gameHandler.GetComponent<DragCombination>().filledPositions[gameHandler.GetComponent<DragCombination>().topLeft];
@@ -138,7 +147,7 @@ public class Tutorial : MonoBehaviour
                 Vector3 position = new Vector3(17.5f, .5f, 1.5f);
                 spawnedEnemy = Instantiate(enemyPrefab, position, enemyPrefab.transform.rotation);
                 spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
-                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 600;
+                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 1000;
                 spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
                 spawnedEnemy.GetComponent<EnemyBehaviour>().tutorial = true; 
                 unitScript.defending = true;
@@ -151,7 +160,7 @@ public class Tutorial : MonoBehaviour
             }
 
         }
-        else if (popUpIndex == 9) // Say bye, press space to start game
+        else if (popUpIndex == 10) // Say bye, press space to start game
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
