@@ -54,7 +54,10 @@ public class EnemyBehaviour : MonoBehaviour
     private string fireSound;
     public float cooldown;
     public bool canShoot = true;
-    private string hitsSound;
+    private string projectileHit1Sound;
+    private string projectileHit2Sound;
+    private string projectileHit3Sound;
+    private string projectileHit4Sound;
     private string bottleHurtSound;
     private string kingHurtSound;
     private string hurtSound;
@@ -65,6 +68,7 @@ public class EnemyBehaviour : MonoBehaviour
     private string biteSound;
     private string kingMeleeSound;
     private string potionThrowSound;
+    private int projectileHitCount = 1;
 
     [Header("Close Range Projectile")]
     public bool isThrower = false;
@@ -317,11 +321,37 @@ public class EnemyBehaviour : MonoBehaviour
         {
             //Debug.Log("projectile hit");
             ProjectileCollide(collision.gameObject);
-            string[] hitsSound = { "ProjectileHit1", "ProjectileHit2", "ProjectileHit3" };
-            this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
-            AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
-            
-        }else if (collision.gameObject.tag == "Unit")
+            if (projectileHitCount == 1)
+            {
+                string[] projectileHit1Sound = { "ProjectileHit1A", "ProjectileHit1B", "ProjectileHit1C" };
+                this.projectileHit1Sound = projectileHit1Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+                AudioManager.Instance.PlaySFX(this.projectileHit1Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit1Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit1Sound][1]);
+                projectileHitCount++;
+            }
+            else if (projectileHitCount == 2)
+            {
+                string[] projectileHit2Sound = { "ProjectileHit2A", "ProjectileHit2B", "ProjectileHit2C" };
+                this.projectileHit2Sound = projectileHit2Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+                AudioManager.Instance.PlaySFX(this.projectileHit2Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit2Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit2Sound][1]);
+                projectileHitCount++;
+            }
+            else if (projectileHitCount == 3)
+            {
+                string[] projectileHit3Sound = { "ProjectileHit3A", "ProjectileHit3B", "ProjectileHit3C" };
+                this.projectileHit3Sound = projectileHit3Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+                AudioManager.Instance.PlaySFX(this.projectileHit3Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit3Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit3Sound][1]);
+                projectileHitCount++;
+            }
+            else
+            {
+                string[] projectileHit4Sound = { "ProjectileHit4A", "ProjectileHit4B", "ProjectileHit4C" };
+                this.projectileHit4Sound = projectileHit4Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+                AudioManager.Instance.PlaySFX(this.projectileHit4Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit4Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit4Sound][1]);
+                projectileHitCount = 1;
+            }
+
+        }
+        else if (collision.gameObject.tag == "Unit")
         {
             Debug.Log("enemy hit unit");
             UnitBehaviour unitScript = collision.gameObject.GetComponent<UnitBehaviour>();

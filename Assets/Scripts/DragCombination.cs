@@ -30,6 +30,7 @@ public class DragCombination : MonoBehaviour
     private string sugarGrabSound;
     private string flourGrabSound;
     private string eggGrabSound;
+    private string donutGrabSound;
     private int sugarDropCount = 1;
     private int flourDropCount = 1;
     private int eggDropCount = 1;
@@ -171,7 +172,12 @@ public class DragCombination : MonoBehaviour
                     selectedObject.transform.SetParent(baseObject.transform, true);
                 }
                 else if (selectedObject.tag == "Unit")
+                {
                     isIngredient = false;
+                    string[] donutGrabSound = { "DonutGrab1", "DonutGrab2" };
+                    this.donutGrabSound = donutGrabSound[Mathf.FloorToInt(Random.Range(0, 2))];
+                    AudioManager.Instance.PlaySFX(this.donutGrabSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.donutGrabSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.donutGrabSound][1]);
+                }
                 else
                     selectedObject = null;
             } else if (selectedObject.tag == "Unit" && trashMode)
@@ -287,7 +293,7 @@ public class DragCombination : MonoBehaviour
                         sugarDropCount = 1;
                     }
                 }
-                else if(selectedObject.name == "Flour_individual(Clone)") // flour sfx
+                else if (selectedObject.name == "Flour_individual(Clone)") // flour sfx
                 {
                     // Check if mix button is clicked, if so then play the first sfx
                     if (mixButtonClickedFlour)
@@ -344,12 +350,27 @@ public class DragCombination : MonoBehaviour
 
             }
             else // Destroy the ingredient instance selected if not placed close enough
+            {
+                if (selectedObject.name == "Egg_individual(Clone)")
+                {
+                    AudioManager.Instance.PlaySFX("EggReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggReturn"][1]);
+                }
+                else if (selectedObject.name == "Flour_individual(Clone)")
+                {
+                    AudioManager.Instance.PlaySFX("FlourReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["FlourReturn"][1]);
+                }
+                else if (selectedObject.name == "Sugar_individual(Clone)")
+                {
+                    AudioManager.Instance.PlaySFX("SugarReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["SugarReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["SugarReturn"][1]);
+                }
                 Destroy(selectedObject);
+            }
         }
         else if (nearestDistance > (sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {
             // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
+            AudioManager.Instance.PlaySFX("DonutReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["DonutReturn"][1]);
         }
         else
         {

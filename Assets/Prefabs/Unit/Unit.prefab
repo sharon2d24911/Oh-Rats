@@ -299,11 +299,11 @@ MonoBehaviour:
   projectile: {fileID: 1988653267027465588, guid: c492fd4b9ee74844f92fa275635aef25,
     type: 3}
   ProjectileOrigin: {fileID: 3315082114636632065}
-  cooldown: 2
+  cooldown: 2.3
   defending: 0
   placed: 0
   range: 6
-  health: 25
+  health: 30
   damageTime: 0.3
   projAddAttack: 0
   projAddSpeed: 0

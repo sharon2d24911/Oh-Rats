@@ -25,17 +25,13 @@ public class Tutorial : MonoBehaviour
         TutorialCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         TutorialCanvas.worldCamera = mainCamera;
         TransitionCanvas = GameObject.Find("Transition Canvas").GetComponent<Canvas>();
+        
         rat = false;
 
         foreach (GameObject tutorial in popUps)
         {
             tutorial.SetActive(false);
         }
-        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("TitleWop", "none", "none", "none", 1, 0));
-        string[] tracks = { "ChewTorial", "none", "none", "none" };
-        float[] volumes = { 1, 1, 1, 1 };
-        float[] speeds = { 1, 1, 1, 1 };
-        StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeIn(tracks, 3, volumes, speeds));
     }
 
     private void OnMouseEnter()

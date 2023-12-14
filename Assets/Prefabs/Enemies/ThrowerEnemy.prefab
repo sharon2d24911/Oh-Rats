@@ -115,6 +115,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}
+      propertyPath: speed
+      value: 0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: damage
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: health
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
       propertyPath: puddle
       value: 
       objectReference: {fileID: 8035038915916948980, guid: 814bbc69bc74b5d48aa55e2c10c4be47,
@@ -128,6 +143,11 @@ PrefabInstance:
         type: 3}
       propertyPath: isThrower
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
+        type: 3}
+      propertyPath: attackTime
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8389707924955351755, guid: e32c1181774641146b446c79cd76b6cd,
         type: 3}

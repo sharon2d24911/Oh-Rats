@@ -55,7 +55,7 @@ public class GameHandler : MonoBehaviour
         yield return new WaitForSeconds(7f);
         SceneManager.LoadScene("WinScene");
         Debug.Log("Player won!");
-        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "PercussiveOverWop", "HotWopLeads", "TwoWop", "EasyWop", "BasicBassy", "SecondBassy", "BassyHarmonyNSnares", "BassyPickinUp", "ChewTorial");
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic();
         AudioManager.Instance.PlaySFX("GameWin", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameWin"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameWin"][1]);
     }
 
@@ -64,7 +64,7 @@ public class GameHandler : MonoBehaviour
         numOfRats += 1;
         if (numOfRats == maxRats)
         {
-            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic("BassyMain", "BassyEvent", "BassyDrums", "PercussiveOverWop", "HotWopLeads", "TwoWop", "EasyWop", "BasicBassy", "SecondBassy", "BassyHarmonyNSnares", "BassyPickinUp", "ChewTorial");
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic();
             AudioManager.Instance.PlaySFX("GameOver", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][1]);
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");
