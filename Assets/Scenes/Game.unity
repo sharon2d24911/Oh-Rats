@@ -764,7 +764,6 @@ MonoBehaviour:
   flipthrough:
   - {fileID: 21300000, guid: cc51a583cb8104f4d98045622f1eb2e5, type: 3}
   - {fileID: 21300000, guid: 108c1a7a9c24d3c448dd6193d5c2822c, type: 3}
-  isBig: 0
 --- !u!212 &143734917
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2412,7 +2411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveTimer: 0
   waveDurationTimer: 0
-  wavesDisplay: {fileID: 389741407}
   enemyPrefabs:
   - enemyName: BasicRat
     enemyPrefab: {fileID: 8389707924955351752, guid: e32c1181774641146b446c79cd76b6cd,
@@ -2439,7 +2437,6 @@ MonoBehaviour:
   - {fileID: 1519177848}
   - {fileID: 1064796725}
   - {fileID: 2055615240}
-  currentWave: 0
   waveDuration: 0
 --- !u!114 &340900042
 MonoBehaviour:
@@ -2457,15 +2454,13 @@ MonoBehaviour:
   dragged: []
   combinationZone: {fileID: 1768407627}
   unit: {fileID: 3315082115871708691, guid: 61e8f44353aee9f4aaf024502ff83606, type: 3}
-  notification: {fileID: 1999973171}
   mixButton: {fileID: 1047695198}
   garbageCursor: {fileID: 2800000, guid: b088f1a0ae03ffa449861dfdbfd7039e, type: 3}
   defaultCursor: {fileID: 2800000, guid: 2dd8612876f1de24ab7fd9734ed26ba5, type: 3}
-  newDonutsNum: 0
   allIngredients: []
-  trashMode: 0
   tutorialMode: 0
   topLeft: {x: 0, y: 0}
+  trashMode: 0
   frameRate: 4
   animTimeMax: 0.4
   bowlDefault: {fileID: 21300000, guid: 64ddf6c52947d414c889a93f17afe1c4, type: 3}
@@ -2490,8 +2485,8 @@ MonoBehaviour:
   isAlmanac: 0
   notification: {fileID: 0}
   paused: 0
-  musicSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
+  musicSlider: {fileID: 2127262865}
+  sfxSlider: {fileID: 528329813}
 --- !u!114 &340900044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3534,7 +3529,6 @@ MonoBehaviour:
   bigBC: {x: 3.23, y: 4.83}
   caption: {fileID: 822713689}
   flipthrough: []
-  isBig: 0
 --- !u!61 &403819854
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3925,7 +3919,6 @@ MonoBehaviour:
   bigBC: {x: 5.52, y: 3.51}
   caption: {fileID: 152060653}
   flipthrough: []
-  isBig: 0
 --- !u!212 &433601247
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4091,7 +4084,6 @@ MonoBehaviour:
   bigBC: {x: 3.63, y: 2.92}
   caption: {fileID: 418039832}
   flipthrough: []
-  isBig: 0
 --- !u!212 &474779050
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5185,7 +5177,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 108c1a7a9c24d3c448dd6193d5c2822c, type: 3}
   - {fileID: 21300000, guid: e4f0304803eb3104698cf4f473faaa98, type: 3}
   - {fileID: 21300000, guid: a29187299d19c054d84034df71fe2f05, type: 3}
-  isBig: 0
 --- !u!212 &599416552
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5233,7 +5224,7 @@ SpriteRenderer:
   m_Size: {x: 11.51, y: 6.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &615180046
@@ -5739,7 +5730,6 @@ MonoBehaviour:
   bigBC: {x: 5.52, y: 3.51}
   caption: {fileID: 1443945157}
   flipthrough: []
-  isBig: 0
 --- !u!61 &648747912
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6182,7 +6172,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cc51a583cb8104f4d98045622f1eb2e5, type: 3}
   - {fileID: 21300000, guid: 108c1a7a9c24d3c448dd6193d5c2822c, type: 3}
   - {fileID: 21300000, guid: e4f0304803eb3104698cf4f473faaa98, type: 3}
-  isBig: 0
 --- !u!212 &668544478
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6718,7 +6707,6 @@ MonoBehaviour:
   bigBC: {x: 2.66, y: 3.16}
   caption: {fileID: 1300022686}
   flipthrough: []
-  isBig: 0
 --- !u!212 &713543478
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7599,7 +7587,6 @@ MonoBehaviour:
   target: {fileID: 1939595702}
   progressBar: {fileID: 2094649067}
   deliveryButton: {fileID: 148351816}
-  tutorial: 0
 --- !u!1 &1006305481
 GameObject:
   m_ObjectHideFlags: 0
@@ -9371,7 +9358,6 @@ MonoBehaviour:
   bigBC: {x: 4, y: 5.3}
   caption: {fileID: 1223110421}
   flipthrough: []
-  isBig: 0
 --- !u!212 &1274631824
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9751,7 +9737,6 @@ MonoBehaviour:
   bigBC: {x: 4, y: 5.3}
   caption: {fileID: 655203154}
   flipthrough: []
-  isBig: 0
 --- !u!212 &1291731944
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10072,7 +10057,7 @@ MonoBehaviour:
   defaultCursor: {fileID: 2800000, guid: 2dd8612876f1de24ab7fd9734ed26ba5, type: 3}
   leftButton: {fileID: 1900173454}
   rightButton: {fileID: 1589463280}
-  inspecting: {fileID: 0}
+  inspecting: 0
 --- !u!1 &1312734586
 GameObject:
   m_ObjectHideFlags: 0
@@ -10340,7 +10325,6 @@ MonoBehaviour:
   bigBC: {x: 2.66, y: 3.16}
   caption: {fileID: 1356504060}
   flipthrough: []
-  isBig: 0
 --- !u!1 &1322198713
 GameObject:
   m_ObjectHideFlags: 0
@@ -11454,7 +11438,6 @@ MonoBehaviour:
   bigBC: {x: 3.23, y: 4.83}
   caption: {fileID: 2017455809}
   flipthrough: []
-  isBig: 0
 --- !u!212 &1446998068
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11913,7 +11896,6 @@ MonoBehaviour:
   bigBC: {x: 9.9, y: 7.9}
   caption: {fileID: 567274730}
   flipthrough: []
-  isBig: 0
 --- !u!61 &1538900710
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12945,7 +12927,6 @@ MonoBehaviour:
   bigBC: {x: 5.52, y: 3.51}
   caption: {fileID: 1097347936}
   flipthrough: []
-  isBig: 0
 --- !u!212 &1750511749
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13129,7 +13110,6 @@ MonoBehaviour:
   bigBC: {x: 3.32, y: 2.66}
   caption: {fileID: 480637290}
   flipthrough: []
-  isBig: 0
 --- !u!60 &1763843862
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -13808,7 +13788,6 @@ MonoBehaviour:
   bigBC: {x: 3.64, y: 2.93}
   caption: {fileID: 1605295016}
   flipthrough: []
-  isBig: 0
 --- !u!212 &1860637187
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13967,7 +13946,6 @@ MonoBehaviour:
   bigBC: {x: 4, y: 5.3}
   caption: {fileID: 1256971451}
   flipthrough: []
-  isBig: 0
 --- !u!212 &1861307696
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14959,7 +14937,6 @@ MonoBehaviour:
   target: {fileID: 0}
   progressBar: {fileID: 0}
   deliveryButton: {fileID: 0}
-  tutorial: 0
 --- !u!61 &1939595704
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15632,7 +15609,6 @@ MonoBehaviour:
   bigBC: {x: 5.52, y: 3.51}
   caption: {fileID: 1921572438}
   flipthrough: []
-  isBig: 0
 --- !u!212 &2017086682
 SpriteRenderer:
   m_ObjectHideFlags: 0

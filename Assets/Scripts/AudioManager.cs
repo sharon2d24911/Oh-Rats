@@ -273,17 +273,17 @@ public class AudioManager : MonoBehaviour
             // If the music source is currently playing
             if (musicSources[i].mute == false)
             {
-                musicSources[i].volume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().musicSlider.value;
+                musicSources[i].volume = GameObject.FindWithTag("GameHandler").GetComponent<PauseMenu>().musicSlider.value;
             }
         }
-        playerVolume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().musicSlider.value;
+        playerVolume = GameObject.FindWithTag("GameHandler").GetComponent<PauseMenu>().musicSlider.value;
     }
 
     // Sfx volume control for player
     public void SfxVolumeControl()
     {
-        sfxSource.volume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().sfxSlider.value;
-        playerSfxVolume = GameObject.FindWithTag("PauseMenu").GetComponent<PauseMenu>().sfxSlider.value;
+        sfxSource.volume = GameObject.FindWithTag("GameHandler").GetComponent<PauseMenu>().sfxSlider.value;
+        playerSfxVolume = GameObject.FindWithTag("GameHandler").GetComponent<PauseMenu>().sfxSlider.value;
     }
 
 }
