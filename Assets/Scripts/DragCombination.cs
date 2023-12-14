@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DragCombination : MonoBehaviour
 {
@@ -11,15 +12,18 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public List<GameObject> combining = new List<GameObject>();
     [HideInInspector] public List<GameObject> dragged = new List<GameObject>();
     public Dictionary<Vector2, GameObject> filledPositions = new Dictionary<Vector2, GameObject>();
+    private Dictionary<string, bool> unlockedDonuts = new Dictionary<string, bool>();
     public GameObject combinationZone;
-    private readonly float sensitivity = 2.0f;
+    private readonly float sensitivity = 3.0f;
     private bool isIngredient;
     private GameObject grid;
     public GameObject unit;
+    public GameObject notification;
     public Button mixButton;
     public Texture2D garbageCursor;
     public Texture2D defaultCursor;
     private GameObject newUnit;
+    public int newDonutsNum = 0; //number that is displayed for the notification
     private string sugarDropSound;
     private string flourDropSound;
     private string eggDropSound;
@@ -34,9 +38,9 @@ public class DragCombination : MonoBehaviour
     private bool mixButtonClickedFlour = false;
     private bool mixButtonClickedSugar = false;
     [HideInInspector] public GameObject[] allIngredients;
+    [HideInInspector] public bool trashMode;
     [HideInInspector] public bool tutorialMode;
     [HideInInspector] public Vector2 topLeft;
-    [HideInInspector] public bool trashMode;
     private bool bowlFull = false;
 
     //=====Animation stuff=======
@@ -56,6 +60,17 @@ public class DragCombination : MonoBehaviour
         allIngredients = GameObject.FindGameObjectsWithTag("Ingredient");
         animTimeMax = animTimeMax / frameRate;
         trashMode = false;
+
+        for (int i = 1; i < 4; i++)
+        {
+            for (int j = 1; j < 4; j++)
+            {
+                unlockedDonuts.Add(string.Format("{0}:{1}:1",i,j), false);
+                unlockedDonuts.Add(string.Format("{0}:{1}:2", i, j), false);
+                unlockedDonuts.Add(string.Format("{0}:{1}:3", i, j), false);
+            }
+        }
+
         tutorialMode = false;
         topLeft = Vector2.zero;
     }
@@ -123,7 +138,7 @@ public class DragCombination : MonoBehaviour
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
 
-            if (!dragged.Contains(hit.collider.gameObject) && selectedObject.tag != "Prop" && (selectedObject.tag == "Ingredient" || selectedObject.tag == "Unit"))
+            if (!dragged.Contains(selectedObject) && selectedObject.tag != "Prop" && (selectedObject.tag == "Ingredient" || selectedObject.tag == "Unit"))
             {
                 // Separates behaviour depending on selected object type
                 if (selectedObject.tag == "Ingredient" && selectedObject.GetComponent<Ingredient>().remaining > 0)
@@ -206,17 +221,6 @@ public class DragCombination : MonoBehaviour
         List<Vector3> gridPositions;
         gridPositions = gridScript.getPositions(); //grabs list of grid positions from the GridCreate script
 
-        /*// Use for tutorial only, forces player to put donut only on the top left grid spot
-        if (tutorialMode)
-        {
-            topLeft = gridPositions[0];
-            for (int j = 1; j < gridPositions.Count; j++)
-            {
-                Debug.Log("ADDING TO: " + gridPositions[j]);
-                filledPositions.Add(gridPositions[j], selectedObject);
-            }
-        }*/
-
         foreach (Vector2 p in gridPositions)
         {
             float newDistance = Vector2.Distance(p, selectedV2);
@@ -224,9 +228,24 @@ public class DragCombination : MonoBehaviour
             {
                 nearestDistance = newDistance;
                 gridDepth = (gridPositions.IndexOf(p) / gridScript.columns);
-                Debug.Log("gridDepth " + gridDepth);
+                //Debug.Log("gridDepth " + gridDepth);
                 nearestPos = p;
             }
+        }
+
+        // Use for tutorial only, forces player to put donut only on the top left grid spot
+        if (tutorialMode)
+        {
+            topLeft = gridPositions[0];
+            if (filledPositions.Count == 0)
+            {
+                for (int j = 1; j < gridPositions.Count; j++)
+                {
+                    Debug.Log("ADDING TO: " + gridPositions[j]);
+                    filledPositions.Add(gridPositions[j], selectedObject);
+                }
+            }
+            
         }
 
         if (isIngredient)
@@ -330,8 +349,8 @@ public class DragCombination : MonoBehaviour
                 baseObject.GetComponent<Ingredient>().UseIngredient();
 
             }
-            else
-            { // Destroy the ingredient instance selected if not placed close enough
+            else // Destroy the ingredient instance selected if not placed close enough
+            {
                 if (selectedObject.name == "Egg_individual(Clone)")
                 {
                     AudioManager.Instance.PlaySFX("EggReturn", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggReturn"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["EggReturn"][1]);
@@ -347,7 +366,7 @@ public class DragCombination : MonoBehaviour
                 Destroy(selectedObject);
             }
         }
-        else if (nearestDistance > (0.5 * sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
+        else if (nearestDistance > (sensitivity) || nearestPos == selectedV2 || filledPositions.ContainsKey(nearestPos))
         {
             // If Unit is not within distance, place back in original spot
             selectedObject.transform.position = new Vector3(startingPosition.x, startingPosition.y, 1);
@@ -387,6 +406,7 @@ public class DragCombination : MonoBehaviour
         // Pull each item out and add the stats up, then instantiate a unit with those stats & correct layering
         while (combining.Count > 0)
         {
+            dragged.Remove(combining[0]);
             attack += combining[0].GetComponentInParent<Ingredient>().attack;
             speed += combining[0].GetComponentInParent<Ingredient>().speed;
             health += combining[0].GetComponentInParent<Ingredient>().health;
@@ -410,8 +430,10 @@ public class DragCombination : MonoBehaviour
         // Checks if each ingredient has at least one child (and is not the currently selected one, as that hasn't been placed in the bowl yet)
         foreach (GameObject ingredient in allIngredients)
         {
-            if (ingredient.transform.childCount < 1 || (ingredient.transform.childCount == 1 && selectedObject != null && selectedObject.transform.parent == ingredient))
+            if (ingredient.transform.childCount < 1 || (ingredient.transform.childCount == 1 && selectedObject != null && selectedObject.transform.parent == ingredient.transform))
+            {
                 return false;
+            }
         }
         return true;
         
@@ -423,6 +445,7 @@ public class DragCombination : MonoBehaviour
        //Begin bowl animation
         bowlIsAnimating = true;
 
+        bowlFull = true;
         AudioManager.Instance.PlaySFX("Mixing", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["Mixing"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["Mixing"][1]);
         // Wait for 3 seconds
         yield return new WaitForSeconds(3);
@@ -439,12 +462,43 @@ public class DragCombination : MonoBehaviour
         newUnit.GetComponent<UnitBehaviour>().projAddSpeed += addSpeed;
         newUnit.GetComponent<UnitBehaviour>().health += addHealth;
 
-        //Note from Matthieu: for right now, this is simply hard coded cause I couldnt find a simpler way to grab the "base" values for each stat. If you have a fix, please implement it. Thanks
-        newUnit.GetComponent<UnitBehaviour>().attackBoost = (int)(addAttack / 15) - 1;
-        newUnit.GetComponent<UnitBehaviour>().speedBoost = (int)(addSpeed / 1.6) - 1;
-        newUnit.GetComponent<UnitBehaviour>().healthBoost = (int)(addHealth / 25) - 1;
+        float attack = 0;
+        float speed = 0;
+        float health = 0;
+
+        foreach (GameObject ingredient in allIngredients)
+        {
+            attack += ingredient.GetComponent<Ingredient>().attack;
+            speed += ingredient.GetComponent<Ingredient>().speed;
+            health += ingredient.GetComponent<Ingredient>().health;
+        }
+
+        int attackBoost = (int)(addAttack / attack) - 1;
+        int speedBoost = (int)(addSpeed / speed) - 1;
+        int healthBoost = (int)(addHealth / health) - 1;
+
+        string currentCombo = string.Format("{0}:{1}:{2}", attackBoost, speedBoost, healthBoost);
+        bool alreadyMade;
+        unlockedDonuts.TryGetValue(currentCombo,out alreadyMade);
+
+    if (!alreadyMade)
+    {
+        Debug.Log("new make");
+        newDonutsNum += 1;
+        unlockedDonuts[currentCombo] = true;
+        notification.SetActive(true);
+        notification.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newDonutsNum.ToString();
+
+    }
+    else {
+        Debug.Log("already made");
+    }
+
+
+        newUnit.GetComponent<UnitBehaviour>().attackBoost = attackBoost;
+        newUnit.GetComponent<UnitBehaviour>().speedBoost = speedBoost;
+        newUnit.GetComponent<UnitBehaviour>().healthBoost = healthBoost;
         newUnit.tag = "Unit";
-        bowlFull = true;
     }
 
     // Unit removal
@@ -465,20 +519,33 @@ public class DragCombination : MonoBehaviour
     }
 
 
-    // OPTION if player wants to clear combination before mixing, delete if we don't use
+    // if player wants to clear combination before mixing
     public void ClearBowl()
     {
         // Empty any objects on the combination zone
         if (combining.Count > 0)
         {
+            // Clear ingredients used counters
+            foreach (GameObject ingredient in allIngredients)
+            {
+                ingredient.GetComponent<Ingredient>().ClearUse();
+            }
+
             foreach (GameObject item in combining)
             {
-                item.GetComponentInParent<Ingredient>().AddIngredient();
+                item.GetComponentInParent<Ingredient>().AddIngredient(1);
                 Destroy(item);
             }
         }
         // Clear anything that was already added to the list to be combined
         combining.Clear();
-        dragged.Clear();
+        foreach (GameObject obj in dragged.ToArray())
+        {
+            if (obj == null || obj.tag != "Unit")
+            {
+                dragged.Remove(obj);
+            }
+
+        }
     }
 }

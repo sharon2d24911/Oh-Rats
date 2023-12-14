@@ -56,7 +56,7 @@
 		"enemyTypes": ["BasicRat", "HealthRat"],
 		"showcaseEnemy": "none",
 		"ratsAtATime" : 1,
-		"duration": 45,
+		"duration": 25,
 		"warmUp": 8,
 		"minSpawnInterval": 8,
 		"maxSpawnInterval": 9,

@@ -38,8 +38,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float damage;
     public float speed;
     public string enemyType;
-    private int projectileHitCount = 1;
-   
+    [HideInInspector] public bool tutorial = false;
 
     [Header("Boss")]
     public bool isBoss; //only should be set true for enemies that are bosses, duh
@@ -69,6 +68,7 @@ public class EnemyBehaviour : MonoBehaviour
     private string biteSound;
     private string kingMeleeSound;
     private string potionThrowSound;
+    private int projectileHitCount = 1;
 
     [Header("Close Range Projectile")]
     public bool isThrower = false;
@@ -136,7 +136,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
         animTimer += Time.deltaTime;
 
-        Debug.Log("animFrames: " + animFrames + "animNum " + animNum + "attackAdjust " + attackAdjust);
+        //Debug.Log("animFrames: " + animFrames + "animNum " + animNum + "attackAdjust " + attackAdjust);
 
         if (animTimer > animTimeMax)
         {
@@ -219,7 +219,7 @@ public class EnemyBehaviour : MonoBehaviour
         yield return new WaitForSeconds(stunTime / 5);
         sprite.color = Color.white;
         //StartCoroutine(StopMovement(stunTime));
-        Debug.Log("health:" + health);
+        //Debug.Log("health:" + health);
 
     }
 
@@ -319,7 +319,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.tag == "Projectile" && !collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile)
         {
-            Debug.Log("projectile hit");
+            //Debug.Log("projectile hit");
             ProjectileCollide(collision.gameObject);
             if (projectileHitCount == 1)
             {
@@ -349,8 +349,9 @@ public class EnemyBehaviour : MonoBehaviour
                 AudioManager.Instance.PlaySFX(this.projectileHit4Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit4Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileHit4Sound][1]);
                 projectileHitCount = 1;
             }
-            
-        }else if (collision.gameObject.tag == "Unit")
+
+        }
+        else if (collision.gameObject.tag == "Unit")
         {
             Debug.Log("enemy hit unit");
             UnitBehaviour unitScript = collision.gameObject.GetComponent<UnitBehaviour>();
@@ -485,7 +486,8 @@ public class EnemyBehaviour : MonoBehaviour
                     
                 }
                 else {
-                    WS.toggleActive(false, lane);
+                    if (!tutorial)
+                        WS.toggleActive(false, lane);
                     if (enemyType == "RocketRat")
                     {
                         string[] rocketDefeatSound = { "RocketDefeat1", "RocketDefeat2" };
@@ -522,7 +524,7 @@ public class EnemyBehaviour : MonoBehaviour
                 WS.toggleActive(true, lane - 1);
                 WS.toggleActive(true, lane);
             }
-            else
+            else if (!tutorial)
             {
                 WS.toggleActive(true, lane);
             }  

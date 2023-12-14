@@ -118,7 +118,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 90
-        y: 766
+        y: 1040
         width: 618
         height: 350
       alignment: 0
@@ -138,12 +138,12 @@ TextureImporter:
       name: Rat_2_Attack_Sprite_Sheet_1
       rect:
         serializedVersion: 2
-        x: 813
-        y: 766
+        x: 910
+        y: 1050
         width: 618
         height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -159,12 +159,12 @@ TextureImporter:
       name: Rat_2_Attack_Sprite_Sheet_2
       rect:
         serializedVersion: 2
-        x: 90
-        y: 383
+        x: 50
+        y: 575
         width: 618
-        height: 350
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,11 +181,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 813
-        y: 383
+        y: 570
         width: 618
         height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -201,12 +201,12 @@ TextureImporter:
       name: Rat_2_Attack_Sprite_Sheet_4
       rect:
         serializedVersion: 2
-        x: 90
-        y: 0
+        x: 60
+        y: 90
         width: 618
         height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

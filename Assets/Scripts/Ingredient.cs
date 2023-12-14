@@ -3,7 +3,7 @@ using TMPro;
 
 public class Ingredient : MonoBehaviour
 {
-    [HideInInspector] public int remaining = 3;
+    public int remaining = 3;
     public float attack;
     public float speed;
     public float health;
@@ -25,11 +25,11 @@ public class Ingredient : MonoBehaviour
     }
 
     // Used for shipment, adds one to the ingredient and updates remaining counter
-    public void AddIngredient()
+    public void AddIngredient(int amount)
     {
-        remaining += 1;
+        remaining += amount;
         remainingCounter.GetComponent<TextMeshProUGUI>().text = remaining.ToString();
-        if (remaining == 1)
+        if (remaining > 0)
         {
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
         }
@@ -40,8 +40,14 @@ public class Ingredient : MonoBehaviour
     {
         remaining -= 1;
         remainingCounter.GetComponent<TextMeshProUGUI>().text = remaining.ToString();
+
         used += 1;
-        usedCounter.GetComponent<TextMeshProUGUI>().text = used.ToString();
+        if (used == 3)
+        {
+            usedCounter.GetComponent<TextMeshProUGUI>().text = "<color=#c44f4f>" + used.ToString() + "</color>";
+        } else
+            usedCounter.GetComponent<TextMeshProUGUI>().text = used.ToString();
+
         if (remaining < 1)
         {
             GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);

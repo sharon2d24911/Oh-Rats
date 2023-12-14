@@ -27,10 +27,12 @@ public class PropExamine : MonoBehaviour
     private Vector3 targetScale;
     private Sprite targetImage;
     private Vector2 targetBCSize;
-    private bool isBig;
+    [HideInInspector] public bool isBig;
 
     private GameObject props;
     private GameObject gameHandler;
+    private GameObject currentProp;
+    private bool paused;
 
     private void Start()
     {
@@ -50,16 +52,18 @@ public class PropExamine : MonoBehaviour
 
     private void Update()
     {
-        
+        currentProp = props.GetComponent<Prop>().inspecting;
+        paused = gameHandler.GetComponent<PauseMenu>().paused;
+
     }
 
     private void OnMouseDown()
     {
         // Toggle the target scale on mouse click
-        if (Time.timeScale != 0f)
+        if (!paused && (currentProp == gameObject || currentProp == null))
             ToggleSize();
 
-        if (transform.localScale != targetScale)
+        if (transform.localScale != targetScale && (currentProp == gameObject || currentProp == null))
         {
             // Transform to the new position/rotation/scale based on isBig bool
             transform.position = targetPos;
@@ -70,7 +74,7 @@ public class PropExamine : MonoBehaviour
             // Set layering, visibility for background, and prop captions (also flip buttons if newspaper prop specifically)
             if (isBig)
             {
-                props.GetComponent<Prop>().inspecting = true;
+                props.GetComponent<Prop>().inspecting = gameObject;
                 GetComponent<SpriteRenderer>().sortingOrder = 50;
                 background.GetComponent<SpriteRenderer>().sortingOrder = 49;
                 background.SetActive(true);
@@ -83,9 +87,12 @@ public class PropExamine : MonoBehaviour
                 {
                     props.GetComponent<Prop>().SetButtonsActive(flipthrough, this.gameObject);
                 }
+                Time.timeScale = 0f;
             }
             else
             {
+                Time.timeScale = 1f;
+                props.GetComponent<Prop>().inspecting = null;
                 if (caption != null)
                     caption.SetActive(false);
                 GetComponent<SpriteRenderer>().sortingOrder = 0;
@@ -99,7 +106,7 @@ public class PropExamine : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (Time.timeScale != 0f && !gameHandler.GetComponent<DragCombination>().trashMode)
+        if (!paused && !gameHandler.GetComponent<DragCombination>().trashMode && (currentProp == gameObject || currentProp == null))
             Cursor.SetCursor(interactCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
