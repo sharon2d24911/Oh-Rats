@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    public bool isAlmanac = false;
+    public GameObject notification;
+    [HideInInspector] public bool paused = false;
+    private bool prop = false;
     public Slider musicSlider;
     public Slider sfxSlider;
 
@@ -14,7 +18,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
-        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick",GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][1]);
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][1]);
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().sfxSource.Pause();
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().MusicVolume(0.25f);
     }
