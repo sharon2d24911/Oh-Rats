@@ -185,11 +185,12 @@ MonoBehaviour:
   attackTime: 1.5
   deathTime: 2
   moveTime: 1.5
-  health: 150
+  health: 205
   lane: 0
-  damage: 10
-  speed: 0.15
+  damage: 5
+  speed: 0.224
   enemyType: Basic
+  tutorial: 0
   isBoss: 0
   phase1: {fileID: 0}
   phase2: {fileID: 0}

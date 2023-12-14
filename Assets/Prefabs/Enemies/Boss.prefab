@@ -98,14 +98,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stunTime: 0.5
-  attackTime: 0.3
+  attackTime: 1.6
   deathTime: 2
   moveTime: 1.5
-  health: 600
-  damage: 20
-  speed: 0.15
-  difficultyIndex: 4
+  health: 10000
+  lane: 0
+  damage: 25
+  speed: 0.1
+  enemyType: 
+  tutorial: 0
   isBoss: 1
+  phase1: {fileID: 0}
+  phase2: {fileID: 0}
+  pIIActivated: 0
+  projectile: {fileID: 0}
+  ProjectileOrigin: {fileID: 0}
+  isProjectileShooter: 0
+  cooldown: 0
+  canShoot: 1
+  isThrower: 0
+  puddle: {fileID: 0}
+  frameRate: 4
+  animTimer: 0
+  animTimeMax: 0
+  animations: []
+  currentAnim: Walk
+  animIndex: 0
+  numOfAttacks: 1
+  healthBoost: 0
+  speedBoost: 0
+  attackBoost: 0
+  attackAdjust: 0
 --- !u!61 &8708940351497923002
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -231,6 +254,6 @@ SpriteRenderer:
   m_Size: {x: 4.8, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
