@@ -93,7 +93,6 @@ public class PropExamine : MonoBehaviour
                 else
                 {
                     Time.timeScale = 1f;
-                    props.GetComponent<Prop>().inspecting = null;
                     if (caption != null)
                         caption.SetActive(false);
                     GetComponent<SpriteRenderer>().sortingOrder = 0;
@@ -101,6 +100,7 @@ public class PropExamine : MonoBehaviour
                     background.SetActive(false);
                     if (flipthrough.Count > 0)
                         props.GetComponent<Prop>().SetButtonsInactive();
+                    props.GetComponent<Prop>().inspecting = null;
                 }
             }
         }

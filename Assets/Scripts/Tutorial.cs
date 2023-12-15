@@ -25,18 +25,13 @@ public class Tutorial : MonoBehaviour
         TutorialCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         TutorialCanvas.worldCamera = mainCamera;
         TransitionCanvas = GameObject.Find("Transition Canvas").GetComponent<Canvas>();
-        
+
         rat = false;
 
         foreach (GameObject tutorial in popUps)
         {
             tutorial.SetActive(false);
         }
-    }
-
-    private void OnMouseEnter()
-    {
-        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     void Update()
@@ -48,6 +43,7 @@ public class Tutorial : MonoBehaviour
         // Start of tutorial
         if (popUpIndex == 0)
         {
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
             // Welcoming to game, mini description, press space to continue
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -145,7 +141,7 @@ public class Tutorial : MonoBehaviour
                 Vector3 position = new Vector3(17.5f, .5f, 1.5f);
                 spawnedEnemy = Instantiate(enemyPrefab, position, enemyPrefab.transform.rotation);
                 spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
-                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 900;
+                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 800;
                 spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
                 spawnedEnemy.GetComponent<EnemyBehaviour>().tutorial = true; 
                 unitScript.defending = true;
