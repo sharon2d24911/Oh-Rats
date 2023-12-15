@@ -188,7 +188,7 @@ MonoBehaviour:
   health: 205
   lane: 0
   damage: 5
-  speed: 0.224
+  speed: 0.24
   enemyType: Basic
   tutorial: 0
   isBoss: 0
