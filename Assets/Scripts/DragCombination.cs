@@ -42,6 +42,7 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public bool tutorialMode;
     [HideInInspector] public Vector2 topLeft;
     private bool bowlFull = false;
+    private int z = 0;
 
     //=====Animation stuff=======
     public float frameRate = 4f;
@@ -265,8 +266,14 @@ public class DragCombination : MonoBehaviour
                 }
 
                 // Snaps object into the same position
-                Vector3 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-.2f, .7f));
+                Vector3 offset = new Vector3(Random.Range(-.9f, .9f), Random.Range(-.2f, .3f));
+                selectedObject.GetComponent<SpriteRenderer>().sortingOrder = z;
+                z += 1;
                 selectedObject.transform.position = combinationZone.transform.position + offset;
+                if (selectedObject.transform.childCount > 0)
+                {
+                    selectedObject.GetComponent<SpriteRenderer>().sprite = selectedObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+                }
                 dragged.Add(selectedObject);
 
                 // Sfx for ingredient drop
@@ -415,7 +422,7 @@ public class DragCombination : MonoBehaviour
             combining.Remove(combining[0]);
         }
         Debug.Log("BOOSTING:\nAttack: " + attack + ", Speed: " + speed + ", Health: " + health);
-
+        z = 0;
         // Create tower with those stats
         StartCoroutine(CombineWithDelay(attack, speed, health));
 

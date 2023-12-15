@@ -141,9 +141,9 @@ public class Tutorial : MonoBehaviour
                 Vector3 position = new Vector3(17.5f, .5f, 1.5f);
                 spawnedEnemy = Instantiate(enemyPrefab, position, enemyPrefab.transform.rotation);
                 spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
-                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 800;
+                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 550;
                 spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
-                spawnedEnemy.GetComponent<EnemyBehaviour>().tutorial = true; 
+                spawnedEnemy.GetComponent<EnemyBehaviour>().tutorial = true;
                 unitScript.defending = true;
             }
             if (GameObject.FindGameObjectWithTag("Enemy") == null && rat)
