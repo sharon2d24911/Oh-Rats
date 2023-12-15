@@ -135,6 +135,7 @@ public class DragCombination : MonoBehaviour
         RaycastHit2D hit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
         if (hit.collider != null)
         {
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
             selectedObject = hit.collider.gameObject;
             startingPosition = selectedObject.transform.position;
 

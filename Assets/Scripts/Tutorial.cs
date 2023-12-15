@@ -25,18 +25,13 @@ public class Tutorial : MonoBehaviour
         TutorialCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         TutorialCanvas.worldCamera = mainCamera;
         TransitionCanvas = GameObject.Find("Transition Canvas").GetComponent<Canvas>();
-        
+
         rat = false;
 
         foreach (GameObject tutorial in popUps)
         {
             tutorial.SetActive(false);
         }
-    }
-
-    private void OnMouseEnter()
-    {
-        Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     void Update()
@@ -48,6 +43,7 @@ public class Tutorial : MonoBehaviour
         // Start of tutorial
         if (popUpIndex == 0)
         {
+            Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.ForceSoftware);
             // Welcoming to game, mini description, press space to continue
             if (Input.GetKeyDown(KeyCode.Space))
             {

@@ -9,8 +9,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
     public Sound[] music, sfx;
     public AudioSource musicSource, sfxSource, musicSource2, musicSource3, musicSource4, musicSource5, musicSource6, musicSource7, musicSource8;
-    private float playerVolume = 1;
-    private float playerSfxVolume = 1;
+    [HideInInspector] public float playerVolume = 1;
+    [HideInInspector] public float playerSfxVolume = 1;
 
     private void Awake()
     {
