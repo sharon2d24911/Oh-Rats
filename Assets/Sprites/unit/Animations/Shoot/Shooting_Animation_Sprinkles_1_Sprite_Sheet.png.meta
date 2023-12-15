@@ -114,8 +114,8 @@ TextureImporter:
       name: Shooting_Animation_Sprinkles_1_Sprite_Sheet_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 27
+        x: 140
+        y: 740
         width: 202
         height: 441
       alignment: 9
@@ -135,8 +135,8 @@ TextureImporter:
       name: Shooting_Animation_Sprinkles_1_Sprite_Sheet_1
       rect:
         serializedVersion: 2
-        x: 319
-        y: 27
+        x: 590
+        y: 740
         width: 240
         height: 447
       alignment: 9
@@ -156,8 +156,8 @@ TextureImporter:
       name: Shooting_Animation_Sprinkles_1_Sprite_Sheet_2
       rect:
         serializedVersion: 2
-        x: 605
-        y: 27
+        x: 90
+        y: 100
         width: 278
         height: 441
       alignment: 9
@@ -177,10 +177,10 @@ TextureImporter:
       name: Shooting_Animation_Sprinkles_1_Sprite_Sheet_3
       rect:
         serializedVersion: 2
-        x: 958
-        y: 27
-        width: 212
-        height: 447
+        x: 600
+        y: 100
+        width: 260
+        height: 441
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
