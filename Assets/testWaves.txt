@@ -2,11 +2,11 @@
  [
 	{
 		"wave": 1,
-		"enemyTypes": ["SpeedRat"],
-		"showcaseEnemy": "HealthRat",
+		"enemyTypes": ["RangedRat"],
+		"showcaseEnemy": "RangedRat",
 		"ratsAtATime" : 1,
 		"duration": 45,
-		"warmUp": 0,
+		"warmUp": 10,
 		"minSpawnInterval": 12,
 		"maxSpawnInterval": 15,
 		"difficulty" : 1,
