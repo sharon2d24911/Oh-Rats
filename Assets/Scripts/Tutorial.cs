@@ -96,6 +96,7 @@ public class Tutorial : MonoBehaviour
             if (!gameHandler.GetComponent<DragCombination>().filledPositions.ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft))
             {
                 garbageButton.interactable = false;
+                garbageButton.transform.GetChild(0).GetComponent<Image>().color = new Color(0.7843137f, 0.7843137f, 0.7843137f, 0.5019608f);
                 toHide[popUpIndex].SetActive(false);
                 popUpIndex++;
             }
@@ -116,6 +117,7 @@ public class Tutorial : MonoBehaviour
                 mixButton.interactable = true;
             else
                 mixButton.interactable = false;
+
 
             mixButton.onClick.AddListener(() =>
             {
@@ -143,7 +145,7 @@ public class Tutorial : MonoBehaviour
                 Vector3 position = new Vector3(17.5f, .5f, 1.5f);
                 spawnedEnemy = Instantiate(enemyPrefab, position, enemyPrefab.transform.rotation);
                 spawnedEnemy.GetComponent<SpriteRenderer>().sortingOrder = ((int)Mathf.Floor(position.z) * 5 + 2);
-                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 1000;
+                spawnedEnemy.GetComponent<EnemyBehaviour>().health = 900;
                 spawnedEnemy.GetComponent<EnemyBehaviour>().lane = (int)(position.z - 1.5f);
                 spawnedEnemy.GetComponent<EnemyBehaviour>().tutorial = true; 
                 unitScript.defending = true;
@@ -161,6 +163,7 @@ public class Tutorial : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 StartCoroutine(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().FadeOut("ChewTorial", "none", "none", "none", 2, 0)); // Fade out music
+                garbageButton.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
                 TransitionCanvas.GetComponent<Menu>().FadeToScene("Game");
             }
         }

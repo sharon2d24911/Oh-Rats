@@ -10,12 +10,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject props;
     public bool isAlmanac = false;
     public GameObject notification;
+    public ScrollRect horizontalSB;
     private bool prop = false;
-
-    private void Start()
-    {
-
-    }
     public Slider musicSlider;
     public Slider sfxSlider;
 
@@ -36,6 +32,7 @@ public class PauseMenu : MonoBehaviour
         {
             notification.SetActive(false);
             GameObject.FindWithTag("GameHandler").GetComponent<DragCombination>().newDonutsNum = 0;
+            horizontalSB.horizontalNormalizedPosition = 0;
         }
     }
 
