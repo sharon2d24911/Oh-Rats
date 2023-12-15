@@ -12,12 +12,13 @@ public class DragCombination : MonoBehaviour
     [HideInInspector] public List<GameObject> combining = new List<GameObject>();
     [HideInInspector] public List<GameObject> dragged = new List<GameObject>();
     public Dictionary<Vector2, GameObject> filledPositions = new Dictionary<Vector2, GameObject>();
-    private Dictionary<string, bool> unlockedDonuts = new Dictionary<string, bool>();
+    private Dictionary<string, (bool, GameObject)> unlockedDonuts = new Dictionary<string, (bool,GameObject)>();
     public GameObject combinationZone;
     private readonly float sensitivity = 3.0f;
     private bool isIngredient;
     private GameObject grid;
     public GameObject unit;
+    public GameObject content;
     public GameObject notification;
     public Button mixButton;
     public Texture2D garbageCursor;
@@ -62,15 +63,25 @@ public class DragCombination : MonoBehaviour
         animTimeMax = animTimeMax / frameRate;
         trashMode = false;
 
-        for (int i = 1; i < 4; i++)
+        if (content)
         {
-            for (int j = 1; j < 4; j++)
+            for (int i = 1; i < 4; i++)
             {
-                unlockedDonuts.Add(string.Format("{0}:{1}:1",i,j), false);
-                unlockedDonuts.Add(string.Format("{0}:{1}:2", i, j), false);
-                unlockedDonuts.Add(string.Format("{0}:{1}:3", i, j), false);
+                for (int j = 1; j < 4; j++)
+                {
+                    string combo1 = string.Format("{0}:{1}:1", i, j);
+                    GameObject donut1 = content.transform.Find(combo1).gameObject;
+                    unlockedDonuts.Add(combo1, (false, donut1));
+                    string combo2 = string.Format("{0}:{1}:2", i, j);
+                    GameObject donut2 = content.transform.Find(combo2).gameObject;
+                    unlockedDonuts.Add(combo2, (false, donut2));
+                    string combo3 = string.Format("{0}:{1}:3", i, j);
+                    GameObject donut3 = content.transform.Find(combo3).gameObject;
+                    unlockedDonuts.Add(combo3, (false, donut3));
+                }
             }
         }
+        
 
         tutorialMode = false;
         topLeft = Vector2.zero;
@@ -485,15 +496,17 @@ public class DragCombination : MonoBehaviour
         int speedBoost = (int)(addSpeed / speed) - 1;
         int healthBoost = (int)(addHealth / health) - 1;
 
-        string currentCombo = string.Format("{0}:{1}:{2}", attackBoost, speedBoost, healthBoost);
-        bool alreadyMade;
-        unlockedDonuts.TryGetValue(currentCombo,out alreadyMade);
+        string currentCombo = string.Format("{0}:{1}:{2}", (speedBoost + 1), (attackBoost + 1), (healthBoost + 1));
+        (bool, GameObject) tuple;
 
-    if (!alreadyMade && !tutorialMode)
+        tuple = unlockedDonuts[currentCombo];
+
+    if (!tuple.Item1 && !tutorialMode)
     {
         Debug.Log("new make");
         newDonutsNum += 1;
-        unlockedDonuts[currentCombo] = true;
+        unlockedDonuts[currentCombo] = (true, tuple.Item2);
+        tuple.Item2.GetComponent<Image>().color += new Color(255, 255, 255, 0);
         notification.SetActive(true);
         notification.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newDonutsNum.ToString();
 

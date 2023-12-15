@@ -30,6 +30,7 @@ public class UnitBehaviour : MonoBehaviour
     public float damageTime;
     [HideInInspector] public float projAddAttack = 0;
     [HideInInspector] public float projAddSpeed = 0;
+    public List<GameObject> projUpdgrades = new List<GameObject>();
     public LayerMask projectileMask;
     private GameObject target;
     private GameObject unit;
@@ -78,6 +79,11 @@ public class UnitBehaviour : MonoBehaviour
         if(projAddSpeed != 0)
         {
             cooldown = cooldown / (0.5f* projAddSpeed);
+        }
+
+        if(attackBoost != 0)
+        {
+            projectile = projUpdgrades[(attackBoost - 1)];
         }
 
     }

@@ -1,19 +1,22 @@
 fileFormatVersion: 2
-guid: cc69a98a40f7a1045ae7ddd883f3ccdb
+guid: 428aa83ee4da02a40bde764351d514f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7183281971568461718
-    second: Sprinkles_2_Sprite_Sheet_0
+      213: -1440972249129046505
+    second: Gold Release Coffee Melee Attack_0
   - first:
-      213: 2243095133096346986
-    second: Sprinkles_2_Sprite_Sheet_1
+      213: 146267334282547764
+    second: Gold Release Coffee Melee Attack_1
   - first:
-      213: 1230366253493858027
-    second: Sprinkles_2_Sprite_Sheet_2
+      213: -4955071596031515748
+    second: Gold Release Coffee Melee Attack_2
   - first:
-      213: -7744824665748121946
-    second: Sprinkles_2_Sprite_Sheet_3
+      213: 4161746031939335956
+    second: Gold Release Coffee Melee Attack_3
+  - first:
+      213: -7111526429505121837
+    second: Gold Release Coffee Melee Attack_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,85 +114,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sprinkles_2_Sprite_Sheet_0
+      name: Gold Release Coffee Melee Attack_0
       rect:
         serializedVersion: 2
-        x: 138
-        y: 735
-        width: 202
-        height: 441
-      alignment: 9
-      pivot: {x: 0.5, y: 0.09}
+        x: 162
+        y: 1086
+        width: 583
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6974eccf4e420b360800000000000000
-      internalID: 7183281971568461718
+      spriteID: 71ea77fbf53a00ce0800000000000000
+      internalID: -1440972249129046505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sprinkles_2_Sprite_Sheet_1
+      name: Gold Release Coffee Melee Attack_1
       rect:
         serializedVersion: 2
-        x: 605
-        y: 730
-        width: 202
-        height: 441
-      alignment: 9
-      pivot: {x: 0.52, y: 0.1}
+        x: 1017
+        y: 1093
+        width: 501
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a658d9d9323112f10800000000000000
-      internalID: 2243095133096346986
+      spriteID: 43297269d55a70200800000000000000
+      internalID: 146267334282547764
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sprinkles_2_Sprite_Sheet_2
+      name: Gold Release Coffee Melee Attack_2
       rect:
         serializedVersion: 2
-        x: 138
-        y: 95
-        width: 202
-        height: 441
-      alignment: 9
-      pivot: {x: 0.5, y: 0.09}
+        x: 139
+        y: 616
+        width: 570
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bee212bb693231110800000000000000
-      internalID: 1230366253493858027
+      spriteID: c93e9e1f2ac0c3bb0800000000000000
+      internalID: -4955071596031515748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sprinkles_2_Sprite_Sheet_3
+      name: Gold Release Coffee Melee Attack_3
       rect:
         serializedVersion: 2
-        x: 585
-        y: 100
-        width: 260
-        height: 441
-      alignment: 9
-      pivot: {x: 0.55, y: 0.09}
+        x: 902
+        y: 611
+        width: 554
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a65666100bd48490800000000000000
-      internalID: -7744824665748121946
+      spriteID: 417b22757fd71c930800000000000000
+      internalID: 4161746031939335956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gold Release Coffee Melee Attack_4
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 131
+        width: 588
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d19b8e0468ce4d90800000000000000
+      internalID: -7111526429505121837
       vertices: []
       indices: 
       edges: []
