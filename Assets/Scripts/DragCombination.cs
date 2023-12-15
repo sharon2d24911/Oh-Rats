@@ -496,31 +496,35 @@ public class DragCombination : MonoBehaviour
         int speedBoost = (int)(addSpeed / speed) - 1;
         int healthBoost = (int)(addHealth / health) - 1;
 
-        string currentCombo = string.Format("{0}:{1}:{2}", (speedBoost + 1), (attackBoost + 1), (healthBoost + 1));
-        (bool, GameObject) tuple;
+        if (!tutorialMode)
+        {
+            string currentCombo = string.Format("{0}:{1}:{2}", (speedBoost + 1), (attackBoost + 1), (healthBoost + 1));
+            (bool, GameObject) tuple;
+            tuple = unlockedDonuts[currentCombo];
+            if (!tuple.Item1 && !tutorialMode)
+            {
+                Debug.Log("new make");
+                newDonutsNum += 1;
+                unlockedDonuts[currentCombo] = (true, tuple.Item2);
+                tuple.Item2.GetComponent<Image>().color += new Color(255, 255, 255, 0);
+                notification.SetActive(true);
+                notification.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newDonutsNum.ToString();
 
-        tuple = unlockedDonuts[currentCombo];
-
-    if (!tuple.Item1 && !tutorialMode)
-    {
-        Debug.Log("new make");
-        newDonutsNum += 1;
-        unlockedDonuts[currentCombo] = (true, tuple.Item2);
-        tuple.Item2.GetComponent<Image>().color += new Color(255, 255, 255, 0);
-        notification.SetActive(true);
-        notification.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newDonutsNum.ToString();
-
-    }
-    else {
-        Debug.Log("already made");
-    }
+            }
+            else
+            {
+                Debug.Log("already made");
+            }
 
 
+        }
         newUnit.GetComponent<UnitBehaviour>().attackBoost = attackBoost;
         newUnit.GetComponent<UnitBehaviour>().speedBoost = speedBoost;
         newUnit.GetComponent<UnitBehaviour>().healthBoost = healthBoost;
         newUnit.tag = "Unit";
     }
+
+    
 
     // Unit removal
     public void RemoveUnit()

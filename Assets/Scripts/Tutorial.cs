@@ -53,6 +53,7 @@ public class Tutorial : MonoBehaviour
         }
         else if (popUpIndex == 1) // If user picks up object and drags it into bowl
         {
+            gameHandler.GetComponent<DragCombination>().tutorialMode = true;
             if (gameHandler.GetComponent<DragCombination>().combining.Count > 0)
             {
                 toHide[popUpIndex].SetActive(false);
@@ -80,7 +81,6 @@ public class Tutorial : MonoBehaviour
         }
         else if (popUpIndex == 4) // If user drags unit to the correct position on the board
         {
-            gameHandler.GetComponent<DragCombination>().tutorialMode = true;
             if (gameHandler.GetComponent<DragCombination>().filledPositions.ContainsKey(gameHandler.GetComponent<DragCombination>().topLeft))
             {
                 toHide[popUpIndex].SetActive(false);

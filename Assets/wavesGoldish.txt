@@ -124,7 +124,7 @@
 		"trackSpeed2" : 1,
 		"trackSpeed3" : 1,
 		"trackSpeed4" : 1,
-		"propScene" : 0
+		"propScene" : 2
 	},
 {
 		"wave": 6,
@@ -149,7 +149,7 @@
 		"trackSpeed2" : 1,
 		"trackSpeed3" : 1,
 		"trackSpeed4" : 1,
-		"propScene" : 2
+		"propScene" : 0
 	},
 
 	{
@@ -225,7 +225,7 @@
 		"trackSpeed2" : 1,
 		"trackSpeed3" : 1,
 		"trackSpeed4" : 1,
-		"propScene" : 0
+		"propScene" : 3
 	},
 	{
 		"wave": 10,
@@ -276,7 +276,7 @@
 		"trackSpeed2" : 1,
 		"trackSpeed3" : 1,
 		"trackSpeed4" : 1,
-		"propScene" : 3
+		"propScene" : 0
 	},
 	{
 		"wave": 12,
@@ -326,7 +326,7 @@
 		"trackSpeed2" : 1,
 		"trackSpeed3" : 1,
 		"trackSpeed4" : 1,
-		"propScene" : 0
+		"propScene" : 4
 	},
 	{
 		"wave": 14,
