@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PauseMenu : MonoBehaviour
     private bool prop = false;
     public Slider musicSlider;
     public Slider sfxSlider;
+    public TextMeshProUGUI musicValueLabel;
+    public TextMeshProUGUI sfxValueLabel;
 
     public void Pause()
     {
@@ -24,6 +27,7 @@ public class PauseMenu : MonoBehaviour
             prop = true;
         else
             prop = false;
+
         Time.timeScale = 0f;
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX("UIClick", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["UIClick"][1]);
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().sfxSource.Pause();
@@ -54,5 +58,15 @@ public class PauseMenu : MonoBehaviour
         // StartCoroutine(Camera.main.GetComponent<AudioManager>().FadeTwo(false, "BassyMain", "BassyEvent", 0f, 0f)); // Fade out two music
         SceneManager.LoadScene("TitleScene");
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic();
+    }
+
+    private void Update()
+    {
+        if (pauseMenu.activeInHierarchy && musicSlider != null && sfxSlider != null)
+        {
+            musicValueLabel.text = string.Format("{0:0}%", (musicSlider.value * 100));
+            sfxValueLabel.text = string.Format("{0:0}%", (sfxSlider.value * 100));
+        }
+        
     }
 }
