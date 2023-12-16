@@ -34,7 +34,7 @@ public class SonicWave : MonoBehaviour
         GameObject newWave = Instantiate(sonicWave, gameObject.transform.position, gameObject.transform.rotation);
             while(newWave.transform.localScale.x < 12)
             {
-            Debug.Log("newWave.transform.localScale.x " + newWave.transform.localScale.x);
+            //Debug.Log("newWave.transform.localScale.x " + newWave.transform.localScale.x);
                 newWave.transform.localScale += new Vector3 (0.1f, 0.1f, 0.1f);
                 yield return new WaitForSeconds(wavesInterval);
             }

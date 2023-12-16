@@ -205,7 +205,7 @@ public class WaveSpawning : MonoBehaviour
 
             if (currentWave == (wavesNum - 2))
             {
-                wavesDisplay.GetComponent<TextMeshProUGUI>().color = new Color(153, 0, 8);
+                wavesDisplay.GetComponent<TextMeshProUGUI>().color = new Color(0.5377358f, 0, 0, 1);
             }
             if (waveTimer > currentWaveTimeMax)
             {
@@ -399,7 +399,7 @@ public class WaveSpawning : MonoBehaviour
         int cols = gridScript.columns;
         int lowerBound = lane * cols, upperBound = lowerBound + cols;
         Debug.Log("upperBound: " + upperBound);
-        //Debug.Log("lowerBound " + lowerBound + "upperBound " + upperBound);
+        Debug.Log("lowerBound " + lowerBound + "upperBound " + upperBound);
         for (int i =lowerBound; i < upperBound; i++)
         {
             Debug.Log("i: " + i);

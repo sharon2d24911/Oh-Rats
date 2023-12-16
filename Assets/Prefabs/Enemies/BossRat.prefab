@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2967258255869965902, guid: 52a2981626d4cda4c9267d18e5d07d0c, type: 2}
+  - {fileID: 1864765437602854249, guid: 790c671c2860ccf4ab83ddf5a8d1f356, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: hello i am the KING RAT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 52a2981626d4cda4c9267d18e5d07d0c, type: 2}
-  m_sharedMaterial: {fileID: 2967258255869965902, guid: 52a2981626d4cda4c9267d18e5d07d0c,
+  m_fontAsset: {fileID: 11400000, guid: 790c671c2860ccf4ab83ddf5a8d1f356, type: 2}
+  m_sharedMaterial: {fileID: 1864765437602854249, guid: 790c671c2860ccf4ab83ddf5a8d1f356,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -323,6 +323,7 @@ MonoBehaviour:
   bubble: {fileID: 5469077799437851484}
   minTime: 0
   maxTime: 10
+  isMonologue: 0
 --- !u!1001 &1538023678961766817
 PrefabInstance:
   m_ObjectHideFlags: 0
