@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &403452274165251845
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1988653267027465584, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 92349a9962969904b8d8126ca09c2f0e,
+        type: 3}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465585, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465588, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_Name
+      value: enemyProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: speed
+      value: -4.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: attack
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: screenEdge
+      value: -4.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465589, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: enemyProjectile
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465591, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1988653267027465591, guid: c492fd4b9ee74844f92fa275635aef25,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c492fd4b9ee74844f92fa275635aef25, type: 3}

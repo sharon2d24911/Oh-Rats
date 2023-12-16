@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 using UnityEngine;
 
 public class UnitBehaviour : MonoBehaviour
@@ -29,10 +30,17 @@ public class UnitBehaviour : MonoBehaviour
     public float damageTime;
     [HideInInspector] public float projAddAttack = 0;
     [HideInInspector] public float projAddSpeed = 0;
+    public List<GameObject> projUpdgrades = new List<GameObject>();
     public LayerMask projectileMask;
     private GameObject target;
     private GameObject unit;
-    private string fireSound;
+    private string projectileFire1Sound;
+    private string projectileFire2Sound;
+    private string projectileFire3Sound;
+    private string projectileFire4Sound;
+    private int projectileFireCount = 1;
+    private string hitsSound;
+    private string potionHitSound;
 
     //======Animation Stuff=========
     public float frameRate = 4f;
@@ -68,14 +76,25 @@ public class UnitBehaviour : MonoBehaviour
         speedLayer = unit.transform.GetChild(2).gameObject.GetComponent<SpriteRenderer>();
         animTimeMax = animTimeMax / frameRate;
 
+        if(projAddSpeed != 0)
+        {
+            cooldown = cooldown / (0.5f* projAddSpeed);
+        }
+
+        if(attackBoost != 0)
+        {
+            projectile = projUpdgrades[(attackBoost - 1)];
+        }
+
     }
 
     public void layerSprites(int gridDepth)
     {
         sprite.sortingOrder = gridDepth;
-        attackLayer.sortingOrder = gridDepth + 2;
+        unit.GetComponent<SortingGroup>().sortingOrder = gridDepth;
+        attackLayer.sortingOrder = gridDepth + 1;
         healthLayer.sortingOrder = gridDepth + 3;
-        speedLayer.sortingOrder = gridDepth + 1;
+        speedLayer.sortingOrder = gridDepth + 2;
     }
 
     void Update()
@@ -88,12 +107,12 @@ public class UnitBehaviour : MonoBehaviour
                 StartCoroutine(Shoot());
             }
         }
-        Animate();
         if (health <= 0)
         {
             unitPositions.Remove(unit.transform.position);
             Destroy(unit); //kills the unit
         }
+        Animate();
     }
 
 
@@ -148,6 +167,47 @@ public class UnitBehaviour : MonoBehaviour
         canShoot = true;
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile" && collision.gameObject.GetComponent<ProjectileScript>().enemyProjectile && placed)
+        {
+            Debug.Log("unit projectile hit");
+            ProjectileCollide(collision.gameObject);
+            if (GameObject.FindWithTag("Projectile").GetComponent<ProjectileScript>().enemyProjectile == false)
+            {
+                string[] hitsSound = { "CoffeeHit1", "CoffeeHit2", "CoffeeHit3" };
+                this.hitsSound = hitsSound[Mathf.FloorToInt(Random.Range(0, 3))];
+                AudioManager.Instance.PlaySFX(this.hitsSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.hitsSound][1]);
+            }
+            else
+            {
+                string[] potionHitSound = { "PotionHit1", "PotionHit2", "PotionHit3", "PotionHit4" };
+                this.potionHitSound = potionHitSound[Mathf.FloorToInt(Random.Range(0, 4))];
+                AudioManager.Instance.PlaySFX(this.potionHitSound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionHitSound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.potionHitSound][1]);
+            }
+            
+        }
+    }
+
+    void ProjectileCollide(GameObject projectile)
+    {
+        ProjectileScript projectileScript = projectile.GetComponent<ProjectileScript>();
+        float dmgAmount = projectileScript.attack;
+        if (projectileScript.bossProjectile)
+        {
+            dmgAmount = health; //instakill
+        }
+        if (health > 0)
+        {
+            StartCoroutine(takeDamage(dmgAmount));
+            if (projectileScript.bossProjectile)
+            {
+                GameObject puddle = Instantiate(projectileScript.puddle, unit.transform.position, unit.transform.rotation);
+                puddle.GetComponent<SpriteRenderer>().sortingOrder = sprite.sortingOrder;
+            }
+            Destroy(projectile, projectileScript.collideTime);
+        }
+    }
 
     public IEnumerator takeDamage(float dmgAmount)
     {
@@ -155,6 +215,11 @@ public class UnitBehaviour : MonoBehaviour
         health -= dmgAmount;
         sprite.color = Color.red;
         Debug.Log("DAMAGE UNIT");
+        if (health <= 0)
+        {
+            unitPositions.Remove(unit.transform.position);
+            Destroy(unit); //kills the unit
+        }
         yield return new WaitForSeconds(damageTime / 5);
         if (unit != null && sprite != null)
         {
@@ -172,11 +237,38 @@ public class UnitBehaviour : MonoBehaviour
         yield return new WaitForSeconds(animTimeMax * frameRate);
         Invoke("ResetCooldown", (cooldown - animTimeMax * frameRate));
         // Sfx for projectile fire
-        string[] fireSound = { "ProjectileFire1", "ProjectileFire2", "ProjectileFire3", "ProjectileFire4" };
-        AudioManager.Instance.PlaySFX(this.fireSound = fireSound[Mathf.FloorToInt(Random.Range(0, 4))]);
+        if (projectileFireCount == 1)
+        {
+            string[] projectileFire1Sound = { "ProjectileFire1A", "ProjectileFire1B", "ProjectileFire1C" };
+            this.projectileFire1Sound = projectileFire1Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+            AudioManager.Instance.PlaySFX(this.projectileFire1Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire1Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire1Sound][1]);
+            projectileFireCount++;
+        }
+        else if (projectileFireCount == 2)
+        {
+            string[] projectileFire2Sound = { "ProjectileFire2A", "ProjectileFire2B", "ProjectileFire2C" };
+            this.projectileFire2Sound = projectileFire2Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+            AudioManager.Instance.PlaySFX(this.projectileFire2Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire2Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire2Sound][1]);
+            projectileFireCount++;
+        }
+        else if (projectileFireCount == 3)
+        {
+            string[] projectileHit3Sound = { "ProjectileFire3A", "ProjectileFire3B", "ProjectileFire3C" };
+            this.projectileFire3Sound = projectileHit3Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+            AudioManager.Instance.PlaySFX(this.projectileFire3Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire3Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire3Sound][1]);
+            projectileFireCount++;
+        }
+        else
+        {
+            string[] projectileHit4Sound = { "ProjectileFire4A", "ProjectileFire4B", "ProjectileFire4C" };
+            this.projectileFire4Sound = projectileHit4Sound[Mathf.FloorToInt(Random.Range(0, 3))];
+            AudioManager.Instance.PlaySFX(this.projectileFire4Sound, GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire4Sound][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary[this.projectileFire4Sound][1]);
+            projectileFireCount = 1;
+        }
         myProjectile = Instantiate(projectile, ProjectileOrigin.position, Quaternion.identity);
         // Projectile update to match the unit's boosted stats
         myProjectile.GetComponent<ProjectileScript>().attack += projAddAttack;
         myProjectile.GetComponent<ProjectileScript>().speed += projAddSpeed;
+        myProjectile.GetComponent<SpriteRenderer>().sortingOrder = healthLayer.sortingOrder + 1;
     }
 }

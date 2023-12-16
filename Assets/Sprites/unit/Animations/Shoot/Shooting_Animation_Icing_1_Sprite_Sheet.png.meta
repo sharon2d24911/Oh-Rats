@@ -114,8 +114,8 @@ TextureImporter:
       name: Shooting_Animation_Icing_1_Sprite_Sheet_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 27
+        x: 141
+        y: 735
         width: 202
         height: 441
       alignment: 9
@@ -135,8 +135,8 @@ TextureImporter:
       name: Shooting_Animation_Icing_1_Sprite_Sheet_1
       rect:
         serializedVersion: 2
-        x: 319
-        y: 27
+        x: 595
+        y: 735
         width: 240
         height: 441
       alignment: 9
@@ -156,8 +156,8 @@ TextureImporter:
       name: Shooting_Animation_Icing_1_Sprite_Sheet_2
       rect:
         serializedVersion: 2
-        x: 605
-        y: 27
+        x: 95
+        y: 90
         width: 278
         height: 441
       alignment: 9
@@ -177,8 +177,8 @@ TextureImporter:
       name: Shooting_Animation_Icing_1_Sprite_Sheet_3
       rect:
         serializedVersion: 2
-        x: 958
-        y: 27
+        x: 625
+        y: 90
         width: 212
         height: 441
       alignment: 9

@@ -9,6 +9,8 @@ public class GameHandler : MonoBehaviour
 
     public float GameOverXPosition = -7.0f; //X position enemies much reach for game loss
     public float EnemyStartXPosition = 17.5f;
+    public float BossStartXPosition = 21f;
+    public float BossStartYPosition = -4.28f;
     private int numOfRats = 0;
     public Vector3 bossPos = new Vector3(22, -3, 1);
     private GameObject BGCanvasGO;
@@ -34,7 +36,8 @@ public class GameHandler : MonoBehaviour
         UICanvas.renderMode = RenderMode.ScreenSpaceCamera;
         UICanvas.worldCamera = mainCamera;
 
-        if(ratLife != null)
+
+        if (ratLife != null)
         {
             for (int i = 0; i < maxRats; i++)
             {
@@ -42,31 +45,34 @@ public class GameHandler : MonoBehaviour
                 life.transform.parent = BGCanvasGO.transform.GetChild(5);
                 playerLives.Add(life);
                 life.transform.position += new Vector3(i * ratLifeAdjust, 0f,0f);
-                life.transform.position = new Vector3(life.transform.position.x, -9.336f, 4f);
+                life.transform.position = new Vector3(life.transform.position.x, -8.9f, 4f);
             }
         }
     }
-
-    public void PlayerWin()
+     
+    public IEnumerator PlayerWin()
     {
+        yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("WinScene");
         Debug.Log("Player won!");
-        Time.timeScale = 0;
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic();
+        AudioManager.Instance.PlaySFX("GameWin", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameWin"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameWin"][1]);
     }
 
     public void PlayerLoss()
     {
         numOfRats += 1;
-        AudioManager.Instance.PlaySFX("PlayerLifeLost");
-        Destroy(playerLives[playerLivesMaxInd]);
-        playerLivesMaxInd -= 1;
         if (numOfRats == maxRats)
         {
-            AudioManager.Instance.PlaySFX("GameOver");
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic();
+            AudioManager.Instance.PlaySFX("GameOver", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["GameOver"][1]);
             SceneManager.LoadScene("LoseScene");
             Debug.Log("Player lost!");
-            Time.timeScale = 0;
+            return;
         }
+        AudioManager.Instance.PlaySFX("PlayerLifeLost", GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][0], GameObject.FindWithTag("GameHandler").GetComponent<ReadSfxFile>().sfxDictionary["PlayerLifeLost"][1]);
+        Destroy(playerLives[playerLivesMaxInd]);
+        playerLivesMaxInd -= 1;
 
     }
 }

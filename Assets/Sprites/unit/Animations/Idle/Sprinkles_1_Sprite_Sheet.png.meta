@@ -114,8 +114,8 @@ TextureImporter:
       name: Sprinkles_1_Sprite_Sheet_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 27
+        x: 140
+        y: 740
         width: 202
         height: 441
       alignment: 9
@@ -135,8 +135,8 @@ TextureImporter:
       name: Sprinkles_1_Sprite_Sheet_1
       rect:
         serializedVersion: 2
-        x: 335
-        y: 27
+        x: 615
+        y: 740
         width: 202
         height: 441
       alignment: 9
@@ -156,8 +156,8 @@ TextureImporter:
       name: Sprinkles_1_Sprite_Sheet_2
       rect:
         serializedVersion: 2
-        x: 651
-        y: 27
+        x: 141
+        y: 100
         width: 202
         height: 441
       alignment: 9
@@ -177,9 +177,9 @@ TextureImporter:
       name: Sprinkles_1_Sprite_Sheet_3
       rect:
         serializedVersion: 2
-        x: 957
-        y: 27
-        width: 202
+        x: 600
+        y: 100
+        width: 260
         height: 441
       alignment: 9
       pivot: {x: 0.5, y: 0.1}

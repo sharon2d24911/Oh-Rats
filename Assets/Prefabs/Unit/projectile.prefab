@@ -143,7 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe52c55bf2489fa498a2f78964ff139b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 15
-  speed: 4.8
+  attack: 14
+  speed: 3.7
   collideTime: 0
   screenEdge: 13.3
+  enemyProjectile: 0
+  spinQuant: 0
+  bossProjectile: 0
+  puddle: {fileID: 0}

@@ -13,8 +13,8 @@ public class GridCreate : MonoBehaviour
 
     public int rows = 6, columns = 5; //can be changed according to design of grid sprite
     public float gridSpread;
-    [HideInInspector] public float width, height, midCol;
-    [HideInInspector] public float boxWidth, boxHeight;
+    [HideInInspector] public float width, height;
+    [HideInInspector] public float boxWidth, boxHeight, midCol;
     //private GameObject redCircle;
     private GameObject grid;
     private Vector3 position;
@@ -42,7 +42,7 @@ public class GridCreate : MonoBehaviour
 
         width = 2 * (size.extents.x);
         height = 2 * (size.extents.y);
-        midCol = columns / 2;
+        midCol = ((float)columns) / 2f;
         boxWidth = width / columns;
         boxHeight = height / rows;
 

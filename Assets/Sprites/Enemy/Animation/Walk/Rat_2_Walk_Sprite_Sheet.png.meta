@@ -115,11 +115,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 90
-        y: 383
+        y: 562
         width: 618
         height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -135,12 +135,12 @@ TextureImporter:
       name: Rat_2_Walk_Sprite_Sheet_1
       rect:
         serializedVersion: 2
-        x: 813
-        y: 383
-        width: 618
+        x: 870
+        y: 562
+        width: 658
         height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,11 +157,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 90
-        y: 0
+        y: 82
         width: 618
         height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -177,12 +177,12 @@ TextureImporter:
       name: Rat_2_Walk_Sprite_Sheet_3
       rect:
         serializedVersion: 2
-        x: 813
-        y: 0
+        x: 900
+        y: 75
         width: 618
         height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

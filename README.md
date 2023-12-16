@@ -1,8 +1,6 @@
 # OhRats
-Next milestones: Course feedback (with group-set goals) — November 10, 2023 and Beta — November 20, 2023
-## itch.io Builds
-https://matthieu-larochelle.itch.io/oh-rats-tech-demo (last updated: Oct 26)  
-https://constellaetion.itch.io/oh-rats (last updated: Oct 27, official vertical slice build)
+GAME COMPLETE!!!  
+GOLD RELEASE: https://philosophical-zombies.itch.io/oh-rats
 ## Notes:
 1. Make sure to be working on a WebGL build!
 2. Take extra care when pulling any code that requires merging of Scenes, maybe make copies of your current Scenes before pulling if you've made important changes you think might be affected
