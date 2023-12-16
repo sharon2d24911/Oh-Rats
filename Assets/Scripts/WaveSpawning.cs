@@ -205,7 +205,7 @@ public class WaveSpawning : MonoBehaviour
 
             if (currentWave == (wavesNum - 2))
             {
-                wavesDisplay.GetComponent<TextMeshProUGUI>().color = new Color(150, 0, 0, 1);
+                wavesDisplay.GetComponent<TextMeshProUGUI>().color = new Color(153, 0, 8);
             }
             if (waveTimer > currentWaveTimeMax)
             {

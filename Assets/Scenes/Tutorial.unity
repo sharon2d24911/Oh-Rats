@@ -3140,8 +3140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=#c44f4f>Drat!</color> How did a rat slip in so early? No matter.
-    Begone, pest!
+  m_text: <color=#c44f4f>Drat!</color> How did a rat slip in so early? Begone, pest...!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 790c671c2860ccf4ab83ddf5a8d1f356, type: 2}
   m_sharedMaterial: {fileID: 1864765437602854249, guid: 790c671c2860ccf4ab83ddf5a8d1f356,
@@ -5300,8 +5299,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.5, y: -14.97}
-  m_SizeDelta: {x: 666.735, y: 164.57611}
+  m_AnchoredPosition: {x: 3.35, y: -14.87}
+  m_SizeDelta: {x: 676.3533, y: 170.98834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &648904674
 MonoBehaviour:
@@ -7882,8 +7881,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.133, y: -14.962}
-  m_SizeDelta: {x: 685.18884, y: 159.21274}
+  m_AnchoredPosition: {x: 4.059999, y: -14.962}
+  m_SizeDelta: {x: 625.87585, y: 159.2127}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1121715478
 MonoBehaviour:
@@ -9763,7 +9762,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hm. Perhaps this donut is not good enough. I'll need to get rid of it.
+  m_text: "Hm. On second thought, perhaps this donut is not good enough. I\u2019ll
+    need to get rid of it."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 790c671c2860ccf4ab83ddf5a8d1f356, type: 2}
   m_sharedMaterial: {fileID: 1864765437602854249, guid: 790c671c2860ccf4ab83ddf5a8d1f356,
@@ -14347,7 +14347,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Well, ingredients just sitting in the bowl won't magically turn into a
-    donut, now, will they?
+    donut now, will they?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 790c671c2860ccf4ab83ddf5a8d1f356, type: 2}
   m_sharedMaterial: {fileID: 1864765437602854249, guid: 790c671c2860ccf4ab83ddf5a8d1f356,

@@ -52,7 +52,7 @@ public class GameHandler : MonoBehaviour
      
     public IEnumerator PlayerWin()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("WinScene");
         Debug.Log("Player won!");
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().StopMusic();

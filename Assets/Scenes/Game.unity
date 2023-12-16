@@ -3869,7 +3869,7 @@ MonoBehaviour:
   - enemyName: ThrowerRat
     enemyPrefab: {fileID: 6149675322062594952, guid: 0be042759c1de6745b177213c4f37594,
       type: 3}
-  wavesFile: {fileID: 4900000, guid: 68b102ec0ddfeb44ba38415861c14efa, type: 3}
+  wavesFile: {fileID: 4900000, guid: b905cd1e5dba494499118fca0d4e58b3, type: 3}
   enemyPosHeightAdjust: 0.3
   propScenesArr:
   - {fileID: 766286091}
@@ -9182,15 +9182,15 @@ RectTransform:
   m_GameObject: {fileID: 662189451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1011048732}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1.5499992}
-  m_SizeDelta: {x: 90, y: 100}
+  m_AnchoredPosition: {x: 0, y: -4}
+  m_SizeDelta: {x: 80.5, y: 94.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &662189453
 MonoBehaviour:
